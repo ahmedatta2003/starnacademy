@@ -4,6 +4,7 @@ import About from "@/components/About";
 import Courses from "@/components/Courses";
 import WhyUs from "@/components/WhyUs";
 import Contact from "@/components/Contact";
+import Certificate from "@/components/Certificate";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -15,6 +16,7 @@ const Index = () => {
       <Courses />
       <WhyUs />
       <Contact />
+      <Certificate />
       <Footer />
     </div>
   );
