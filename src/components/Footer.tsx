@@ -1,4 +1,4 @@
-import logo from "@/assets/logo.png";
+import logo from "@/assets/starn-logo.png";
 import { Facebook, Instagram, Twitter, Linkedin } from "lucide-react";
 
 const Footer = () => {
