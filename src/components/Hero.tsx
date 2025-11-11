@@ -34,37 +34,42 @@ const Hero = () => {
               <h1 className="text-5xl md:text-7xl font-bold leading-tight">
                 Build Minds for Tomorrow
               </h1>
-              <p className="text-xl md:text-2xl opacity-90">
+              <p className="text-2xl md:text-3xl font-semibold opacity-95">
                 نصنع عقول الغد
               </p>
             </div>
 
-            <p className="text-lg md:text-xl opacity-80 max-w-xl">
-              Empowering kids aged 6-18 to master coding and programming through fun, 
-              interactive learning experiences. Join Starn Academy and unlock your child's potential!
-            </p>
+            <div className="space-y-3">
+              <p className="text-lg md:text-xl opacity-80 max-w-xl">
+                Empowering kids aged 6-18 to master coding and programming through fun, 
+                interactive learning experiences.
+              </p>
+              <p className="text-base md:text-lg opacity-75 max-w-xl" dir="rtl">
+                نُمكّن الأطفال من سن 6-18 عاماً من إتقان البرمجة من خلال تجارب تعليمية تفاعلية وممتعة
+              </p>
+            </div>
 
             <div className="flex flex-wrap gap-4">
               <Button size="lg" variant="secondary" className="text-lg px-8">
-                Start Learning Today
+                Start Learning | ابدأ التعلم
               </Button>
               <Button size="lg" variant="outline" className="text-lg px-8 bg-transparent border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                View Courses
+                View Courses | الدورات
               </Button>
             </div>
 
             <div className="flex gap-8 pt-4">
               <div>
                 <p className="text-3xl font-bold text-golden">500+</p>
-                <p className="text-sm opacity-80">Students</p>
+                <p className="text-sm opacity-80">Students | طالب</p>
               </div>
               <div>
                 <p className="text-3xl font-bold text-golden">50+</p>
-                <p className="text-sm opacity-80">Courses</p>
+                <p className="text-sm opacity-80">Courses | دورة</p>
               </div>
               <div>
                 <p className="text-3xl font-bold text-golden">98%</p>
-                <p className="text-sm opacity-80">Satisfaction</p>
+                <p className="text-sm opacity-80">Satisfaction | رضا</p>
               </div>
             </div>
           </div>

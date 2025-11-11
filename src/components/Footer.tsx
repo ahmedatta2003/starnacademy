@@ -17,27 +17,30 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="font-bold mb-4">Quick Links</h4>
+            <h4 className="font-bold mb-2">Quick Links</h4>
+            <p className="text-sm font-semibold mb-4" dir="rtl">روابط سريعة</p>
             <ul className="space-y-2 text-sm">
-              <li><a href="#about" className="opacity-80 hover:opacity-100 transition-opacity">About Us</a></li>
-              <li><a href="#courses" className="opacity-80 hover:opacity-100 transition-opacity">Our Courses</a></li>
-              <li><a href="#why-us" className="opacity-80 hover:opacity-100 transition-opacity">Why Choose Us</a></li>
-              <li><a href="#contact" className="opacity-80 hover:opacity-100 transition-opacity">Contact</a></li>
+              <li><a href="#about" className="opacity-80 hover:opacity-100 transition-opacity">About Us | من نحن</a></li>
+              <li><a href="#courses" className="opacity-80 hover:opacity-100 transition-opacity">Our Courses | دوراتنا</a></li>
+              <li><a href="#why-us" className="opacity-80 hover:opacity-100 transition-opacity">Why Choose Us | لماذا نحن</a></li>
+              <li><a href="#contact" className="opacity-80 hover:opacity-100 transition-opacity">Contact | تواصل معنا</a></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-bold mb-4">Programs</h4>
+            <h4 className="font-bold mb-2">Programs</h4>
+            <p className="text-sm font-semibold mb-4" dir="rtl">البرامج</p>
             <ul className="space-y-2 text-sm">
-              <li><a href="#" className="opacity-80 hover:opacity-100 transition-opacity">Scratch Programming</a></li>
-              <li><a href="#" className="opacity-80 hover:opacity-100 transition-opacity">Python for Kids</a></li>
-              <li><a href="#" className="opacity-80 hover:opacity-100 transition-opacity">Web Development</a></li>
-              <li><a href="#" className="opacity-80 hover:opacity-100 transition-opacity">Mobile Apps</a></li>
+              <li><a href="#" className="opacity-80 hover:opacity-100 transition-opacity">Scratch Programming | برمجة سكراتش</a></li>
+              <li><a href="#" className="opacity-80 hover:opacity-100 transition-opacity">Python for Kids | بايثون للأطفال</a></li>
+              <li><a href="#" className="opacity-80 hover:opacity-100 transition-opacity">Web Development | تطوير المواقع</a></li>
+              <li><a href="#" className="opacity-80 hover:opacity-100 transition-opacity">Mobile Apps | تطبيقات الجوال</a></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-bold mb-4">Connect With Us</h4>
+            <h4 className="font-bold mb-2">Connect With Us</h4>
+            <p className="text-sm font-semibold mb-4" dir="rtl">تواصل معنا</p>
             <div className="flex gap-4">
               <a href="#" className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors">
                 <Facebook className="w-5 h-5" />

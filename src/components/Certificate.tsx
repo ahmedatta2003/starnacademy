@@ -5,11 +5,14 @@ const Certificate = () => {
     <section id="certificate" className="py-20 bg-gradient-to-b from-background to-secondary">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12 animate-fade-in">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Our Certificate
+          <h2 className="text-4xl md:text-5xl font-bold mb-2">
+            Our Certificate | شهادتنا
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-1">
             Upon completing the course, each student receives a certified completion certificate
+          </p>
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto" dir="rtl">
+            عند إتمام الدورة، يحصل كل طالب على شهادة إتمام معتمدة
           </p>
         </div>
 
@@ -28,25 +31,37 @@ const Certificate = () => {
           <div className="mt-12 grid md:grid-cols-3 gap-6 text-center">
             <div className="p-6 bg-card rounded-lg shadow-md animate-fade-in">
               <div className="text-4xl mb-3">🏆</div>
-              <h3 className="text-xl font-bold mb-2">Certified</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-xl font-bold mb-1">Certified</h3>
+              <p className="text-sm font-semibold text-foreground/80 mb-2" dir="rtl">معتمدة</p>
+              <p className="text-muted-foreground mb-1">
                 Official recognized certificate
+              </p>
+              <p className="text-sm text-muted-foreground" dir="rtl">
+                شهادة رسمية معترف بها
               </p>
             </div>
 
             <div className="p-6 bg-card rounded-lg shadow-md animate-fade-in" style={{ animationDelay: "0.1s" }}>
               <div className="text-4xl mb-3">✨</div>
-              <h3 className="text-xl font-bold mb-2">Professional Design</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-xl font-bold mb-1">Professional Design</h3>
+              <p className="text-sm font-semibold text-foreground/80 mb-2" dir="rtl">تصميم احترافي</p>
+              <p className="text-muted-foreground mb-1">
                 Beautiful design suitable for children
+              </p>
+              <p className="text-sm text-muted-foreground" dir="rtl">
+                تصميم مميز يناسب الأطفال
               </p>
             </div>
 
             <div className="p-6 bg-card rounded-lg shadow-md animate-fade-in" style={{ animationDelay: "0.2s" }}>
               <div className="text-4xl mb-3">📜</div>
-              <h3 className="text-xl font-bold mb-2">Lasting Achievement</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-xl font-bold mb-1">Lasting Achievement</h3>
+              <p className="text-sm font-semibold text-foreground/80 mb-2" dir="rtl">إنجاز دائم</p>
+              <p className="text-muted-foreground mb-1">
                 Document that proves acquired skills
+              </p>
+              <p className="text-sm text-muted-foreground" dir="rtl">
+                وثيقة تُثبت المهارات المكتسبة
               </p>
             </div>
           </div>

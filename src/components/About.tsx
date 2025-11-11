@@ -6,25 +6,33 @@ const About = () => {
     {
       icon: Code2,
       title: "Interactive Coding",
+      titleAr: "برمجة تفاعلية",
       description: "Learn through hands-on projects and real-world applications",
+      descriptionAr: "تعلم من خلال مشاريع عملية وتطبيقات واقعية",
       color: "turquoise"
     },
     {
       icon: Users,
       title: "Expert Instructors",
+      titleAr: "مدربون خبراء",
       description: "Learn from experienced programming professionals",
+      descriptionAr: "تعلم من محترفين ذوي خبرة في البرمجة",
       color: "purple"
     },
     {
       icon: Rocket,
       title: "Future-Ready Skills",
+      titleAr: "مهارات المستقبل",
       description: "Master technologies that matter in tomorrow's world",
+      descriptionAr: "أتقن التقنيات المهمة في عالم الغد",
       color: "coral"
     },
     {
       icon: Award,
       title: "Certified Programs",
+      titleAr: "برامج معتمدة",
       description: "Earn certificates as you progress through courses",
+      descriptionAr: "احصل على شهادات مع تقدمك في الدورات",
       color: "golden"
     }
   ];
@@ -36,10 +44,16 @@ const About = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-foreground">
             Welcome to Starn Academy
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-2xl font-semibold text-foreground mb-2">
+            مرحباً بك في أكاديمية ستارن
+          </p>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-2">
             We're on a mission to empower the next generation with coding skills 
             that will shape their future. Our innovative curriculum makes learning 
             programming fun, engaging, and accessible for all ages.
+          </p>
+          <p className="text-base text-muted-foreground max-w-3xl mx-auto" dir="rtl">
+            نحن في مهمة لتمكين الجيل القادم بمهارات البرمجة التي ستشكل مستقبلهم. منهجنا المبتكر يجعل تعلم البرمجة ممتعاً وجذاباً ومتاحاً لجميع الأعمار
           </p>
         </div>
 
@@ -58,7 +72,9 @@ const About = () => {
                   <Icon className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-xl font-bold mb-2 text-foreground">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
+                <p className="text-sm font-semibold text-foreground/80 mb-2" dir="rtl">{feature.titleAr}</p>
+                <p className="text-muted-foreground mb-1">{feature.description}</p>
+                <p className="text-sm text-muted-foreground" dir="rtl">{feature.descriptionAr}</p>
               </Card>
             );
           })}

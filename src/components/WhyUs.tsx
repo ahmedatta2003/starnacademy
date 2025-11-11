@@ -4,27 +4,39 @@ const WhyUs = () => {
   const reasons = [
     {
       title: "Age-Appropriate Curriculum",
-      description: "Tailored learning paths for every developmental stage from 6 to 18 years"
+      titleAr: "منهج مناسب للعمر",
+      description: "Tailored learning paths for every developmental stage from 6 to 18 years",
+      descriptionAr: "مسارات تعليمية مخصصة لكل مرحلة تطوير من 6 إلى 18 عاماً"
     },
     {
       title: "Small Class Sizes",
-      description: "Maximum 10 students per class ensures personalized attention"
+      titleAr: "فصول صغيرة",
+      description: "Maximum 10 students per class ensures personalized attention",
+      descriptionAr: "حد أقصى 10 طلاب لكل فصل لضمان اهتمام شخصي"
     },
     {
       title: "Project-Based Learning",
-      description: "Build real projects and showcase your work in our student gallery"
+      titleAr: "تعلم قائم على المشاريع",
+      description: "Build real projects and showcase your work in our student gallery",
+      descriptionAr: "بناء مشاريع حقيقية وعرض أعمالك في معرض الطلاب"
     },
     {
       title: "Flexible Scheduling",
-      description: "Weekend and weekday classes available to fit your family's schedule"
+      titleAr: "جدولة مرنة",
+      description: "Weekend and weekday classes available to fit your family's schedule",
+      descriptionAr: "حصص نهاية الأسبوع وأيام الأسبوع متاحة لتناسب جدول عائلتك"
     },
     {
       title: "Industry-Standard Tools",
-      description: "Learn with the same tools used by professional developers"
+      titleAr: "أدوات احترافية",
+      description: "Learn with the same tools used by professional developers",
+      descriptionAr: "تعلم باستخدام نفس الأدوات التي يستخدمها المطورون المحترفون"
     },
     {
       title: "Progress Tracking",
-      description: "Parents receive regular updates on student progress and achievements"
+      titleAr: "تتبع التقدم",
+      description: "Parents receive regular updates on student progress and achievements",
+      descriptionAr: "يتلقى أولياء الأمور تحديثات منتظمة عن تقدم الطالب وإنجازاته"
     }
   ];
 
@@ -41,8 +53,14 @@ const WhyUs = () => {
           <h2 className="text-4xl md:text-5xl font-bold">
             Why Choose Starn Academy?
           </h2>
-          <p className="text-xl opacity-90 max-w-2xl mx-auto">
+          <p className="text-2xl font-semibold opacity-95 mb-2">
+            لماذا تختار أكاديمية ستارن؟
+          </p>
+          <p className="text-lg opacity-90 max-w-2xl mx-auto mb-1">
             We're not just teaching code, we're building the innovators of tomorrow
+          </p>
+          <p className="text-base opacity-85 max-w-2xl mx-auto" dir="rtl">
+            نحن لا نُعلّم البرمجة فقط، بل نبني مبتكري الغد
           </p>
         </div>
 
@@ -64,8 +82,10 @@ const WhyUs = () => {
                   }}
                 />
                 <div>
-                  <h3 className="text-xl font-bold mb-2">{reason.title}</h3>
-                  <p className="opacity-90">{reason.description}</p>
+                  <h3 className="text-xl font-bold mb-1">{reason.title}</h3>
+                  <p className="text-sm font-semibold mb-2 opacity-90" dir="rtl">{reason.titleAr}</p>
+                  <p className="opacity-85 mb-1">{reason.description}</p>
+                  <p className="text-sm opacity-80" dir="rtl">{reason.descriptionAr}</p>
                 </div>
               </div>
             </div>

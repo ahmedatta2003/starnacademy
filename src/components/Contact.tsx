@@ -10,58 +10,63 @@ const Contact = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 space-y-4">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-            Get Started Today
+            Get Started Today | ابدأ اليوم
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-1">
             Ready to begin your coding journey? Contact us to learn more about enrollment
+          </p>
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto" dir="rtl">
+            هل أنت مستعد لبدء رحلة البرمجة؟ تواصل معنا لمعرفة المزيد عن التسجيل
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           <Card className="p-8">
-            <h3 className="text-2xl font-bold mb-6">Send us a message</h3>
+            <h3 className="text-2xl font-bold mb-2">Send us a message</h3>
+            <p className="text-lg font-semibold text-foreground/80 mb-6" dir="rtl">أرسل لنا رسالة</p>
             <form className="space-y-6">
               <div>
                 <Input 
-                  placeholder="Parent/Guardian Name" 
+                  placeholder="Parent/Guardian Name | اسم ولي الأمر" 
                   className="h-12"
                 />
               </div>
               <div>
                 <Input 
                   type="email" 
-                  placeholder="Email Address" 
+                  placeholder="Email Address | البريد الإلكتروني" 
                   className="h-12"
                 />
               </div>
               <div>
                 <Input 
                   type="tel" 
-                  placeholder="Phone Number" 
+                  placeholder="Phone Number | رقم الهاتف" 
                   className="h-12"
                 />
               </div>
               <div>
                 <Input 
-                  placeholder="Student Age" 
+                  placeholder="Student Age | عمر الطالب" 
                   className="h-12"
                 />
               </div>
               <div>
                 <Textarea 
-                  placeholder="Tell us about your child's interests and what they hope to learn"
+                  placeholder="Tell us about your child's interests | أخبرنا عن اهتمامات طفلك"
                   className="min-h-32"
                 />
               </div>
               <Button size="lg" className="w-full">
-                Request Information
+                Request Information | طلب معلومات
               </Button>
             </form>
           </Card>
 
           <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
+              <h3 className="text-2xl font-bold mb-2">Contact Information</h3>
+              <p className="text-lg font-semibold text-foreground/80 mb-6" dir="rtl">معلومات التواصل</p>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-xl bg-turquoise flex items-center justify-center flex-shrink-0">
@@ -96,10 +101,12 @@ const Contact = () => {
             </div>
 
             <Card className="p-6 bg-primary text-primary-foreground">
-              <h4 className="text-xl font-bold mb-3">Office Hours</h4>
+              <h4 className="text-xl font-bold mb-1">Office Hours</h4>
+              <p className="text-base font-semibold mb-3" dir="rtl">ساعات العمل</p>
               <div className="space-y-2">
                 <p>Saturday - Thursday: 9:00 AM - 6:00 PM</p>
-                <p>Friday: Closed</p>
+                <p className="text-sm" dir="rtl">السبت - الخميس: 9:00 صباحاً - 6:00 مساءً</p>
+                <p>Friday: Closed | الجمعة: مغلق</p>
               </div>
             </Card>
           </div>
