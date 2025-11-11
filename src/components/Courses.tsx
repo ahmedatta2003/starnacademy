@@ -54,15 +54,16 @@ const Courses = () => {
   return (
     <section id="courses" className="py-24 bg-background">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-            Our Courses | دوراتنا
+        <div className="text-center mb-16 space-y-3">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground" dir="rtl">
+            دوراتنا التعليمية
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-1">
-            Structured learning paths designed for every age group and skill level
-          </p>
-          <p className="text-base text-muted-foreground max-w-2xl mx-auto" dir="rtl">
+          <p className="text-lg text-foreground/70">Our Courses</p>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto" dir="rtl">
             مسارات تعليمية منظمة مصممة لكل فئة عمرية ومستوى مهارة
+          </p>
+          <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
+            Structured learning paths for every age and skill level
           </p>
         </div>
 
@@ -90,19 +91,22 @@ const Courses = () => {
                 <span className="text-sm font-medium text-muted-foreground">{course.age}</span>
               </div>
 
-              <h3 className="text-2xl font-bold mb-1 text-foreground">{course.title}</h3>
-              <p className="text-lg font-semibold text-foreground/80 mb-3" dir="rtl">{course.titleAr}</p>
-              <p className="text-muted-foreground mb-1 flex-grow">{course.description}</p>
-              <p className="text-sm text-muted-foreground mb-6" dir="rtl">{course.descriptionAr}</p>
+              <h3 className="text-2xl font-bold mb-1 text-foreground" dir="rtl">{course.titleAr}</h3>
+              <p className="text-sm text-foreground/60 mb-3">{course.title}</p>
+              <p className="text-base text-muted-foreground mb-6 flex-grow" dir="rtl">{course.descriptionAr}</p>
 
-              <div className="space-y-3 mb-6 text-sm text-muted-foreground">
+              <div className="space-y-3 mb-6 text-sm text-muted-foreground" dir="rtl">
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4" />
-                  <span>{course.duration}</span>
+                  <span>{course.age}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4" />
+                  <span>{course.duration.split('|')[1]?.trim() || course.duration}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Users className="w-4 h-4" />
-                  <span>{course.students} enrolled | طالب مسجل</span>
+                  <span>{course.students}+ طالب مسجل</span>
                 </div>
               </div>
 
@@ -110,7 +114,7 @@ const Courses = () => {
                 className="w-full"
                 style={{ backgroundColor: `hsl(var(--${course.color}))` }}
               >
-                Learn More | اعرف المزيد
+                اعرف المزيد
               </Button>
             </Card>
           ))}

@@ -49,18 +49,18 @@ const WhyUs = () => {
       <Square className="absolute bottom-32 right-1/3 w-8 h-8 opacity-20" color="purple" />
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl md:text-5xl font-bold">
-            Why Choose Starn Academy?
-          </h2>
-          <p className="text-2xl font-semibold opacity-95 mb-2">
+        <div className="text-center mb-16 space-y-3">
+          <h2 className="text-4xl md:text-5xl font-bold" dir="rtl">
             لماذا تختار أكاديمية ستارن؟
+          </h2>
+          <p className="text-lg opacity-80">
+            Why Choose Starn Academy?
           </p>
-          <p className="text-lg opacity-90 max-w-2xl mx-auto mb-1">
-            We're not just teaching code, we're building the innovators of tomorrow
-          </p>
-          <p className="text-base opacity-85 max-w-2xl mx-auto" dir="rtl">
+          <p className="text-xl opacity-95 max-w-2xl mx-auto" dir="rtl">
             نحن لا نُعلّم البرمجة فقط، بل نبني مبتكري الغد
+          </p>
+          <p className="text-sm opacity-80 max-w-2xl mx-auto">
+            Building tomorrow's innovators
           </p>
         </div>
 
@@ -82,10 +82,8 @@ const WhyUs = () => {
                   }}
                 />
                 <div>
-                  <h3 className="text-xl font-bold mb-1">{reason.title}</h3>
-                  <p className="text-sm font-semibold mb-2 opacity-90" dir="rtl">{reason.titleAr}</p>
-                  <p className="opacity-85 mb-1">{reason.description}</p>
-                  <p className="text-sm opacity-80" dir="rtl">{reason.descriptionAr}</p>
+                  <h3 className="text-xl font-bold mb-2" dir="rtl">{reason.titleAr}</h3>
+                  <p className="opacity-90 text-base" dir="rtl">{reason.descriptionAr}</p>
                 </div>
               </div>
             </div>

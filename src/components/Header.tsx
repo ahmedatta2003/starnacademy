@@ -15,21 +15,21 @@ const Header = () => {
         
         <div className="hidden md:flex items-center gap-8">
           <a href="#about" className="text-foreground hover:text-primary transition-colors font-medium">
-            About | من نحن
+            من نحن
           </a>
           <a href="#courses" className="text-foreground hover:text-primary transition-colors font-medium">
-            Courses | الدورات
+            الدورات
           </a>
           <a href="#why-us" className="text-foreground hover:text-primary transition-colors font-medium">
-            Why Us | لماذا نحن
+            لماذا نحن
           </a>
           <a href="#contact" className="text-foreground hover:text-primary transition-colors font-medium">
-            Contact | تواصل معنا
+            تواصل معنا
           </a>
         </div>
 
         <Button size="lg" className="hidden md:inline-flex">
-          Enroll Now | سجل الآن
+          سجل الآن
         </Button>
 
         <Button size="sm" className="md:hidden">

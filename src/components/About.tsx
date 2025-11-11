@@ -40,20 +40,18 @@ const About = () => {
   return (
     <section id="about" className="py-24 bg-muted/30">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-            Welcome to Starn Academy
-          </h2>
-          <p className="text-2xl font-semibold text-foreground mb-2">
+        <div className="text-center mb-16 space-y-3">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground" dir="rtl">
             مرحباً بك في أكاديمية ستارن
+          </h2>
+          <p className="text-lg text-foreground/70 mb-2">
+            Welcome to Starn Academy
           </p>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-2">
-            We're on a mission to empower the next generation with coding skills 
-            that will shape their future. Our innovative curriculum makes learning 
-            programming fun, engaging, and accessible for all ages.
-          </p>
-          <p className="text-base text-muted-foreground max-w-3xl mx-auto" dir="rtl">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-2" dir="rtl">
             نحن في مهمة لتمكين الجيل القادم بمهارات البرمجة التي ستشكل مستقبلهم. منهجنا المبتكر يجعل تعلم البرمجة ممتعاً وجذاباً ومتاحاً لجميع الأعمار
+          </p>
+          <p className="text-sm text-muted-foreground max-w-3xl mx-auto">
+            Empowering the next generation with coding skills through innovative curriculum
           </p>
         </div>
 
@@ -71,10 +69,9 @@ const About = () => {
                 >
                   <Icon className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-foreground">{feature.title}</h3>
-                <p className="text-sm font-semibold text-foreground/80 mb-2" dir="rtl">{feature.titleAr}</p>
-                <p className="text-muted-foreground mb-1">{feature.description}</p>
-                <p className="text-sm text-muted-foreground" dir="rtl">{feature.descriptionAr}</p>
+                <h3 className="text-xl font-bold mb-1 text-foreground" dir="rtl">{feature.titleAr}</h3>
+                <p className="text-sm text-foreground/60 mb-2">{feature.title}</p>
+                <p className="text-base text-muted-foreground" dir="rtl">{feature.descriptionAr}</p>
               </Card>
             );
           })}

@@ -8,65 +8,71 @@ const Contact = () => {
   return (
     <section id="contact" className="py-24 bg-muted/30">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-            Get Started Today | ابدأ اليوم
+        <div className="text-center mb-16 space-y-3">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground" dir="rtl">
+            ابدأ رحلتك معنا اليوم
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-1">
-            Ready to begin your coding journey? Contact us to learn more about enrollment
-          </p>
-          <p className="text-base text-muted-foreground max-w-2xl mx-auto" dir="rtl">
+          <p className="text-lg text-foreground/70">Get Started Today</p>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto" dir="rtl">
             هل أنت مستعد لبدء رحلة البرمجة؟ تواصل معنا لمعرفة المزيد عن التسجيل
+          </p>
+          <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
+            Contact us to learn more about enrollment
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           <Card className="p-8">
-            <h3 className="text-2xl font-bold mb-2">Send us a message</h3>
-            <p className="text-lg font-semibold text-foreground/80 mb-6" dir="rtl">أرسل لنا رسالة</p>
+            <h3 className="text-2xl font-bold mb-2" dir="rtl">أرسل لنا رسالة</h3>
+            <p className="text-sm text-foreground/60 mb-6">Send us a message</p>
             <form className="space-y-6">
               <div>
                 <Input 
-                  placeholder="Parent/Guardian Name | اسم ولي الأمر" 
+                  placeholder="اسم ولي الأمر" 
                   className="h-12"
+                  dir="rtl"
                 />
               </div>
               <div>
                 <Input 
                   type="email" 
-                  placeholder="Email Address | البريد الإلكتروني" 
+                  placeholder="البريد الإلكتروني" 
                   className="h-12"
+                  dir="rtl"
                 />
               </div>
               <div>
                 <Input 
                   type="tel" 
-                  placeholder="Phone Number | رقم الهاتف" 
+                  placeholder="رقم الهاتف" 
                   className="h-12"
+                  dir="rtl"
                 />
               </div>
               <div>
                 <Input 
-                  placeholder="Student Age | عمر الطالب" 
+                  placeholder="عمر الطالب" 
                   className="h-12"
+                  dir="rtl"
                 />
               </div>
               <div>
                 <Textarea 
-                  placeholder="Tell us about your child's interests | أخبرنا عن اهتمامات طفلك"
+                  placeholder="أخبرنا عن اهتمامات طفلك وما يتطلع لتعلمه"
                   className="min-h-32"
+                  dir="rtl"
                 />
               </div>
               <Button size="lg" className="w-full">
-                Request Information | طلب معلومات
+                اطلب معلومات
               </Button>
             </form>
           </Card>
 
           <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-bold mb-2">Contact Information</h3>
-              <p className="text-lg font-semibold text-foreground/80 mb-6" dir="rtl">معلومات التواصل</p>
+              <h3 className="text-2xl font-bold mb-2" dir="rtl">معلومات التواصل</h3>
+              <p className="text-sm text-foreground/60 mb-6">Contact Information</p>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-xl bg-turquoise flex items-center justify-center flex-shrink-0">
@@ -101,12 +107,12 @@ const Contact = () => {
             </div>
 
             <Card className="p-6 bg-primary text-primary-foreground">
-              <h4 className="text-xl font-bold mb-1">Office Hours</h4>
-              <p className="text-base font-semibold mb-3" dir="rtl">ساعات العمل</p>
-              <div className="space-y-2">
-                <p>Saturday - Thursday: 9:00 AM - 6:00 PM</p>
-                <p className="text-sm" dir="rtl">السبت - الخميس: 9:00 صباحاً - 6:00 مساءً</p>
-                <p>Friday: Closed | الجمعة: مغلق</p>
+              <h4 className="text-xl font-bold mb-1" dir="rtl">ساعات العمل</h4>
+              <p className="text-sm opacity-80 mb-3">Office Hours</p>
+              <div className="space-y-2" dir="rtl">
+                <p>السبت - الخميس: 9:00 صباحاً - 6:00 مساءً</p>
+                <p className="text-sm opacity-80">Sat - Thu: 9 AM - 6 PM</p>
+                <p>الجمعة: مغلق</p>
               </div>
             </Card>
           </div>

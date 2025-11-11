@@ -17,30 +17,27 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="font-bold mb-2">Quick Links</h4>
-            <p className="text-sm font-semibold mb-4" dir="rtl">روابط سريعة</p>
-            <ul className="space-y-2 text-sm">
-              <li><a href="#about" className="opacity-80 hover:opacity-100 transition-opacity">About Us | من نحن</a></li>
-              <li><a href="#courses" className="opacity-80 hover:opacity-100 transition-opacity">Our Courses | دوراتنا</a></li>
-              <li><a href="#why-us" className="opacity-80 hover:opacity-100 transition-opacity">Why Choose Us | لماذا نحن</a></li>
-              <li><a href="#contact" className="opacity-80 hover:opacity-100 transition-opacity">Contact | تواصل معنا</a></li>
+            <h4 className="font-bold mb-4" dir="rtl">روابط سريعة</h4>
+            <ul className="space-y-2 text-sm" dir="rtl">
+              <li><a href="#about" className="opacity-80 hover:opacity-100 transition-opacity">من نحن</a></li>
+              <li><a href="#courses" className="opacity-80 hover:opacity-100 transition-opacity">دوراتنا</a></li>
+              <li><a href="#why-us" className="opacity-80 hover:opacity-100 transition-opacity">لماذا نحن</a></li>
+              <li><a href="#contact" className="opacity-80 hover:opacity-100 transition-opacity">تواصل معنا</a></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-bold mb-2">Programs</h4>
-            <p className="text-sm font-semibold mb-4" dir="rtl">البرامج</p>
-            <ul className="space-y-2 text-sm">
-              <li><a href="#" className="opacity-80 hover:opacity-100 transition-opacity">Scratch Programming | برمجة سكراتش</a></li>
-              <li><a href="#" className="opacity-80 hover:opacity-100 transition-opacity">Python for Kids | بايثون للأطفال</a></li>
-              <li><a href="#" className="opacity-80 hover:opacity-100 transition-opacity">Web Development | تطوير المواقع</a></li>
-              <li><a href="#" className="opacity-80 hover:opacity-100 transition-opacity">Mobile Apps | تطبيقات الجوال</a></li>
+            <h4 className="font-bold mb-4" dir="rtl">البرامج</h4>
+            <ul className="space-y-2 text-sm" dir="rtl">
+              <li><a href="#" className="opacity-80 hover:opacity-100 transition-opacity">برمجة سكراتش</a></li>
+              <li><a href="#" className="opacity-80 hover:opacity-100 transition-opacity">بايثون للأطفال</a></li>
+              <li><a href="#" className="opacity-80 hover:opacity-100 transition-opacity">تطوير المواقع</a></li>
+              <li><a href="#" className="opacity-80 hover:opacity-100 transition-opacity">تطبيقات الجوال</a></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-bold mb-2">Connect With Us</h4>
-            <p className="text-sm font-semibold mb-4" dir="rtl">تواصل معنا</p>
+            <h4 className="font-bold mb-4" dir="rtl">تواصل معنا</h4>
             <div className="flex gap-4">
               <a href="#" className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors">
                 <Facebook className="w-5 h-5" />
@@ -59,7 +56,8 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-background/20 pt-8 text-center text-sm opacity-80">
-          <p>© 2024 Starn Academy. All rights reserved. | Building minds for tomorrow - نصنع عقول الغد</p>
+          <p dir="rtl">© 2024 أكاديمية ستارن. جميع الحقوق محفوظة | نصنع عقول الغد</p>
+          <p className="text-xs mt-1 opacity-60">Starn Academy - Building Minds for Tomorrow</p>
         </div>
       </div>
     </footer>
