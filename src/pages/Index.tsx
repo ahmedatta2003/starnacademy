@@ -6,6 +6,7 @@ import WhyUs from "@/components/WhyUs";
 import Contact from "@/components/Contact";
 import Certificate from "@/components/Certificate";
 import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const Index = () => {
   return (
@@ -18,6 +19,7 @@ const Index = () => {
       <Contact />
       <Certificate />
       <Footer />
+      <WhatsAppButton />
     </div>
   );
 };

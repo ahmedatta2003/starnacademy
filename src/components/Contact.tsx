@@ -85,12 +85,15 @@ const Contact = () => {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-purple flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-[#25D366] flex items-center justify-center flex-shrink-0">
                     <Phone className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <p className="font-semibold text-foreground mb-1">Phone</p>
-                    <p className="text-muted-foreground">+971 50 123 4567</p>
+                    <p className="font-semibold text-foreground mb-1" dir="rtl">واتساب / هاتف</p>
+                    <p className="text-sm text-foreground/60 mb-1">WhatsApp / Phone</p>
+                    <a href="https://wa.me/201234567890" target="_blank" rel="noopener noreferrer" className="text-[#25D366] hover:underline font-medium">
+                      +20 123 456 7890
+                    </a>
                   </div>
                 </div>
 
