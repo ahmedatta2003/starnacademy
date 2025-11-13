@@ -2,7 +2,7 @@ import { MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const WhatsAppButton = () => {
-  const phoneNumber = "201234567890"; // رقم الواتساب - يمكن تغييره
+  const phoneNumber = "201142965661"; // رقم الواتساب
   const message = "مرحباً، أريد الاستفسار عن دورات البرمجة للأطفال";
   
   const handleWhatsAppClick = () => {
