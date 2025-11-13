@@ -80,7 +80,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-foreground mb-1">Email</p>
-                    <p className="text-muted-foreground">info@starnacademy.com</p>
+                    <p className="text-muted-foreground">starnacademy42@gmail.com</p>
                   </div>
                 </div>
 
@@ -91,8 +91,8 @@ const Contact = () => {
                   <div>
                     <p className="font-semibold text-foreground mb-1" dir="rtl">واتساب / هاتف</p>
                     <p className="text-sm text-foreground/60 mb-1">WhatsApp / Phone</p>
-                    <a href="https://wa.me/201234567890" target="_blank" rel="noopener noreferrer" className="text-[#25D366] hover:underline font-medium">
-                      +20 123 456 7890
+                    <a href="https://wa.me/201142965661" target="_blank" rel="noopener noreferrer" className="text-[#25D366] hover:underline font-medium" dir="ltr">
+                      01142965661
                     </a>
                   </div>
                 </div>
@@ -102,8 +102,10 @@ const Contact = () => {
                     <MapPin className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <p className="font-semibold text-foreground mb-1">Address</p>
-                    <p className="text-muted-foreground">Dubai Technology Park, Block 2A</p>
+                    <p className="font-semibold text-foreground mb-1" dir="rtl">العنوان</p>
+                    <p className="text-sm text-foreground/60 mb-2">Address</p>
+                    <p className="text-muted-foreground mb-2" dir="rtl">الزقازيق، شارع طلبه عويضه، ش بالينو صلاح سالم بجوار اكتف جيم</p>
+                    <p className="text-muted-foreground text-sm" dir="rtl">33 شارع عمر بن الخطاب، شيبة النكارية، مركز الزقازيق</p>
                   </div>
                 </div>
               </div>
