@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import logo from "@/assets/starn-logo.png";
 
 const Header = () => {
@@ -28,9 +29,11 @@ const Header = () => {
           </a>
         </div>
 
-        <Button size="lg" className="hidden md:inline-flex">
-          سجل الآن
-        </Button>
+        <Link to="/auth">
+          <Button size="lg" className="hidden md:inline-flex">
+            تسجيل الدخول
+          </Button>
+        </Link>
 
         <Button size="sm" className="md:hidden">
           Menu
