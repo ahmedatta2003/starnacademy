@@ -1,4 +1,4 @@
-import { Home, HelpCircle, Users, BookOpen, MessageCircle, Phone, Bot, GraduationCap, Info } from "lucide-react";
+import { Home, HelpCircle, Users, BookOpen, MessageCircle, Phone, Bot, GraduationCap, Info, Award, UserCheck } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
@@ -27,6 +27,8 @@ const resourceItems = [
   { title: "الأسئلة الشائعة", url: "/dashboard/faq", icon: HelpCircle },
   { title: "من نحن", url: "/", hash: "#about", icon: Info },
   { title: "لماذا نحن", url: "/", hash: "#why-us", icon: BookOpen },
+  { title: "الطلاب", url: "/dashboard/students", icon: UserCheck },
+  { title: "النظام التقييمي", url: "/dashboard/grading", icon: Award },
 ];
 
 const helpItems = [
