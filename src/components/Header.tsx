@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import logo from "@/assets/starn-logo.png";
+import MobileMenu from "@/components/MobileMenu";
 
 const Header = () => {
   return (
@@ -29,15 +30,15 @@ const Header = () => {
           </a>
         </div>
 
-        <Link to="/auth">
-          <Button size="lg" className="hidden md:inline-flex">
-            تسجيل الدخول
-          </Button>
-        </Link>
-
-        <Button size="sm" className="md:hidden">
-          Menu
-        </Button>
+        <div className="flex items-center gap-2">
+          <Link to="/auth" className="hidden md:block">
+            <Button size="lg">
+              تسجيل الدخول
+            </Button>
+          </Link>
+          
+          <MobileMenu />
+        </div>
       </nav>
     </header>
   );

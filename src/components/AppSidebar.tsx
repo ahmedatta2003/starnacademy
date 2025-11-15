@@ -1,4 +1,4 @@
-import { Home, HelpCircle, Users, BookOpen, MessageCircle, Phone, Bot } from "lucide-react";
+import { Home, HelpCircle, Users, BookOpen, MessageCircle, Phone, Bot, GraduationCap, Info } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
@@ -19,8 +19,14 @@ import {
 
 const mainItems = [
   { title: "الرئيسية", url: "/dashboard", icon: Home },
+  { title: "الدورات", url: "/dashboard/courses", icon: GraduationCap },
   { title: "المدربين", url: "/dashboard/trainers", icon: Users },
+];
+
+const resourceItems = [
   { title: "الأسئلة الشائعة", url: "/dashboard/faq", icon: HelpCircle },
+  { title: "من نحن", url: "/", hash: "#about", icon: Info },
+  { title: "لماذا نحن", url: "/", hash: "#why-us", icon: BookOpen },
 ];
 
 const helpItems = [
@@ -63,6 +69,29 @@ export function AppSidebar() {
                     <NavLink 
                       to={item.url} 
                       end 
+                      className="hover:bg-muted/50 transition-colors" 
+                      activeClassName="bg-primary/10 text-primary font-medium border-r-2 border-primary"
+                    >
+                      <item.icon className="h-4 w-4" />
+                      {!collapsed && <span>{item.title}</span>}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        {/* الموارد والمعلومات */}
+        <SidebarGroup>
+          <SidebarGroupLabel>الموارد والمعلومات</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {resourceItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink 
+                      to={item.url + (item.hash || '')}
                       className="hover:bg-muted/50 transition-colors" 
                       activeClassName="bg-primary/10 text-primary font-medium border-r-2 border-primary"
                     >
