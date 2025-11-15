@@ -14,6 +14,8 @@ import DashboardCourses from "./pages/dashboard/Courses";
 import DashboardContact from "./pages/dashboard/Contact";
 import DashboardSupport from "./pages/dashboard/Support";
 import AITutor from "./pages/dashboard/AITutor";
+import Students from "./pages/dashboard/Students";
+import GradingSystem from "./pages/dashboard/GradingSystem";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,6 +38,8 @@ const App = () => (
               <Route path="contact" element={<DashboardContact />} />
               <Route path="support" element={<DashboardSupport />} />
               <Route path="ai-tutor" element={<AITutor />} />
+              <Route path="students" element={<Students />} />
+              <Route path="grading" element={<GradingSystem />} />
             </Route>
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
