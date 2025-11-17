@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import DashboardHome from "./pages/dashboard/DashboardHome";
+import Profile from "./pages/dashboard/Profile";
 import Trainers from "./pages/dashboard/Trainers";
 import DashboardFAQ from "./pages/dashboard/FAQ";
 import DashboardCourses from "./pages/dashboard/Courses";
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/dashboard" element={<Dashboard />}>
               <Route index element={<DashboardHome />} />
+              <Route path="profile" element={<Profile />} />
               <Route path="courses" element={<DashboardCourses />} />
               <Route path="trainers" element={<Trainers />} />
               <Route path="faq" element={<DashboardFAQ />} />
