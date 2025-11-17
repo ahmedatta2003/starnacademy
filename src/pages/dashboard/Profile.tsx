@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,7 +21,9 @@ import {
   Edit,
   Save,
   GraduationCap,
-  School
+  School,
+  Upload,
+  Camera
 } from "lucide-react";
 
 interface ProfileData {
@@ -41,6 +43,8 @@ const Profile = () => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [profileData, setProfileData] = useState<ProfileData>({
     full_name: "",
     email: "",
@@ -153,6 +157,56 @@ const Profile = () => {
     }
   };
 
+  const handleAvatarClick = () => {
+    if (editing) {
+      fileInputRef.current?.click();
+    }
+  };
+
+  const handleAvatarUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      const file = event.target.files?.[0];
+      if (!file) return;
+
+      // التحقق من نوع الملف
+      if (!file.type.startsWith("image/")) {
+        toast.error("يرجى اختيار صورة صالحة");
+        return;
+      }
+
+      // التحقق من حجم الملف (أقل من 2MB)
+      if (file.size > 2 * 1024 * 1024) {
+        toast.error("حجم الصورة يجب أن يكون أقل من 2 ميجابايت");
+        return;
+      }
+
+      setUploading(true);
+
+      // رفع الصورة (مؤقتاً نستخدم base64 حتى يتم إنشاء storage bucket)
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        const base64String = reader.result as string;
+        
+        // تحديث الصورة في قاعدة البيانات
+        const { error } = await supabase
+          .from("profiles")
+          .update({ avatar_url: base64String })
+          .eq("id", user?.id);
+
+        if (error) throw error;
+
+        setProfileData({ ...profileData, avatar_url: base64String });
+        toast.success("تم تحديث الصورة الشخصية بنجاح");
+      };
+      reader.readAsDataURL(file);
+    } catch (error) {
+      console.error("Error uploading avatar:", error);
+      toast.error("حدث خطأ في رفع الصورة");
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const handleSaveProfile = async () => {
     try {
       setLoading(true);
@@ -215,12 +269,36 @@ const Profile = () => {
       <Card>
         <CardContent className="pt-6">
           <div className="flex flex-col md:flex-row items-center gap-6">
-            <Avatar className="h-24 w-24">
-              <AvatarImage src={profileData.avatar_url} alt={profileData.full_name} />
-              <AvatarFallback className="bg-primary/10 text-primary text-2xl">
-                {profileData.full_name.split(" ").map(n => n[0]).join("")}
-              </AvatarFallback>
-            </Avatar>
+            <div className="relative">
+              <Avatar 
+                className="h-24 w-24 cursor-pointer hover:opacity-80 transition-opacity"
+                onClick={handleAvatarClick}
+              >
+                <AvatarImage src={profileData.avatar_url} alt={profileData.full_name} />
+                <AvatarFallback className="bg-primary/10 text-primary text-2xl">
+                  {profileData.full_name.split(" ").map(n => n[0]).join("")}
+                </AvatarFallback>
+              </Avatar>
+              {editing && (
+                <div 
+                  className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full cursor-pointer"
+                  onClick={handleAvatarClick}
+                >
+                  {uploading ? (
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white" />
+                  ) : (
+                    <Camera className="h-6 w-6 text-white" />
+                  )}
+                </div>
+              )}
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleAvatarUpload}
+                className="hidden"
+              />
+            </div>
             <div className="flex-1 text-center md:text-right">
               <h1 className="text-3xl font-bold text-foreground">{profileData.full_name}</h1>
               <p className="text-muted-foreground mt-1">طالب في أكاديمية ستارن</p>
