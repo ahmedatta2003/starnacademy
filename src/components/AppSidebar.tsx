@@ -1,4 +1,4 @@
-import { Home, HelpCircle, Users, BookOpen, MessageCircle, Phone, Bot, GraduationCap, Info, Award, UserCheck } from "lucide-react";
+import { Home, HelpCircle, Users, BookOpen, MessageCircle, Phone, Bot, GraduationCap, Info, Award, UserCheck, User } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
@@ -19,6 +19,7 @@ import {
 
 const mainItems = [
   { title: "الرئيسية", url: "/dashboard", icon: Home },
+  { title: "الملف الشخصي", url: "/dashboard/profile", icon: User },
   { title: "الدورات", url: "/dashboard/courses", icon: GraduationCap },
   { title: "المدربين", url: "/dashboard/trainers", icon: Users },
 ];
