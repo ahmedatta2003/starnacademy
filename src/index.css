@@ -291,3 +291,120 @@ All colors MUST be HSL.
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--primary-dark));
 }
+/* --- Students Section --- */
+.students-section {
+  padding: 50px 20px;
+  background: linear-gradient(180deg,#f7fbff,#ffffff);
+}
+
+.section-title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 24px;
+  color: #2b2b2b;
+  font-weight: 700;
+}
+
+.students-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.student-card {
+  background: linear-gradient(180deg,#fff,#fbfbff);
+  padding: 14px;
+  border-radius: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform .25s ease, box-shadow .25s ease;
+  box-shadow: 0 6px 18px rgba(16,24,40,0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.student-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(16,24,40,0.12);
+}
+
+.student-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: inset 0 -8px 24px rgba(0,0,0,0.04);
+}
+
+.student-name {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1b2b4a;
+}
+
+.parent-name {
+  color: #6b7280;
+  font-size: 13px;
+  margin: 4px 0 8px;
+}
+
+.rating {
+  font-size: 16px;
+  color: #f6b042; /* ذهبي تقريبي */
+}
+
+/* --- Modal --- */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10,10,15,0.6);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 9999;
+}
+
+.modal[aria-hidden="false"] { display:flex; }
+
+.modal-content {
+  background: #fff;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 18px;
+  padding: 22px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 24px 60px rgba(2,6,23,0.2);
+}
+
+.close {
+  position: absolute;
+  right: 16px;
+  top: 10px;
+  font-size: 28px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.profile-img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 12px;
+  border: 6px solid #fff;
+  box-shadow: 0 8px 30px rgba(22,40,82,0.12);
+}
+
+.skills-title { text-align: left; margin-top: 16px; font-weight:700; color:#2b2b2b; }
+.skills-list { text-align: left; padding-left: 18px; color:#444; }
+
+/* استجابة */
+@media (max-width:480px) {
+  .modal-content { padding: 16px; border-radius: 12px; }
+  .student-img { height: 150px; }
+}
