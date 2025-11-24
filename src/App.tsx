@@ -18,6 +18,13 @@ import AITutor from "./pages/dashboard/AITutor";
 import Students from "./pages/dashboard/Students";
 import GradingSystem from "./pages/dashboard/GradingSystem";
 import NotFound from "./pages/NotFound";
+import Courses from "./pages/Courses";
+import StudentDashboard from "./pages/StudentDashboard";
+import ParentDashboard from "./pages/ParentDashboard";
+import InstructorDashboard from "./pages/InstructorDashboard";
+import AdminDashboard from "./pages/AdminDashboard";
+import GamificationSystem from "./components/GamificationSystem";
+import StudentProfile from "./pages/StudentProfile";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +50,13 @@ const App = () => (
               <Route path="students" element={<Students />} />
               <Route path="grading" element={<GradingSystem />} />
             </Route>
+            <Route path="/courses" element={<Courses />} />
+            <Route path="/student-dashboard" element={<StudentDashboard />} />
+            <Route path="/parent-dashboard" element={<ParentDashboard />} />
+            <Route path="/instructor-dashboard" element={<InstructorDashboard />} />
+            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/gamification" element={<GamificationSystem />} />
+            <Route path="/student-profile/:studentId" element={<StudentProfile />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
