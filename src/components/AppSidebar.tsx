@@ -1,4 +1,4 @@
-import { Home, HelpCircle, Users, BookOpen, MessageCircle, Phone, Bot, GraduationCap, Info, Award, UserCheck, User } from "lucide-react";
+import { Home, HelpCircle, Users, BookOpen, MessageCircle, Phone, Bot, GraduationCap, Info, Award, UserCheck, User, Star, MessageSquare, Video, Trophy } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
@@ -41,11 +41,40 @@ const helpItems = [
 export function AppSidebar() {
   const { state } = useSidebar();
   const location = useLocation();
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
   const currentPath = location.pathname;
 
   const isActive = (path: string) => currentPath === path;
   const collapsed = state === "collapsed";
+
+  // Role-based menu items
+  const getRoleBasedItems = () => {
+    const items = [];
+
+    // This would come from user data - using mock role for now
+    const userRole = 'admin'; // This should come from user.role or similar
+
+    if (userRole === 'child') {
+      items.push(
+        { title: "ملف الطالب", url: "/dashboard/student-profile", icon: Star }
+      );
+    }
+
+    if (userRole === 'guardian') {
+      items.push(
+        { title: "ملف ولي الأمر", url: "/dashboard/parent-profile", icon: MessageSquare }
+      );
+    }
+
+    if (userRole === 'admin') {
+      items.push(
+        { title: "قصص النجاح", url: "/dashboard/success-stories", icon: Trophy },
+        { title: "إدارة المراجعات", url: "/dashboard/review-management", icon: Video }
+      );
+    }
+
+    return items;
+  };
 
   return (
     <Sidebar className={collapsed ? "w-14" : "w-64"} collapsible="icon">
@@ -69,10 +98,10 @@ export function AppSidebar() {
               {mainItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <NavLink 
-                      to={item.url} 
-                      end 
-                      className="hover:bg-muted/50 transition-colors" 
+                    <NavLink
+                      to={item.url}
+                      end
+                      className="hover:bg-muted/50 transition-colors"
                       activeClassName="bg-primary/10 text-primary font-medium border-r-2 border-primary"
                     >
                       <item.icon className="h-4 w-4" />
@@ -84,6 +113,31 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        {/* القائمة حسب الدور */}
+        {getRoleBasedItems().length > 0 && (
+          <SidebarGroup>
+            <SidebarGroupLabel>ملفاتي الخاصة</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {getRoleBasedItems().map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <NavLink
+                        to={item.url}
+                        className="hover:bg-muted/50 transition-colors"
+                        activeClassName="bg-primary/10 text-primary font-medium border-r-2 border-primary"
+                      >
+                        <item.icon className="h-4 w-4" />
+                        {!collapsed && <span>{item.title}</span>}
+                      </NavLink>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
 
         {/* الموارد والمعلومات */}
         <SidebarGroup>

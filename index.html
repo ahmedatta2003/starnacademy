@@ -1,22 +1,25 @@
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Starn Academy - Coding Education for Kids | Ages 6-18</title>
-    <meta name="description" content="Empowering kids aged 6-18 to master coding and programming. Learn Scratch, Python, Web Development, and Mobile Apps through fun, interactive courses at Starn Academy." />
-    <meta name="keywords" content="coding for kids, programming education, Starn Academy, kids coding classes, learn programming, Scratch, Python for kids, web development, mobile app development" />
-    <meta name="author" content="Starn Academy" />
+    <title>أكاديمية ستار - تعليم البرمجة للأطفال | أعمار 6-18 سنة</title>
+    <meta name="description" content="أكاديمية متخصصة في تعليم البرمجة للأطفال والشباب من عمر 6 إلى 18 سنة. دورات تفاعلية في Scratch, Python, تطوير الويب والجوال." />
+    <meta name="keywords" content="برمجة للأطفال, تعليم البرمجة, أكاديمية ستار, برمجة الأطفال, Scratch, بايثون للأطفال, تطوير الويب, تطوير الجوال" />
+    <meta name="author" content="أكاديمية ستار" />
 
-    <meta property="og:title" content="Starn Academy - Build Minds for Tomorrow" />
-    <meta property="og:description" content="Innovative coding education for kids aged 6-18. Start your child's programming journey today!" />
+    <meta property="og:title" content="أكاديمية ستار - بناء عقول الغد" />
+    <meta property="og:description" content="تعليم برمجة مبتكر للأطفال والشباب من عمر 6 إلى 18 سنة. ابدأ رحلة طفلك في عالم البرمجة اليوم!" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Lovable" />
+    <meta name="twitter:site" content="@StarnAcademy" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-    
+
+    <!-- Favicon - Professional Academy Icon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%236366f1;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%238b5cf6;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='45' fill='url(%23grad1)'/%3E%3Ctext x='50' y='35' font-family='Arial, sans-serif' font-size='24' font-weight='bold' fill='white' text-anchor='middle'%3Eستار%3C/text%3E%3Ctext x='50' y='55' font-family='Arial, sans-serif' font-size='14' fill='white' text-anchor='middle'%3Eأكاديمية%3C/text%3E%3Cpath d='M30 70 L40 60 L50 70 L60 60 L70 70' stroke='white' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,47 +28,6 @@
 
   <body>
     <div id="root"></div>
-    <!-- ========== STUDENTS SECTION ========== -->
-<section id="students" class="students-section">
-  <h2 class="section-title">طلاب Starn Academy</h2>
-
-  <div class="students-grid">
-
-    <!-- Student Card example (كرر أو انسخ) -->
-    <div class="student-card" onclick="openProfile('ahmed')">
-      <img src="images/student1.jpg" class="student-img" alt="أحمد محمود"/>
-      <h3 class="student-name">أحمد محمود</h3>
-      <p class="parent-name">ولي الأمر: محمود السيد</p>
-      <div class="rating">⭐⭐⭐⭐⭐</div>
-    </div>
-
-    <div class="student-card" onclick="openProfile('mona')">
-      <img src="images/student2.jpg" class="student-img" alt="مونة علي"/>
-      <h3 class="student-name">مونة علي</h3>
-      <p class="parent-name">ولي الأمر: علي فوزي</p>
-      <div class="rating">⭐⭐⭐⭐</div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ========== POPUP (PROFILE CV) ========== -->
-<div id="profileModal" class="modal" aria-hidden="true">
-  <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="profileName">
-    <button class="close" onclick="closeProfile()" aria-label="Close profile">&times;</button>
-
-    <img id="profileImg" class="profile-img" alt="Profile image"/>
-    <h2 id="profileName"></h2>
-    <h4 id="profileParent"></h4>
-    <p id="profileBio"></p>
-
-    <h3 class="skills-title">المهارات / الإنجازات</h3>
-    <ul id="profileSkills" class="skills-list"></ul>
-
-    <!-- زر لتنزيل CV كملف (اختياري، سنشرح لاحقاً) -->
-  </div>
-</div>
-
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
