@@ -25,6 +25,9 @@ const Header = () => {
           <a href="#why-us" className="text-foreground hover:text-primary transition-colors font-medium">
             لماذا نحن
           </a>
+          <Link to="/booking" className="text-foreground hover:text-primary transition-colors font-medium">
+            احجز الآن
+          </Link>
           <a href="#contact" className="text-foreground hover:text-primary transition-colors font-medium">
             تواصل معنا
           </a>

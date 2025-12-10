@@ -13,10 +13,11 @@ import {
 const MobileMenu = () => {
   const [open, setOpen] = useState(false);
 
-  const menuItems = [
+  const menuItems: { title: string; href: string; isLink?: boolean }[] = [
     { title: "من نحن", href: "#about" },
     { title: "الدورات", href: "#courses" },
     { title: "لماذا نحن", href: "#why-us" },
+    { title: "احجز الآن", href: "/booking", isLink: true },
     { title: "تواصل معنا", href: "#contact" },
   ];
 
@@ -33,14 +34,25 @@ const MobileMenu = () => {
         </SheetHeader>
         <div className="flex flex-col gap-4 mt-8">
           {menuItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="text-foreground hover:text-primary transition-colors font-medium text-lg py-2"
-              onClick={() => setOpen(false)}
-            >
-              {item.title}
-            </a>
+            item.isLink ? (
+              <Link
+                key={item.href}
+                to={item.href}
+                className="text-foreground hover:text-primary transition-colors font-medium text-lg py-2"
+                onClick={() => setOpen(false)}
+              >
+                {item.title}
+              </Link>
+            ) : (
+              <a
+                key={item.href}
+                href={item.href}
+                className="text-foreground hover:text-primary transition-colors font-medium text-lg py-2"
+                onClick={() => setOpen(false)}
+              >
+                {item.title}
+              </a>
+            )
           ))}
           <Link to="/auth" onClick={() => setOpen(false)}>
             <Button size="lg" className="w-full mt-4">
