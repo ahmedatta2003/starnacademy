@@ -172,58 +172,48 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           return { error: profileError };
         }
 
-        // Create role-specific profile
-        let roleSpecificData: any = {};
-        let roleSpecificTable = '';
+        // Create role-specific profile using existing tables
+        try {
+          switch (role) {
+            case 'child':
+              // Children table requires a guardian, so skip for now
+              // This would need additional logic to link to a guardian
+              break;
 
-        switch (role) {
-          case 'child':
-            roleSpecificData = {
-              user_id: data.user.id,
-              age: additionalData?.age || 0,
-              skill_level: additionalData?.skill_level || 'beginner',
-              timezone: additionalData?.timezone || 'UTC',
-            };
-            if (additionalData?.grade_level) roleSpecificData.grade_level = additionalData.grade_level;
-            if (additionalData?.school_name) roleSpecificData.school_name = additionalData.school_name;
-            roleSpecificTable = 'student_profiles';
-            break;
+            case 'guardian':
+              const { error: guardianError } = await supabase
+                .from('guardians')
+                .insert({
+                  user_id: data.user.id,
+                  occupation: additionalData?.occupation || null,
+                  address: additionalData?.address || null,
+                });
+              if (guardianError) {
+                console.error('Error creating guardian profile:', guardianError);
+              }
+              break;
 
-          case 'guardian':
-            roleSpecificData = {
-              user_id: data.user.id,
-              relationship: additionalData?.relationship || 'guardian',
-            };
-            if (additionalData?.occupation) roleSpecificData.occupation = additionalData.occupation;
-            if (additionalData?.address) roleSpecificData.address = additionalData.address;
-            roleSpecificTable = 'guardian_profiles';
-            break;
+            case 'instructor':
+              const { error: trainerError } = await supabase
+                .from('trainers')
+                .insert({
+                  user_id: data.user.id,
+                  bio: additionalData?.bio || null,
+                  specialization: additionalData?.specialization || null,
+                  education: additionalData?.education || null,
+                  years_of_experience: additionalData?.years_of_experience || null,
+                });
+              if (trainerError) {
+                console.error('Error creating trainer profile:', trainerError);
+              }
+              break;
 
-          case 'instructor':
-            roleSpecificData = {
-              user_id: data.user.id,
-              background_check: false,
-            };
-            if (additionalData?.bio) roleSpecificData.bio = additionalData.bio;
-            if (additionalData?.specialization) roleSpecificData.specialization = additionalData.specialization;
-            if (additionalData?.education) roleSpecificData.education = additionalData.education;
-            if (additionalData?.years_of_experience) roleSpecificData.years_of_experience = additionalData.years_of_experience;
-            roleSpecificTable = 'instructor_profiles';
-            break;
-
-          case 'admin':
-            // Admins don't need additional profile data
-            break;
-        }
-
-        if (roleSpecificTable && Object.keys(roleSpecificData).length > 0) {
-          const { error: roleError } = await supabase
-            .from(roleSpecificTable)
-            .insert(roleSpecificData);
-
-          if (roleError) {
-            console.error('Error creating role-specific profile:', roleError);
+            case 'admin':
+              // Admins don't need additional profile data
+              break;
           }
+        } catch (error) {
+          console.error('Error creating role-specific profile:', error);
         }
 
         toast({

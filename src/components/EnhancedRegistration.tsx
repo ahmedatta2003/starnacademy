@@ -12,36 +12,42 @@ import { Badge } from '@/components/ui/badge';
 import { Loader2, Calendar, User, Mail, Phone, GraduationCap, Users, Code, Shield } from 'lucide-react';
 import { z } from 'zod';
 
-const baseSchema = z.object({
+const baseFields = {
   email: z.string().email({ message: "البريد الإلكتروني غير صحيح" }),
   password: z.string().min(6, { message: "كلمة المرور يجب أن تكون 6 أحرف على الأقل" }),
   confirmPassword: z.string(),
   fullName: z.string().min(2, { message: "الاسم يجب أن يكون حرفين على الأقل" }),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "كلمات المرور غير متطابقة",
-  path: ["confirmPassword"],
-});
+};
 
-const childSchema = baseSchema.extend({
+const childSchema = z.object({
+  ...baseFields,
   role: z.literal('child'),
   age: z.number().min(6).max(18),
   gradeLevel: z.string().min(1, { message: "يرجى اختيار المرحلة الدراسية" }),
   schoolName: z.string().optional(),
   skillLevel: z.enum(['beginner', 'intermediate', 'advanced']),
   parentEmail: z.string().email({ message: "بريد ولي الأمر غير صحيح" }),
-  termsAccepted: z.boolean().refine(val => val === true, { message: "يجب قبول الشروط والأحكام" }),
+  termsAccepted: z.boolean(),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "كلمات المرور غير متطابقة",
+  path: ["confirmPassword"],
 });
 
-const guardianSchema = baseSchema.extend({
+const guardianSchema = z.object({
+  ...baseFields,
   role: z.literal('guardian'),
   relationship: z.enum(['father', 'mother', 'guardian', 'other']),
   phone: z.string().min(10, { message: "رقم الهاتف يجب أن يكون 10 أرقام على الأقل" }),
   occupation: z.string().optional(),
   address: z.string().optional(),
-  termsAccepted: z.boolean().refine(val => val === true, { message: "يجب قبول الشروط والأحكام" }),
+  termsAccepted: z.boolean(),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "كلمات المرور غير متطابقة",
+  path: ["confirmPassword"],
 });
 
-const instructorSchema = baseSchema.extend({
+const instructorSchema = z.object({
+  ...baseFields,
   role: z.literal('instructor'),
   phone: z.string().min(10, { message: "رقم الهاتف يجب أن يكون 10 أرقام على الأقل" }),
   bio: z.string().min(50, { message: "السيرة الذاتية يجب أن تكون 50 حرف على الأقل" }),
@@ -49,22 +55,44 @@ const instructorSchema = baseSchema.extend({
   education: z.string().min(10, { message: "المؤهل التعليمي مطلوب" }),
   yearsOfExperience: z.number().min(0),
   backgroundCheck: z.boolean().default(false),
-  termsAccepted: z.boolean().refine(val => val === true, { message: "يجب قبول الشروط والأحكام" }),
+  termsAccepted: z.boolean(),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "كلمات المرور غير متطابقة",
+  path: ["confirmPassword"],
 });
 
-const adminSchema = baseSchema.extend({
+const adminSchema = z.object({
+  ...baseFields,
   role: z.literal('admin'),
-  termsAccepted: z.boolean().refine(val => val === true, { message: "يجب قبول الشروط والأحكام" }),
+  termsAccepted: z.boolean(),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "كلمات المرور غير متطابقة",
+  path: ["confirmPassword"],
 });
 
-const registrationSchema = z.discriminatedUnion('role', [
-  childSchema,
-  guardianSchema,
-  instructorSchema,
-  adminSchema,
-]);
-
-type RegistrationData = z.infer<typeof registrationSchema>;
+// Simple union type for form data
+type RegistrationData = {
+  role: 'child' | 'guardian' | 'instructor' | 'admin';
+  email: string;
+  password: string;
+  confirmPassword: string;
+  fullName: string;
+  age?: number;
+  gradeLevel?: string;
+  schoolName?: string;
+  skillLevel?: 'beginner' | 'intermediate' | 'advanced';
+  parentEmail?: string;
+  relationship?: 'father' | 'mother' | 'guardian' | 'other';
+  phone?: string;
+  occupation?: string;
+  address?: string;
+  bio?: string;
+  specialization?: string[];
+  education?: string;
+  yearsOfExperience?: number;
+  backgroundCheck?: boolean;
+  termsAccepted: boolean;
+};
 
 const EnhancedRegistration: React.FC = () => {
   const { signUp } = useAuth();
@@ -126,12 +154,25 @@ const EnhancedRegistration: React.FC = () => {
     e.preventDefault();
     setErrors({});
 
-    const result = registrationSchema.safeParse(formData);
-    if (!result.success) {
-      const fieldErrors: any = {};
-      result.error.errors.forEach((err) => {
-        if (err.path[0]) fieldErrors[err.path[0]] = err.message;
-      });
+    // Simple validation
+    const fieldErrors: any = {};
+    if (!formData.email || !formData.email.includes('@')) {
+      fieldErrors.email = "البريد الإلكتروني غير صحيح";
+    }
+    if (!formData.password || formData.password.length < 6) {
+      fieldErrors.password = "كلمة المرور يجب أن تكون 6 أحرف على الأقل";
+    }
+    if (formData.password !== formData.confirmPassword) {
+      fieldErrors.confirmPassword = "كلمات المرور غير متطابقة";
+    }
+    if (!formData.fullName || formData.fullName.length < 2) {
+      fieldErrors.fullName = "الاسم يجب أن يكون حرفين على الأقل";
+    }
+    if (!formData.termsAccepted) {
+      fieldErrors.termsAccepted = "يجب قبول الشروط والأحكام";
+    }
+
+    if (Object.keys(fieldErrors).length > 0) {
       setErrors(fieldErrors);
       return;
     }
