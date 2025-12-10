@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Badge } from '@/components/ui/badge';
 import { Loader2, Calendar, User, Mail, Phone, GraduationCap, Users, Code, Shield } from 'lucide-react';
 import { z } from 'zod';
 
@@ -515,7 +516,7 @@ const EnhancedRegistration: React.FC = () => {
                               specialization: formData.specialization.filter(s => s !== spec)
                             });
                           }}>
-                          {specificationOptions.find(s => s.value === spec)?.label} ×
+                          {specializationOptions.find(s => s.value === spec)?.label} ×
                         </Badge>
                       ))}
                     </div>
