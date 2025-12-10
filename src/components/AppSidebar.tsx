@@ -49,10 +49,10 @@ export function AppSidebar() {
 
   // Role-based menu items
   const getRoleBasedItems = () => {
-    const items = [];
+    const items: { title: string; url: string; icon: any }[] = [];
 
     // This would come from user data - using mock role for now
-    const userRole = 'admin'; // This should come from user.role or similar
+    const userRole: string = 'admin'; // This should come from user.role or similar
 
     if (userRole === 'child') {
       items.push(
