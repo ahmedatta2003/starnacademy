@@ -8,9 +8,9 @@ const Courses = () => {
     {
       title: "Introduction to Scratch",
       titleAr: "مقدمة في سكراتش",
-      age: "6-9 years | 6-9 سنوات",
-      level: "Beginner | مبتدئ",
-      duration: "12 weeks | 12 أسبوع",
+      age: "٦-٩ سنوات",
+      level: "مبتدئ",
+      duration: "١٢ أسبوع",
       students: "150+",
       color: "turquoise",
       description: "Start coding journey with visual programming blocks",
@@ -19,9 +19,9 @@ const Courses = () => {
     {
       title: "Python for Kids",
       titleAr: "بايثون للأطفال",
-      age: "10-13 years | 10-13 سنة",
-      level: "Beginner | مبتدئ",
-      duration: "16 weeks | 16 أسبوع",
+      age: "١٠-١٣ سنة",
+      level: "مبتدئ",
+      duration: "١٦ أسبوع",
       students: "200+",
       color: "purple",
       description: "Learn Python basics through games and animations",
@@ -30,9 +30,9 @@ const Courses = () => {
     {
       title: "Web Development",
       titleAr: "تطوير المواقع",
-      age: "12-15 years | 12-15 سنة",
-      level: "Intermediate | متوسط",
-      duration: "20 weeks | 20 أسبوع",
+      age: "١٢-١٥ سنة",
+      level: "متوسط",
+      duration: "٢٠ أسبوع",
       students: "120+",
       color: "coral",
       description: "Build websites with HTML, CSS, and JavaScript",
@@ -41,9 +41,9 @@ const Courses = () => {
     {
       title: "Mobile App Development",
       titleAr: "تطوير تطبيقات الجوال",
-      age: "14-18 years | 14-18 سنة",
-      level: "Advanced | متقدم",
-      duration: "24 weeks | 24 أسبوع",
+      age: "١٤-١٨ سنة",
+      level: "متقدم",
+      duration: "٢٤ أسبوع",
       students: "80+",
       color: "golden",
       description: "Create mobile apps and publish to app stores",
@@ -58,12 +58,8 @@ const Courses = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-foreground" dir="rtl">
             دوراتنا التعليمية
           </h2>
-          <p className="text-lg text-foreground/70">Our Courses</p>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto" dir="rtl">
             مسارات تعليمية منظمة مصممة لكل فئة عمرية ومستوى مهارة
-          </p>
-          <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
-            Structured learning paths for every age and skill level
           </p>
         </div>
 
@@ -102,7 +98,7 @@ const Courses = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4" />
-                  <span>{course.duration.split('|')[1]?.trim() || course.duration}</span>
+                  <span>{course.duration}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Users className="w-4 h-4" />
