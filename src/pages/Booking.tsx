@@ -451,15 +451,15 @@ const Booking = () => {
               <CardContent className="space-y-3">
                 <div className="flex items-center gap-3">
                   <Phone className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm" dir="ltr">+966 50 000 0000</span>
+                  <span className="text-sm" dir="ltr">01142965661</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Mail className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm">info@starn.academy</span>
+                  <span className="text-sm">starnacademy42@gmail.com</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <MapPin className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm">الرياض، المملكة العربية السعودية</span>
+                  <span className="text-sm" dir="rtl">الزقازيق، شارع طلبه عويضه، ش بالينو صلاح سالم بجوار اكتف جيم</span>
                 </div>
               </CardContent>
             </Card>
