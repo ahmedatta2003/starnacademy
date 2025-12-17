@@ -48,7 +48,7 @@ const StudentShowcase: React.FC<StudentShowcaseProps> = ({
   const realStudents: Student[] = [
     {
       id: '1',
-      name: 'أياد محمود',
+      name: 'أياد محمود أحمد',
       age: 11,
       level: 3,
       avatar_url: '/api/placeholder/200/200',
@@ -100,7 +100,7 @@ const StudentShowcase: React.FC<StudentShowcaseProps> = ({
     },
     {
       id: '5',
-      name: 'ياسين حسن',
+      name: 'ياسين حسن محمد',
       age: 8,
       level: 1,
       avatar_url: '/api/placeholder/200/200',
@@ -113,7 +113,7 @@ const StudentShowcase: React.FC<StudentShowcaseProps> = ({
     },
     {
       id: '6',
-      name: 'مريم نافع',
+      name: 'مريم نافع أحمد',
       age: 11,
       level: 1,
       avatar_url: '/api/placeholder/200/200',
@@ -126,7 +126,7 @@ const StudentShowcase: React.FC<StudentShowcaseProps> = ({
     },
     {
       id: '7',
-      name: 'خالد نافع',
+      name: 'خالد نافع أحمد',
       age: 10,
       level: 1,
       avatar_url: '/api/placeholder/200/200',
@@ -139,20 +139,20 @@ const StudentShowcase: React.FC<StudentShowcaseProps> = ({
     },
     {
       id: '8',
-      name: 'حبيبي عصام',
+      name: 'حبيبة عصام محمد',
       age: 12,
       level: 1,
       avatar_url: '/api/placeholder/200/200',
       total_points: 20,
       achievements_count: 2,
       current_streak: 2,
-      bio: 'طالب مجتهد ويظهر تفوقاً في الدروس',
+      bio: 'طالبة مجتهدة وتظهر تفوقاً في الدروس',
       interests: ['أساسيات البرمجة', 'المنطق'],
       rank: 13
     },
     {
       id: '9',
-      name: 'محمد عصام',
+      name: 'محمد عصام خالد',
       age: 0,
       level: 0,
       avatar_url: '/api/placeholder/200/200',
@@ -165,7 +165,7 @@ const StudentShowcase: React.FC<StudentShowcaseProps> = ({
     },
     {
       id: '10',
-      name: 'محمد محمود',
+      name: 'محمد محمود أحمد',
       age: 7,
       level: 1,
       avatar_url: '/api/placeholder/200/200',
@@ -178,7 +178,7 @@ const StudentShowcase: React.FC<StudentShowcaseProps> = ({
     },
     {
       id: '11',
-      name: 'عمر السحلي',
+      name: 'عمر السحلي محمد',
       age: 9,
       level: 0,
       avatar_url: '/api/placeholder/200/200',
@@ -191,7 +191,7 @@ const StudentShowcase: React.FC<StudentShowcaseProps> = ({
     },
     {
       id: '12',
-      name: 'حمزة السحلي',
+      name: 'حمزة السحلي محمد',
       age: 8,
       level: 0,
       avatar_url: '/api/placeholder/200/200',

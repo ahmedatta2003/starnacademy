@@ -198,11 +198,11 @@ const GamificationSystem: React.FC = () => {
   ];
 
   const mockLeaderboard: LeaderboardEntry[] = [
-    { rank: 1, student_id: '1', student_name: 'فاطمة العلي', avatar_url: '/api/placeholder/40/40', total_points: 1200, level: 8, achievements_count: 15 },
-    { rank: 2, student_id: '2', student_name: 'عبدالله خالد', avatar_url: '/api/placeholder/40/40', total_points: 950, level: 7, achievements_count: 12 },
-    { rank: 3, student_id: '3', student_name: 'أحمد محمد', avatar_url: '/api/placeholder/40/40', total_points: 850, level: 7, achievements_count: 10 },
-    { rank: 4, student_id: '4', student_name: 'مريم سعد', avatar_url: '/api/placeholder/40/40', total_points: 720, level: 6, achievements_count: 8 },
-    { rank: 5, student_id: '5', student_name: 'خالد أحمد', avatar_url: '/api/placeholder/40/40', total_points: 680, level: 6, achievements_count: 7 }
+    { rank: 1, student_id: '1', student_name: 'فاطمة خالد العلي', avatar_url: '/api/placeholder/40/40', total_points: 1200, level: 8, achievements_count: 15 },
+    { rank: 2, student_id: '2', student_name: 'عبدالله خالد محمد', avatar_url: '/api/placeholder/40/40', total_points: 950, level: 7, achievements_count: 12 },
+    { rank: 3, student_id: '3', student_name: 'أحمد محمد علي', avatar_url: '/api/placeholder/40/40', total_points: 850, level: 7, achievements_count: 10 },
+    { rank: 4, student_id: '4', student_name: 'مريم سعد محمد', avatar_url: '/api/placeholder/40/40', total_points: 720, level: 6, achievements_count: 8 },
+    { rank: 5, student_id: '5', student_name: 'خالد أحمد حسن', avatar_url: '/api/placeholder/40/40', total_points: 680, level: 6, achievements_count: 7 }
   ];
 
   useEffect(() => {
