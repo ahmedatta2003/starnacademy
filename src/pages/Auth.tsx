@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Loader2 } from 'lucide-react';
+import { Loader2, ArrowRight, Sparkles, Code, Star } from 'lucide-react';
 import { z } from 'zod';
 
 const authSchema = z.object({
@@ -71,13 +72,39 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 via-accent/10 to-background p-4">
-      <Card className="w-full max-w-md shadow-elegant">
-        <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-            Starn Academy
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden p-4">
+      {/* Animated Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary via-purple-600 to-coral" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.2),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.15),transparent_50%)]" />
+      
+      {/* Floating Shapes */}
+      <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full animate-pulse" />
+      <div className="absolute top-1/4 right-10 w-16 h-16 bg-golden/30 rounded-lg rotate-45 animate-bounce" style={{ animationDuration: '3s' }} />
+      <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-turquoise/30 rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
+      <div className="absolute bottom-1/3 right-1/4 w-8 h-8 bg-white/20 rounded-lg rotate-12 animate-bounce" style={{ animationDuration: '4s' }} />
+      
+      {/* Decorative Icons */}
+      <Sparkles className="absolute top-20 right-20 w-8 h-8 text-golden/50 animate-pulse" />
+      <Code className="absolute bottom-32 left-20 w-10 h-10 text-white/30 animate-pulse" style={{ animationDelay: '0.5s' }} />
+      <Star className="absolute top-1/3 left-16 w-6 h-6 text-turquoise/50 animate-bounce" style={{ animationDuration: '2.5s' }} />
+
+      {/* Back Button */}
+      <Link 
+        to="/" 
+        className="absolute top-6 right-6 flex items-center gap-2 text-white hover:text-white/80 transition-colors bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full"
+      >
+        <span className="font-medium">الصفحة الرئيسية</span>
+        <ArrowRight className="w-5 h-5" />
+      </Link>
+
+      <Card className="w-full max-w-md shadow-2xl relative z-10 border-0 bg-white/95 backdrop-blur-md">
+        <CardHeader className="text-center pb-2">
+          <CardTitle className="text-3xl font-bold text-primary">
+            ستارن أكاديمي
           </CardTitle>
-          <CardDescription className="text-base mt-2">
+          <p className="text-lg font-semibold text-purple-600">Starn Academy</p>
+          <CardDescription className="text-base mt-2 text-muted-foreground">
             منصة تعليم البرمجة للأطفال
           </CardDescription>
         </CardHeader>
