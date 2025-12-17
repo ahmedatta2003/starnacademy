@@ -46,8 +46,8 @@ const ParentTestimonials: React.FC = () => {
   const mockReviews: ParentReview[] = [
     {
       id: '1',
-      parent_name: 'الأم سارة محمد',
-      student_name: 'أحمد سارة',
+      parent_name: 'أحمد محمد علي',
+      student_name: 'يوسف أحمد محمد',
       student_level: 7,
       avatar: '/api/placeholder/80/80',
       rating: 5,
@@ -58,8 +58,8 @@ const ParentTestimonials: React.FC = () => {
     },
     {
       id: '2',
-      parent_name: 'الأب خالد العلي',
-      student_name: 'فاطمة خالد',
+      parent_name: 'خالد العلي حسن',
+      student_name: 'فاطمة خالد العلي',
       student_level: 5,
       avatar: '/api/placeholder/80/80',
       rating: 5,
@@ -71,8 +71,8 @@ const ParentTestimonials: React.FC = () => {
     },
     {
       id: '3',
-      parent_name: 'الأم نورة أحمد',
-      student_name: 'عبدالله نورة',
+      parent_name: 'محمد أحمد سعيد',
+      student_name: 'عبدالله محمد أحمد',
       student_level: 8,
       avatar: '/api/placeholder/80/80',
       rating: 5,
@@ -83,8 +83,8 @@ const ParentTestimonials: React.FC = () => {
     },
     {
       id: '4',
-      parent_name: 'الأب محمد سعد',
-      student_name: 'مريم محمد',
+      parent_name: 'سعد محمد خالد',
+      student_name: 'مريم سعد محمد',
       student_level: 6,
       avatar: '/api/placeholder/80/80',
       rating: 5,
@@ -96,8 +96,8 @@ const ParentTestimonials: React.FC = () => {
     },
     {
       id: '5',
-      parent_name: 'الأم ليلى حسن',
-      student_name: 'عمر ليلى',
+      parent_name: 'حسن علي محمود',
+      student_name: 'عمر حسن علي',
       student_level: 4,
       avatar: '/api/placeholder/80/80',
       rating: 4,
@@ -108,8 +108,8 @@ const ParentTestimonials: React.FC = () => {
     },
     {
       id: '6',
-      parent_name: 'الأب راشد الماجد',
-      student_name: 'نور راشد',
+      parent_name: 'راشد الماجد عبدالله',
+      student_name: 'نور راشد الماجد',
       student_level: 9,
       avatar: '/api/placeholder/80/80',
       rating: 5,
