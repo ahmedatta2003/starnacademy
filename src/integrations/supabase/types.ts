@@ -143,6 +143,101 @@ export type Database = {
         }
         Relationships: []
       }
+      student_projects: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          image_url: string | null
+          is_featured: boolean | null
+          project_type: string | null
+          student_id: string | null
+          technologies: string[] | null
+          title: string
+          updated_at: string
+          video_url: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          is_featured?: boolean | null
+          project_type?: string | null
+          student_id?: string | null
+          technologies?: string[] | null
+          title: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          is_featured?: boolean | null
+          project_type?: string | null
+          student_id?: string | null
+          technologies?: string[] | null
+          title?: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_projects_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "students_showcase"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      students_showcase: {
+        Row: {
+          achievements: string[] | null
+          age: number | null
+          avatar_url: string | null
+          bio: string | null
+          created_at: string
+          grade_level: string | null
+          id: string
+          is_featured: boolean | null
+          name: string
+          projects_count: number | null
+          stickers_count: number | null
+          updated_at: string
+        }
+        Insert: {
+          achievements?: string[] | null
+          age?: number | null
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          grade_level?: string | null
+          id?: string
+          is_featured?: boolean | null
+          name: string
+          projects_count?: number | null
+          stickers_count?: number | null
+          updated_at?: string
+        }
+        Update: {
+          achievements?: string[] | null
+          age?: number | null
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          grade_level?: string | null
+          id?: string
+          is_featured?: boolean | null
+          name?: string
+          projects_count?: number | null
+          stickers_count?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       trainers: {
         Row: {
           bio: string | null
