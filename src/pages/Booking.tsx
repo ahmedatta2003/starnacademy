@@ -11,24 +11,32 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 const regions = [
-  'الرياض',
-  'جدة',
-  'مكة المكرمة',
-  'المدينة المنورة',
-  'الدمام',
-  'الخبر',
-  'الطائف',
-  'بريدة',
-  'تبوك',
-  'خميس مشيط',
-  'أبها',
-  'نجران',
-  'جازان',
-  'الأحساء',
-  'القطيف',
-  'حائل',
-  'الجبيل',
-  'ينبع',
+  'الشرقية (الزقازيق)',
+  'القاهرة',
+  'الجيزة',
+  'الإسكندرية',
+  'الدقهلية',
+  'القليوبية',
+  'المنوفية',
+  'الغربية',
+  'كفر الشيخ',
+  'البحيرة',
+  'الإسماعيلية',
+  'بورسعيد',
+  'السويس',
+  'دمياط',
+  'الفيوم',
+  'بني سويف',
+  'المنيا',
+  'أسيوط',
+  'سوهاج',
+  'قنا',
+  'الأقصر',
+  'أسوان',
+  'البحر الأحمر',
+  'مرسى مطروح',
+  'شمال سيناء',
+  'جنوب سيناء',
   'أخرى'
 ];
 
@@ -177,14 +185,14 @@ const Booking = () => {
     <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/5" dir="rtl">
       <Header />
       
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-16">
         {/* Hero Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+        <div className="text-center mb-16 pt-8">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-purple-600 to-coral bg-clip-text text-transparent animate-fade-in">
             احجز مقعدك الآن
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            ابدأ رحلة طفلك في عالم البرمجة مع أفضل المدربين المتخصصين
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            ابدأ رحلة طفلك في عالم البرمجة مع أفضل المدربين المتخصصين في مصر
           </p>
         </div>
 
@@ -221,11 +229,11 @@ const Booking = () => {
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="phone">رقم الجوال *</Label>
+                        <Label htmlFor="phone">رقم الهاتف *</Label>
                         <Input
                           id="phone"
                           type="tel"
-                          placeholder="05xxxxxxxx"
+                          placeholder="01xxxxxxxxx"
                           value={formData.phone}
                           onChange={(e) => handleInputChange('phone', e.target.value)}
                           required
