@@ -4,16 +4,26 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
 
-// Placeholder partner logos - replace with actual partner logos
+// Partner logos
+import gdgLogo from "@/assets/partners/gdg-logo.png";
+import byteForceLogo from "@/assets/partners/byteforce-logo.png";
+import aplusLogo from "@/assets/partners/aplus-logo.jpg";
+import businessPartnersLogo from "@/assets/partners/business-partners-logo.png";
+import trackuLogo from "@/assets/partners/tracku-logo.png";
+import partner6Logo from "@/assets/partners/partner6-logo.png";
+import partner7Logo from "@/assets/partners/partner7-logo.jpeg";
+
 const partners = [
-  { name: "Google Developer Groups", logo: "https://developers.google.com/static/community/images/gdg-logo.svg" },
-  { name: "Byte Force", logo: "https://via.placeholder.com/150x60?text=ByteForce" },
-  { name: "A+", logo: "https://via.placeholder.com/150x60?text=A+" },
-  { name: "Space", logo: "https://via.placeholder.com/150x60?text=Space" },
-  { name: "Partner 5", logo: "https://via.placeholder.com/150x60?text=Partner5" },
+  { name: "Google Developer Groups", logo: gdgLogo },
+  { name: "Byte Force", logo: byteForceLogo },
+  { name: "A+", logo: aplusLogo },
+  { name: "بيزنيس بارتنر", logo: businessPartnersLogo },
+  { name: "تراكي نشاط طلابي", logo: trackuLogo },
+  { name: "Partner 6", logo: partner6Logo },
+  { name: "Partner 7", logo: partner7Logo },
 ];
 
 const Certificate = () => {
@@ -94,25 +104,27 @@ const Certificate = () => {
             opts={{
               align: "start",
               loop: true,
+              direction: "rtl",
             }}
             plugins={[
               Autoplay({
-                delay: 2500,
+                delay: 2000,
                 stopOnInteraction: false,
                 stopOnMouseEnter: true,
               }),
             ]}
             className="w-full"
+            dir="rtl"
             setApi={setApi}
           >
             <CarouselContent className="-ml-2 md:-ml-4">
               {partners.map((partner, index) => (
                 <CarouselItem key={index} className="pl-2 md:pl-4 basis-1/2 md:basis-1/3 lg:basis-1/5">
-                  <div className="p-4 h-24 flex items-center justify-center bg-card rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <div className="p-4 h-24 flex items-center justify-center bg-card rounded-lg shadow-sm hover:shadow-md transition-all duration-500">
                     <img
                       src={partner.logo}
                       alt={partner.name}
-                      className="max-h-12 max-w-full object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                      className="max-h-14 max-w-full object-contain hover:scale-110 transition-transform duration-300"
                     />
                   </div>
                 </CarouselItem>
