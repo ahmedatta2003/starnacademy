@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -11,19 +11,21 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import FileUploader from '@/components/FileUploader';
 import {
   Users,
   Shield,
   Plus,
   Trash2,
   Edit,
-  Image,
   FolderOpen,
   Home,
   Save,
-  X,
   Star,
-  Award
+  Award,
+  Handshake,
+  Video
 } from 'lucide-react';
 import { toast } from 'sonner';
 import logo from "@/assets/starn-logo.png";
@@ -55,11 +57,20 @@ interface StudentProject {
   created_at: string;
 }
 
+interface Partner {
+  id: string;
+  name: string;
+  logo_url: string | null;
+  website_url: string | null;
+  display_order: number;
+  is_active: boolean;
+}
+
 const AdminDashboard: React.FC = () => {
   const { user, profile } = useAuth();
-  const navigate = useNavigate();
   const [students, setStudents] = useState<StudentShowcase[]>([]);
   const [projects, setProjects] = useState<StudentProject[]>([]);
+  const [partners, setPartners] = useState<Partner[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('students');
   
@@ -87,8 +98,19 @@ const AdminDashboard: React.FC = () => {
     technologies: ''
   });
 
-  // Edit Student Dialog
+  // Add Partner Dialog
+  const [showAddPartner, setShowAddPartner] = useState(false);
+  const [newPartner, setNewPartner] = useState({
+    name: '',
+    logo_url: '',
+    website_url: '',
+    display_order: 0
+  });
+
+  // Edit states
   const [editingStudent, setEditingStudent] = useState<StudentShowcase | null>(null);
+  const [editingProject, setEditingProject] = useState<StudentProject | null>(null);
+  const [editingPartner, setEditingPartner] = useState<Partner | null>(null);
 
   useEffect(() => {
     if (user && profile?.role === 'admin') {
@@ -100,23 +122,19 @@ const AdminDashboard: React.FC = () => {
     try {
       setLoading(true);
       
-      // Load students showcase
-      const { data: studentsData, error: studentsError } = await supabase
-        .from('students_showcase')
-        .select('*')
-        .order('created_at', { ascending: false });
+      const [studentsRes, projectsRes, partnersRes] = await Promise.all([
+        supabase.from('students_showcase').select('*').order('created_at', { ascending: false }),
+        supabase.from('student_projects').select('*').order('created_at', { ascending: false }),
+        supabase.from('partners').select('*').order('display_order', { ascending: true })
+      ]);
 
-      if (studentsError) throw studentsError;
-      setStudents(studentsData || []);
-
-      // Load projects
-      const { data: projectsData, error: projectsError } = await supabase
-        .from('student_projects')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (projectsError) throw projectsError;
-      setProjects(projectsData || []);
+      if (studentsRes.error) throw studentsRes.error;
+      if (projectsRes.error) throw projectsRes.error;
+      // Partners table may not have data yet, don't throw error
+      
+      setStudents(studentsRes.data || []);
+      setProjects(projectsRes.data || []);
+      setPartners(partnersRes.data || []);
 
     } catch (error) {
       console.error('Error loading data:', error);
@@ -126,6 +144,7 @@ const AdminDashboard: React.FC = () => {
     }
   };
 
+  // Student handlers
   const handleAddStudent = async () => {
     try {
       const achievements = newStudent.achievements.split(',').map(a => a.trim()).filter(a => a);
@@ -191,13 +210,8 @@ const AdminDashboard: React.FC = () => {
     if (!confirm('هل أنت متأكد من حذف هذا الطالب؟')) return;
     
     try {
-      const { error } = await supabase
-        .from('students_showcase')
-        .delete()
-        .eq('id', id);
-
+      const { error } = await supabase.from('students_showcase').delete().eq('id', id);
       if (error) throw error;
-
       setStudents(prev => prev.filter(s => s.id !== id));
       toast.success('تم حذف الطالب بنجاح');
     } catch (error) {
@@ -206,6 +220,7 @@ const AdminDashboard: React.FC = () => {
     }
   };
 
+  // Project handlers
   const handleAddProject = async () => {
     try {
       const technologies = newProject.technologies.split(',').map(t => t.trim()).filter(t => t);
@@ -237,22 +252,112 @@ const AdminDashboard: React.FC = () => {
     }
   };
 
-  const handleDeleteProject = async (id: string) => {
-    if (!confirm('هل أنت متأكد من حذف هذا المشروع؟')) return;
+  const handleUpdateProject = async () => {
+    if (!editingProject) return;
     
     try {
       const { error } = await supabase
         .from('student_projects')
-        .delete()
-        .eq('id', id);
+        .update({
+          title: editingProject.title,
+          description: editingProject.description,
+          project_type: editingProject.project_type,
+          image_url: editingProject.image_url,
+          video_url: editingProject.video_url,
+          technologies: editingProject.technologies,
+          is_featured: editingProject.is_featured
+        })
+        .eq('id', editingProject.id);
 
       if (error) throw error;
 
+      setProjects(prev => prev.map(p => p.id === editingProject.id ? editingProject : p));
+      setEditingProject(null);
+      toast.success('تم تحديث المشروع بنجاح');
+    } catch (error) {
+      console.error('Error updating project:', error);
+      toast.error('حدث خطأ في تحديث المشروع');
+    }
+  };
+
+  const handleDeleteProject = async (id: string) => {
+    if (!confirm('هل أنت متأكد من حذف هذا المشروع؟')) return;
+    
+    try {
+      const { error } = await supabase.from('student_projects').delete().eq('id', id);
+      if (error) throw error;
       setProjects(prev => prev.filter(p => p.id !== id));
       toast.success('تم حذف المشروع بنجاح');
     } catch (error) {
       console.error('Error deleting project:', error);
       toast.error('حدث خطأ في حذف المشروع');
+    }
+  };
+
+  // Partner handlers
+  const handleAddPartner = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('partners')
+        .insert({
+          name: newPartner.name,
+          logo_url: newPartner.logo_url || null,
+          website_url: newPartner.website_url || null,
+          display_order: newPartner.display_order,
+          is_active: true
+        })
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      setPartners(prev => [...prev, data].sort((a, b) => a.display_order - b.display_order));
+      setShowAddPartner(false);
+      setNewPartner({ name: '', logo_url: '', website_url: '', display_order: 0 });
+      toast.success('تم إضافة الشريك بنجاح');
+    } catch (error) {
+      console.error('Error adding partner:', error);
+      toast.error('حدث خطأ في إضافة الشريك');
+    }
+  };
+
+  const handleUpdatePartner = async () => {
+    if (!editingPartner) return;
+    
+    try {
+      const { error } = await supabase
+        .from('partners')
+        .update({
+          name: editingPartner.name,
+          logo_url: editingPartner.logo_url,
+          website_url: editingPartner.website_url,
+          display_order: editingPartner.display_order,
+          is_active: editingPartner.is_active
+        })
+        .eq('id', editingPartner.id);
+
+      if (error) throw error;
+
+      setPartners(prev => prev.map(p => p.id === editingPartner.id ? editingPartner : p));
+      setEditingPartner(null);
+      toast.success('تم تحديث الشريك بنجاح');
+    } catch (error) {
+      console.error('Error updating partner:', error);
+      toast.error('حدث خطأ في تحديث الشريك');
+    }
+  };
+
+  const handleDeletePartner = async (id: string) => {
+    if (!confirm('هل أنت متأكد من حذف هذا الشريك؟')) return;
+    
+    try {
+      const { error } = await supabase.from('partners').delete().eq('id', id);
+      if (error) throw error;
+      setPartners(prev => prev.filter(p => p.id !== id));
+      toast.success('تم حذف الشريك بنجاح');
+    } catch (error) {
+      console.error('Error deleting partner:', error);
+      toast.error('حدث خطأ في حذف الشريك');
     }
   };
 
@@ -268,9 +373,7 @@ const AdminDashboard: React.FC = () => {
               هذه الصفحة متاحة فقط لمسؤولي النظام المعتمدين
             </p>
             <Link to="/auth">
-              <Button className="w-full">
-                تسجيل الدخول كمسؤول
-              </Button>
+              <Button className="w-full">تسجيل الدخول كمسؤول</Button>
             </Link>
           </CardContent>
         </Card>
@@ -318,7 +421,7 @@ const AdminDashboard: React.FC = () => {
 
       <div className="container mx-auto p-6">
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <Card>
             <CardContent className="p-6 text-center">
               <Users className="h-10 w-10 mx-auto mb-3 text-primary" />
@@ -335,6 +438,13 @@ const AdminDashboard: React.FC = () => {
           </Card>
           <Card>
             <CardContent className="p-6 text-center">
+              <Handshake className="h-10 w-10 mx-auto mb-3 text-blue-500" />
+              <div className="text-3xl font-bold">{partners.length}</div>
+              <div className="text-muted-foreground">شركاء</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-6 text-center">
               <Star className="h-10 w-10 mx-auto mb-3 text-yellow-500" />
               <div className="text-3xl font-bold">{students.filter(s => s.is_featured).length}</div>
               <div className="text-muted-foreground">طلاب مميزون</div>
@@ -343,7 +453,7 @@ const AdminDashboard: React.FC = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full max-w-md grid-cols-2">
+          <TabsList className="grid w-full max-w-lg grid-cols-3">
             <TabsTrigger value="students" className="flex items-center gap-2">
               <Users className="h-4 w-4" />
               الطلاب
@@ -351,6 +461,10 @@ const AdminDashboard: React.FC = () => {
             <TabsTrigger value="projects" className="flex items-center gap-2">
               <FolderOpen className="h-4 w-4" />
               المشاريع
+            </TabsTrigger>
+            <TabsTrigger value="partners" className="flex items-center gap-2">
+              <Handshake className="h-4 w-4" />
+              الشركاء
             </TabsTrigger>
           </TabsList>
 
@@ -365,7 +479,7 @@ const AdminDashboard: React.FC = () => {
                     إضافة طالب جديد
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-md">
+                <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
                   <DialogHeader>
                     <DialogTitle>إضافة طالب جديد</DialogTitle>
                     <DialogDescription>أدخل بيانات الطالب الجديد</DialogDescription>
@@ -398,14 +512,13 @@ const AdminDashboard: React.FC = () => {
                         />
                       </div>
                     </div>
-                    <div>
-                      <Label>رابط الصورة</Label>
-                      <Input 
-                        value={newStudent.avatar_url} 
-                        onChange={(e) => setNewStudent(prev => ({ ...prev, avatar_url: e.target.value }))}
-                        placeholder="https://..."
-                      />
-                    </div>
+                    <FileUploader
+                      label="صورة الطالب"
+                      type="image"
+                      folder="students"
+                      currentUrl={newStudent.avatar_url}
+                      onUploadComplete={(url) => setNewStudent(prev => ({ ...prev, avatar_url: url }))}
+                    />
                     <div>
                       <Label>نبذة عن الطالب</Label>
                       <Textarea 
@@ -473,20 +586,11 @@ const AdminDashboard: React.FC = () => {
                       </div>
                     </div>
                     <div className="flex items-center gap-2 mt-4 pt-4 border-t">
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="flex-1"
-                        onClick={() => setEditingStudent(student)}
-                      >
+                      <Button variant="outline" size="sm" className="flex-1" onClick={() => setEditingStudent(student)}>
                         <Edit className="h-4 w-4 ml-1" />
                         تعديل
                       </Button>
-                      <Button 
-                        variant="destructive" 
-                        size="sm"
-                        onClick={() => handleDeleteStudent(student.id)}
-                      >
+                      <Button variant="destructive" size="sm" onClick={() => handleDeleteStudent(student.id)}>
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
@@ -517,7 +621,7 @@ const AdminDashboard: React.FC = () => {
                     إضافة مشروع جديد
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-md">
+                <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
                   <DialogHeader>
                     <DialogTitle>إضافة مشروع جديد</DialogTitle>
                     <DialogDescription>أدخل بيانات المشروع الجديد</DialogDescription>
@@ -533,16 +637,19 @@ const AdminDashboard: React.FC = () => {
                     </div>
                     <div>
                       <Label>الطالب (اختياري)</Label>
-                      <select 
-                        className="w-full border rounded-md p-2"
-                        value={newProject.student_id}
-                        onChange={(e) => setNewProject(prev => ({ ...prev, student_id: e.target.value }))}
+                      <Select 
+                        value={newProject.student_id} 
+                        onValueChange={(value) => setNewProject(prev => ({ ...prev, student_id: value }))}
                       >
-                        <option value="">اختر الطالب</option>
-                        {students.map(s => (
-                          <option key={s.id} value={s.id}>{s.name}</option>
-                        ))}
-                      </select>
+                        <SelectTrigger>
+                          <SelectValue placeholder="اختر الطالب" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {students.map(s => (
+                            <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </div>
                     <div>
                       <Label>نوع المشروع</Label>
@@ -560,22 +667,20 @@ const AdminDashboard: React.FC = () => {
                         placeholder="وصف مختصر للمشروع"
                       />
                     </div>
-                    <div>
-                      <Label>رابط الصورة</Label>
-                      <Input 
-                        value={newProject.image_url} 
-                        onChange={(e) => setNewProject(prev => ({ ...prev, image_url: e.target.value }))}
-                        placeholder="https://..."
-                      />
-                    </div>
-                    <div>
-                      <Label>رابط الفيديو (اختياري)</Label>
-                      <Input 
-                        value={newProject.video_url} 
-                        onChange={(e) => setNewProject(prev => ({ ...prev, video_url: e.target.value }))}
-                        placeholder="https://youtube.com/..."
-                      />
-                    </div>
+                    <FileUploader
+                      label="صورة المشروع"
+                      type="image"
+                      folder="projects"
+                      currentUrl={newProject.image_url}
+                      onUploadComplete={(url) => setNewProject(prev => ({ ...prev, image_url: url }))}
+                    />
+                    <FileUploader
+                      label="فيديو المشروع"
+                      type="video"
+                      folder="projects/videos"
+                      currentUrl={newProject.video_url}
+                      onUploadComplete={(url) => setNewProject(prev => ({ ...prev, video_url: url }))}
+                    />
                     <div>
                       <Label>التقنيات المستخدمة (مفصولة بفواصل)</Label>
                       <Input 
@@ -599,42 +704,32 @@ const AdminDashboard: React.FC = () => {
                 <Card key={project.id} className="overflow-hidden">
                   {project.image_url && (
                     <div className="h-40 bg-muted overflow-hidden">
-                      <img 
-                        src={project.image_url} 
-                        alt={project.title}
-                        className="w-full h-full object-cover"
-                      />
+                      <img src={project.image_url} alt={project.title} className="w-full h-full object-cover" />
                     </div>
                   )}
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between mb-2">
                       <h3 className="font-semibold">{project.title}</h3>
-                      {project.project_type && (
-                        <Badge variant="outline">{project.project_type}</Badge>
-                      )}
+                      {project.video_url && <Video className="h-4 w-4 text-blue-500" />}
                     </div>
+                    {project.project_type && <Badge variant="outline" className="mb-2">{project.project_type}</Badge>}
                     {project.description && (
-                      <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
-                        {project.description}
-                      </p>
+                      <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{project.description}</p>
                     )}
                     {project.technologies && project.technologies.length > 0 && (
                       <div className="flex flex-wrap gap-1 mb-3">
                         {project.technologies.map((tech, i) => (
-                          <Badge key={i} variant="secondary" className="text-xs">
-                            {tech}
-                          </Badge>
+                          <Badge key={i} variant="secondary" className="text-xs">{tech}</Badge>
                         ))}
                       </div>
                     )}
                     <div className="flex items-center gap-2 pt-3 border-t">
-                      <Button 
-                        variant="destructive" 
-                        size="sm"
-                        onClick={() => handleDeleteProject(project.id)}
-                      >
-                        <Trash2 className="h-4 w-4 ml-1" />
-                        حذف
+                      <Button variant="outline" size="sm" className="flex-1" onClick={() => setEditingProject(project)}>
+                        <Edit className="h-4 w-4 ml-1" />
+                        تعديل
+                      </Button>
+                      <Button variant="destructive" size="sm" onClick={() => handleDeleteProject(project.id)}>
+                        <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
                   </CardContent>
@@ -652,12 +747,107 @@ const AdminDashboard: React.FC = () => {
               </Card>
             )}
           </TabsContent>
+
+          {/* Partners Tab */}
+          <TabsContent value="partners" className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold">إدارة الشركاء</h2>
+              <Dialog open={showAddPartner} onOpenChange={setShowAddPartner}>
+                <DialogTrigger asChild>
+                  <Button className="flex items-center gap-2">
+                    <Plus className="h-4 w-4" />
+                    إضافة شريك جديد
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-lg">
+                  <DialogHeader>
+                    <DialogTitle>إضافة شريك جديد</DialogTitle>
+                    <DialogDescription>أدخل بيانات الشريك الجديد</DialogDescription>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    <div>
+                      <Label>اسم الشريك *</Label>
+                      <Input 
+                        value={newPartner.name} 
+                        onChange={(e) => setNewPartner(prev => ({ ...prev, name: e.target.value }))}
+                        placeholder="أدخل اسم الشريك"
+                      />
+                    </div>
+                    <FileUploader
+                      label="شعار الشريك"
+                      type="image"
+                      folder="partners"
+                      currentUrl={newPartner.logo_url}
+                      onUploadComplete={(url) => setNewPartner(prev => ({ ...prev, logo_url: url }))}
+                    />
+                    <div>
+                      <Label>رابط الموقع (اختياري)</Label>
+                      <Input 
+                        value={newPartner.website_url} 
+                        onChange={(e) => setNewPartner(prev => ({ ...prev, website_url: e.target.value }))}
+                        placeholder="https://..."
+                      />
+                    </div>
+                    <div>
+                      <Label>ترتيب العرض</Label>
+                      <Input 
+                        type="number"
+                        value={newPartner.display_order} 
+                        onChange={(e) => setNewPartner(prev => ({ ...prev, display_order: parseInt(e.target.value) || 0 }))}
+                      />
+                    </div>
+                    <Button onClick={handleAddPartner} className="w-full" disabled={!newPartner.name}>
+                      <Save className="h-4 w-4 ml-2" />
+                      حفظ الشريك
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </div>
+
+            {/* Partners Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {partners.map((partner) => (
+                <Card key={partner.id} className="overflow-hidden">
+                  <CardContent className="p-4">
+                    <div className="h-20 flex items-center justify-center bg-muted rounded-lg mb-3">
+                      {partner.logo_url ? (
+                        <img src={partner.logo_url} alt={partner.name} className="max-h-16 max-w-full object-contain" />
+                      ) : (
+                        <Handshake className="h-10 w-10 text-muted-foreground" />
+                      )}
+                    </div>
+                    <h3 className="font-semibold text-center mb-2">{partner.name}</h3>
+                    <p className="text-xs text-muted-foreground text-center mb-3">ترتيب: {partner.display_order}</p>
+                    <div className="flex items-center gap-2">
+                      <Button variant="outline" size="sm" className="flex-1" onClick={() => setEditingPartner(partner)}>
+                        <Edit className="h-4 w-4" />
+                      </Button>
+                      <Button variant="destructive" size="sm" onClick={() => handleDeletePartner(partner.id)}>
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {partners.length === 0 && (
+              <Card>
+                <CardContent className="p-12 text-center">
+                  <Handshake className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
+                  <h3 className="text-lg font-semibold mb-2">لا يوجد شركاء بعد</h3>
+                  <p className="text-muted-foreground">ابدأ بإضافة شركاء جدد</p>
+                </CardContent>
+              </Card>
+            )}
+          </TabsContent>
         </Tabs>
       </div>
 
       {/* Edit Student Dialog */}
       <Dialog open={!!editingStudent} onOpenChange={() => setEditingStudent(null)}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>تعديل بيانات الطالب</DialogTitle>
           </DialogHeader>
@@ -687,13 +877,13 @@ const AdminDashboard: React.FC = () => {
                   />
                 </div>
               </div>
-              <div>
-                <Label>رابط الصورة</Label>
-                <Input 
-                  value={editingStudent.avatar_url || ''} 
-                  onChange={(e) => setEditingStudent(prev => prev ? { ...prev, avatar_url: e.target.value } : null)}
-                />
-              </div>
+              <FileUploader
+                label="صورة الطالب"
+                type="image"
+                folder="students"
+                currentUrl={editingStudent.avatar_url || ''}
+                onUploadComplete={(url) => setEditingStudent(prev => prev ? { ...prev, avatar_url: url } : null)}
+              />
               <div>
                 <Label>نبذة عن الطالب</Label>
                 <Textarea 
@@ -719,6 +909,122 @@ const AdminDashboard: React.FC = () => {
                 <Label>طالب مميز</Label>
               </div>
               <Button onClick={handleUpdateStudent} className="w-full">
+                <Save className="h-4 w-4 ml-2" />
+                حفظ التغييرات
+              </Button>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit Project Dialog */}
+      <Dialog open={!!editingProject} onOpenChange={() => setEditingProject(null)}>
+        <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>تعديل المشروع</DialogTitle>
+          </DialogHeader>
+          {editingProject && (
+            <div className="space-y-4">
+              <div>
+                <Label>عنوان المشروع</Label>
+                <Input 
+                  value={editingProject.title} 
+                  onChange={(e) => setEditingProject(prev => prev ? { ...prev, title: e.target.value } : null)}
+                />
+              </div>
+              <div>
+                <Label>نوع المشروع</Label>
+                <Input 
+                  value={editingProject.project_type || ''} 
+                  onChange={(e) => setEditingProject(prev => prev ? { ...prev, project_type: e.target.value } : null)}
+                />
+              </div>
+              <div>
+                <Label>وصف المشروع</Label>
+                <Textarea 
+                  value={editingProject.description || ''} 
+                  onChange={(e) => setEditingProject(prev => prev ? { ...prev, description: e.target.value } : null)}
+                />
+              </div>
+              <FileUploader
+                label="صورة المشروع"
+                type="image"
+                folder="projects"
+                currentUrl={editingProject.image_url || ''}
+                onUploadComplete={(url) => setEditingProject(prev => prev ? { ...prev, image_url: url } : null)}
+              />
+              <FileUploader
+                label="فيديو المشروع"
+                type="video"
+                folder="projects/videos"
+                currentUrl={editingProject.video_url || ''}
+                onUploadComplete={(url) => setEditingProject(prev => prev ? { ...prev, video_url: url } : null)}
+              />
+              <div className="flex items-center gap-2">
+                <input 
+                  type="checkbox"
+                  checked={editingProject.is_featured}
+                  onChange={(e) => setEditingProject(prev => prev ? { ...prev, is_featured: e.target.checked } : null)}
+                  className="rounded"
+                />
+                <Label>مشروع مميز</Label>
+              </div>
+              <Button onClick={handleUpdateProject} className="w-full">
+                <Save className="h-4 w-4 ml-2" />
+                حفظ التغييرات
+              </Button>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit Partner Dialog */}
+      <Dialog open={!!editingPartner} onOpenChange={() => setEditingPartner(null)}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>تعديل الشريك</DialogTitle>
+          </DialogHeader>
+          {editingPartner && (
+            <div className="space-y-4">
+              <div>
+                <Label>اسم الشريك</Label>
+                <Input 
+                  value={editingPartner.name} 
+                  onChange={(e) => setEditingPartner(prev => prev ? { ...prev, name: e.target.value } : null)}
+                />
+              </div>
+              <FileUploader
+                label="شعار الشريك"
+                type="image"
+                folder="partners"
+                currentUrl={editingPartner.logo_url || ''}
+                onUploadComplete={(url) => setEditingPartner(prev => prev ? { ...prev, logo_url: url } : null)}
+              />
+              <div>
+                <Label>رابط الموقع</Label>
+                <Input 
+                  value={editingPartner.website_url || ''} 
+                  onChange={(e) => setEditingPartner(prev => prev ? { ...prev, website_url: e.target.value } : null)}
+                />
+              </div>
+              <div>
+                <Label>ترتيب العرض</Label>
+                <Input 
+                  type="number"
+                  value={editingPartner.display_order} 
+                  onChange={(e) => setEditingPartner(prev => prev ? { ...prev, display_order: parseInt(e.target.value) || 0 } : null)}
+                />
+              </div>
+              <div className="flex items-center gap-2">
+                <input 
+                  type="checkbox"
+                  checked={editingPartner.is_active}
+                  onChange={(e) => setEditingPartner(prev => prev ? { ...prev, is_active: e.target.checked } : null)}
+                  className="rounded"
+                />
+                <Label>نشط</Label>
+              </div>
+              <Button onClick={handleUpdatePartner} className="w-full">
                 <Save className="h-4 w-4 ml-2" />
                 حفظ التغييرات
               </Button>
