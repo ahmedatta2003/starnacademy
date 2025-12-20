@@ -25,7 +25,13 @@ import {
   Star,
   Award,
   Handshake,
-  Video
+  Video,
+  Calendar,
+  Phone,
+  Mail,
+  CheckCircle,
+  XCircle,
+  Clock
 } from 'lucide-react';
 import { toast } from 'sonner';
 import logo from "@/assets/starn-logo.png";
@@ -66,11 +72,24 @@ interface Partner {
   is_active: boolean;
 }
 
+interface FreeSessionBooking {
+  id: string;
+  child_name: string;
+  child_age: number;
+  parent_email: string;
+  parent_phone: string;
+  status: string;
+  notes: string | null;
+  session_date: string | null;
+  created_at: string;
+}
+
 const AdminDashboard: React.FC = () => {
   const { user, profile } = useAuth();
   const [students, setStudents] = useState<StudentShowcase[]>([]);
   const [projects, setProjects] = useState<StudentProject[]>([]);
   const [partners, setPartners] = useState<Partner[]>([]);
+  const [bookings, setBookings] = useState<FreeSessionBooking[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('students');
   
@@ -122,19 +141,20 @@ const AdminDashboard: React.FC = () => {
     try {
       setLoading(true);
       
-      const [studentsRes, projectsRes, partnersRes] = await Promise.all([
+      const [studentsRes, projectsRes, partnersRes, bookingsRes] = await Promise.all([
         supabase.from('students_showcase').select('*').order('created_at', { ascending: false }),
         supabase.from('student_projects').select('*').order('created_at', { ascending: false }),
-        supabase.from('partners').select('*').order('display_order', { ascending: true })
+        supabase.from('partners').select('*').order('display_order', { ascending: true }),
+        supabase.from('free_session_bookings').select('*').order('created_at', { ascending: false })
       ]);
 
       if (studentsRes.error) throw studentsRes.error;
       if (projectsRes.error) throw projectsRes.error;
-      // Partners table may not have data yet, don't throw error
       
       setStudents(studentsRes.data || []);
       setProjects(projectsRes.data || []);
       setPartners(partnersRes.data || []);
+      setBookings(bookingsRes.data || []);
 
     } catch (error) {
       console.error('Error loading data:', error);
@@ -361,6 +381,49 @@ const AdminDashboard: React.FC = () => {
     }
   };
 
+  // Booking handlers
+  const handleUpdateBookingStatus = async (id: string, status: string) => {
+    try {
+      const { error } = await supabase
+        .from('free_session_bookings')
+        .update({ status })
+        .eq('id', id);
+
+      if (error) throw error;
+
+      setBookings(prev => prev.map(b => b.id === id ? { ...b, status } : b));
+      toast.success('تم تحديث حالة الحجز');
+    } catch (error) {
+      console.error('Error updating booking:', error);
+      toast.error('حدث خطأ في تحديث الحجز');
+    }
+  };
+
+  const handleDeleteBooking = async (id: string) => {
+    if (!confirm('هل أنت متأكد من حذف هذا الحجز؟')) return;
+    
+    try {
+      const { error } = await supabase.from('free_session_bookings').delete().eq('id', id);
+      if (error) throw error;
+      setBookings(prev => prev.filter(b => b.id !== id));
+      toast.success('تم حذف الحجز بنجاح');
+    } catch (error) {
+      console.error('Error deleting booking:', error);
+      toast.error('حدث خطأ في حذف الحجز');
+    }
+  };
+
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case 'confirmed':
+        return <Badge className="bg-green-500"><CheckCircle className="h-3 w-3 ml-1" />مؤكد</Badge>;
+      case 'cancelled':
+        return <Badge variant="destructive"><XCircle className="h-3 w-3 ml-1" />ملغي</Badge>;
+      default:
+        return <Badge variant="secondary"><Clock className="h-3 w-3 ml-1" />قيد الانتظار</Badge>;
+    }
+  };
+
   // Check admin access
   if (!user || !profile || profile.role !== 'admin') {
     return (
@@ -445,6 +508,13 @@ const AdminDashboard: React.FC = () => {
           </Card>
           <Card>
             <CardContent className="p-6 text-center">
+              <Calendar className="h-10 w-10 mx-auto mb-3 text-coral" />
+              <div className="text-3xl font-bold">{bookings.length}</div>
+              <div className="text-muted-foreground">حجوزات</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-6 text-center">
               <Star className="h-10 w-10 mx-auto mb-3 text-yellow-500" />
               <div className="text-3xl font-bold">{students.filter(s => s.is_featured).length}</div>
               <div className="text-muted-foreground">طلاب مميزون</div>
@@ -453,7 +523,7 @@ const AdminDashboard: React.FC = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full max-w-lg grid-cols-3">
+          <TabsList className="grid w-full max-w-2xl grid-cols-4">
             <TabsTrigger value="students" className="flex items-center gap-2">
               <Users className="h-4 w-4" />
               الطلاب
@@ -465,6 +535,10 @@ const AdminDashboard: React.FC = () => {
             <TabsTrigger value="partners" className="flex items-center gap-2">
               <Handshake className="h-4 w-4" />
               الشركاء
+            </TabsTrigger>
+            <TabsTrigger value="bookings" className="flex items-center gap-2">
+              <Calendar className="h-4 w-4" />
+              الحجوزات
             </TabsTrigger>
           </TabsList>
 
@@ -838,6 +912,92 @@ const AdminDashboard: React.FC = () => {
                   <Handshake className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
                   <h3 className="text-lg font-semibold mb-2">لا يوجد شركاء بعد</h3>
                   <p className="text-muted-foreground">ابدأ بإضافة شركاء جدد</p>
+                </CardContent>
+              </Card>
+            )}
+          </TabsContent>
+
+          {/* Bookings Tab */}
+          <TabsContent value="bookings" className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold">حجوزات الحصص المجانية</h2>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Badge variant="secondary">{bookings.filter(b => b.status === 'pending').length} قيد الانتظار</Badge>
+                <Badge className="bg-green-500">{bookings.filter(b => b.status === 'confirmed').length} مؤكد</Badge>
+              </div>
+            </div>
+
+            {/* Bookings Table */}
+            <Card>
+              <CardContent className="p-0">
+                <div className="overflow-x-auto">
+                  <table className="w-full" dir="rtl">
+                    <thead className="bg-muted/50">
+                      <tr>
+                        <th className="p-4 text-right font-medium">اسم الطفل</th>
+                        <th className="p-4 text-right font-medium">العمر</th>
+                        <th className="p-4 text-right font-medium">البريد الإلكتروني</th>
+                        <th className="p-4 text-right font-medium">رقم الهاتف</th>
+                        <th className="p-4 text-right font-medium">الحالة</th>
+                        <th className="p-4 text-right font-medium">تاريخ الحجز</th>
+                        <th className="p-4 text-right font-medium">إجراءات</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y">
+                      {bookings.map((booking) => (
+                        <tr key={booking.id} className="hover:bg-muted/30">
+                          <td className="p-4 font-medium">{booking.child_name}</td>
+                          <td className="p-4">{booking.child_age} سنة</td>
+                          <td className="p-4">
+                            <a href={`mailto:${booking.parent_email}`} className="flex items-center gap-1 text-primary hover:underline">
+                              <Mail className="h-4 w-4" />
+                              {booking.parent_email}
+                            </a>
+                          </td>
+                          <td className="p-4">
+                            <a href={`tel:${booking.parent_phone}`} className="flex items-center gap-1 text-primary hover:underline">
+                              <Phone className="h-4 w-4" />
+                              {booking.parent_phone}
+                            </a>
+                          </td>
+                          <td className="p-4">{getStatusBadge(booking.status)}</td>
+                          <td className="p-4 text-muted-foreground text-sm">
+                            {new Date(booking.created_at).toLocaleDateString('ar-EG')}
+                          </td>
+                          <td className="p-4">
+                            <div className="flex items-center gap-2">
+                              <Select
+                                value={booking.status}
+                                onValueChange={(value) => handleUpdateBookingStatus(booking.id, value)}
+                              >
+                                <SelectTrigger className="w-32">
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="pending">قيد الانتظار</SelectItem>
+                                  <SelectItem value="confirmed">مؤكد</SelectItem>
+                                  <SelectItem value="cancelled">ملغي</SelectItem>
+                                </SelectContent>
+                              </Select>
+                              <Button variant="destructive" size="sm" onClick={() => handleDeleteBooking(booking.id)}>
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </CardContent>
+            </Card>
+
+            {bookings.length === 0 && (
+              <Card>
+                <CardContent className="p-12 text-center">
+                  <Calendar className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
+                  <h3 className="text-lg font-semibold mb-2">لا توجد حجوزات بعد</h3>
+                  <p className="text-muted-foreground">سيظهر هنا جميع حجوزات الحصص المجانية</p>
                 </CardContent>
               </Card>
             )}
