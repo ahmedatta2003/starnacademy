@@ -1,6 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { CodeBracket, PlusSign, Square, Semicircle } from "./shapes/ShapeElements";
 import heroImage from "@/assets/hero-kids-coding.jpg";
+import { Link } from "react-router-dom";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import { CalendarDays, Users, Sparkles, Gift } from "lucide-react";
 
 const Hero = () => {
   return (
@@ -49,12 +56,48 @@ const Hero = () => {
             </div>
 
             <div className="flex flex-wrap gap-4">
-              <Button size="lg" variant="secondary" className="text-lg px-8">
-                ابدأ التعلم الآن
-              </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 bg-transparent border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                شاهد الدورات
-              </Button>
+              <HoverCard openDelay={100} closeDelay={200}>
+                <HoverCardTrigger asChild>
+                  <Link to="/free-session">
+                    <Button size="lg" variant="secondary" className="text-lg px-8 group relative overflow-hidden">
+                      <Gift className="w-5 h-5 ml-2 group-hover:animate-bounce" />
+                      احجز حصتك المجانية
+                    </Button>
+                  </Link>
+                </HoverCardTrigger>
+                <HoverCardContent 
+                  className="w-80 bg-card border-2 border-golden/30 shadow-2xl animate-scale-in" 
+                  side="bottom"
+                  dir="rtl"
+                >
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 rounded-full bg-golden/20">
+                        <Sparkles className="w-6 h-6 text-golden" />
+                      </div>
+                      <h4 className="text-lg font-bold text-foreground">🎉 فرصة ذهبية!</h4>
+                    </div>
+                    
+                    <div className="space-y-3 text-sm">
+                      <div className="flex items-center gap-2 text-muted-foreground">
+                        <CalendarDays className="w-4 h-4 text-primary" />
+                        <span>الحصة المجانية يوم <strong className="text-primary">1 من كل شهر</strong></span>
+                      </div>
+                      
+                      <div className="flex items-center gap-2 text-muted-foreground">
+                        <Users className="w-4 h-4 text-coral" />
+                        <span>الأعداد <strong className="text-coral">محدودة جداً</strong> - سجل الآن!</span>
+                      </div>
+                    </div>
+                    
+                    <div className="p-3 bg-primary/10 rounded-lg border border-primary/20">
+                      <p className="text-sm text-foreground font-medium">
+                        ✨ امنح طفلك فرصة اكتشاف عالم البرمجة مجاناً! جلسة تفاعلية مع مدربين محترفين.
+                      </p>
+                    </div>
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
             </div>
 
             <div className="flex gap-8 pt-4" dir="rtl">

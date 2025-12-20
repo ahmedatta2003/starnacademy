@@ -20,6 +20,7 @@ import GradingSystem from "./pages/dashboard/GradingSystem";
 import NotFound from "./pages/NotFound";
 import Courses from "./pages/Courses";
 import Booking from "./pages/Booking";
+import FreeSession from "./pages/FreeSession";
 import StudentDashboard from "./pages/StudentDashboard";
 import ParentDashboard from "./pages/ParentDashboard";
 import InstructorDashboard from "./pages/InstructorDashboard";
@@ -53,6 +54,7 @@ const App = () => (
             </Route>
             <Route path="/courses" element={<Courses />} />
             <Route path="/booking" element={<Booking />} />
+            <Route path="/free-session" element={<FreeSession />} />
             <Route path="/student-dashboard" element={<StudentDashboard />} />
             <Route path="/parent-dashboard" element={<ParentDashboard />} />
             <Route path="/instructor-dashboard" element={<InstructorDashboard />} />
