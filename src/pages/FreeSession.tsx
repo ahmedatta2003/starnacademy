@@ -42,14 +42,18 @@ const FreeSession = () => {
     setLoading(true);
     
     try {
-      // Store booking in localStorage for now (can be connected to Supabase later)
-      const bookings = JSON.parse(localStorage.getItem('freeSessionBookings') || '[]');
-      bookings.push({
-        ...formData,
-        createdAt: new Date().toISOString(),
-        id: Date.now(),
-      });
-      localStorage.setItem('freeSessionBookings', JSON.stringify(bookings));
+      // Save to Supabase database
+      const { error } = await supabase
+        .from('free_session_bookings')
+        .insert({
+          child_name: formData.childName,
+          child_age: parseInt(formData.childAge),
+          parent_email: formData.parentEmail,
+          parent_phone: formData.parentPhone,
+          status: 'pending'
+        });
+      
+      if (error) throw error;
       
       setSubmitted(true);
       toast({
@@ -57,6 +61,7 @@ const FreeSession = () => {
         description: "سنتواصل معك قريباً لتأكيد موعد الحصة المجانية",
       });
     } catch (error) {
+      console.error('Booking error:', error);
       toast({
         title: "خطأ",
         description: "حدث خطأ أثناء الحجز. يرجى المحاولة مرة أخرى",

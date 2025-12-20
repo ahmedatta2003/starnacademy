@@ -72,6 +72,45 @@ export type Database = {
           },
         ]
       }
+      free_session_bookings: {
+        Row: {
+          child_age: number
+          child_name: string
+          created_at: string
+          id: string
+          notes: string | null
+          parent_email: string
+          parent_phone: string
+          session_date: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          child_age: number
+          child_name: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          parent_email: string
+          parent_phone: string
+          session_date?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          child_age?: number
+          child_name?: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          parent_email?: string
+          parent_phone?: string
+          session_date?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       guardians: {
         Row: {
           address: string | null
