@@ -1,9 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { Globe } from "lucide-react";
 import logo from "@/assets/starn-logo.png";
 import MobileMenu from "@/components/MobileMenu";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Header = () => {
+  const { language, toggleLanguage, t } = useLanguage();
+
   return (
     <header className="fixed top-0 w-full bg-background/95 backdrop-blur-sm border-b border-border z-50">
       <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -17,26 +21,39 @@ const Header = () => {
         
         <div className="hidden md:flex items-center gap-8">
           <a href="#about" className="text-foreground hover:text-primary transition-colors font-medium">
-            من نحن
+            {t('من نحن', 'About Us')}
           </a>
           <a href="#courses" className="text-foreground hover:text-primary transition-colors font-medium">
-            الدورات
+            {t('الدورات', 'Courses')}
           </a>
           <a href="#why-us" className="text-foreground hover:text-primary transition-colors font-medium">
-            لماذا نحن
+            {t('لماذا نحن', 'Why Us')}
           </a>
           <Link to="/booking" className="text-foreground hover:text-primary transition-colors font-medium">
-            احجز الآن
+            {t('احجز الآن', 'Book Now')}
           </Link>
           <a href="#contact" className="text-foreground hover:text-primary transition-colors font-medium">
-            تواصل معنا
+            {t('تواصل معنا', 'Contact Us')}
           </a>
         </div>
 
         <div className="flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleLanguage}
+            className="relative group"
+            title={language === 'ar' ? 'Switch to English' : 'التبديل للعربية'}
+          >
+            <Globe className="h-5 w-5" />
+            <span className="absolute -bottom-1 -right-1 text-[10px] font-bold bg-primary text-primary-foreground rounded-full w-4 h-4 flex items-center justify-center">
+              {language === 'ar' ? 'EN' : 'ع'}
+            </span>
+          </Button>
+          
           <Link to="/auth" className="hidden md:block">
             <Button size="lg">
-              تسجيل الدخول
+              {t('تسجيل الدخول', 'Login')}
             </Button>
           </Link>
           
