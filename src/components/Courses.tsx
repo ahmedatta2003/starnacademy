@@ -1,16 +1,22 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Users, BarChart } from "lucide-react";
+import { Clock, Users } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Courses = () => {
+  const { t } = useLanguage();
+
   const courses = [
     {
       title: "Introduction to Scratch",
       titleAr: "مقدمة في سكراتش",
-      age: "٦-٩ سنوات",
-      level: "مبتدئ",
-      duration: "١٢ أسبوع",
+      age: "6-9",
+      ageAr: "٦-٩ سنوات",
+      level: "Beginner",
+      levelAr: "مبتدئ",
+      duration: "12 weeks",
+      durationAr: "١٢ أسبوع",
       students: "150+",
       color: "turquoise",
       description: "Start coding journey with visual programming blocks",
@@ -19,9 +25,12 @@ const Courses = () => {
     {
       title: "Python for Kids",
       titleAr: "بايثون للأطفال",
-      age: "١٠-١٣ سنة",
-      level: "مبتدئ",
-      duration: "١٦ أسبوع",
+      age: "10-13",
+      ageAr: "١٠-١٣ سنة",
+      level: "Beginner",
+      levelAr: "مبتدئ",
+      duration: "16 weeks",
+      durationAr: "١٦ أسبوع",
       students: "200+",
       color: "purple",
       description: "Learn Python basics through games and animations",
@@ -30,9 +39,12 @@ const Courses = () => {
     {
       title: "Web Development",
       titleAr: "تطوير المواقع",
-      age: "١٢-١٥ سنة",
-      level: "متوسط",
-      duration: "٢٠ أسبوع",
+      age: "12-15",
+      ageAr: "١٢-١٥ سنة",
+      level: "Intermediate",
+      levelAr: "متوسط",
+      duration: "20 weeks",
+      durationAr: "٢٠ أسبوع",
       students: "120+",
       color: "coral",
       description: "Build websites with HTML, CSS, and JavaScript",
@@ -41,9 +53,12 @@ const Courses = () => {
     {
       title: "Mobile App Development",
       titleAr: "تطوير تطبيقات الجوال",
-      age: "١٤-١٨ سنة",
-      level: "متقدم",
-      duration: "٢٤ أسبوع",
+      age: "14-18",
+      ageAr: "١٤-١٨ سنة",
+      level: "Advanced",
+      levelAr: "متقدم",
+      duration: "24 weeks",
+      durationAr: "٢٤ أسبوع",
       students: "80+",
       color: "golden",
       description: "Create mobile apps and publish to app stores",
@@ -55,11 +70,17 @@ const Courses = () => {
     <section id="courses" className="py-24 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 space-y-3">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground" dir="rtl">
-            دوراتنا التعليمية
+          <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-semibold">
+            {t('الدورات', 'Courses')}
+          </span>
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground">
+            {t('دوراتنا التعليمية', 'Our Educational Courses')}
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto" dir="rtl">
-            مسارات تعليمية منظمة مصممة لكل فئة عمرية ومستوى مهارة
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            {t(
+              'مسارات تعليمية منظمة مصممة لكل فئة عمرية ومستوى مهارة',
+              'Structured learning paths designed for every age group and skill level'
+            )}
           </p>
         </div>
 
@@ -82,27 +103,28 @@ const Courses = () => {
                     color: 'white'
                   }}
                 >
-                  {course.level}
+                  {t(course.levelAr, course.level)}
                 </Badge>
-                <span className="text-sm font-medium text-muted-foreground">{course.age}</span>
+                <span className="text-sm font-medium text-muted-foreground">
+                  {t(course.ageAr, `${course.age} years`)}
+                </span>
               </div>
 
-              <h3 className="text-2xl font-bold mb-1 text-foreground" dir="rtl">{course.titleAr}</h3>
-              <p className="text-sm text-foreground/60 mb-3">{course.title}</p>
-              <p className="text-base text-muted-foreground mb-6 flex-grow" dir="rtl">{course.descriptionAr}</p>
+              <h3 className="text-2xl font-bold mb-1 text-foreground">
+                {t(course.titleAr, course.title)}
+              </h3>
+              <p className="text-base text-muted-foreground mb-6 flex-grow">
+                {t(course.descriptionAr, course.description)}
+              </p>
 
-              <div className="space-y-3 mb-6 text-sm text-muted-foreground" dir="rtl">
+              <div className="space-y-3 mb-6 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4" />
-                  <span>{course.age}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4" />
-                  <span>{course.duration}</span>
+                  <span>{t(course.durationAr, course.duration)}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Users className="w-4 h-4" />
-                  <span>{course.students}+ طالب مسجل</span>
+                  <span>{course.students} {t('طالب مسجل', 'enrolled students')}</span>
                 </div>
               </div>
 
@@ -110,7 +132,7 @@ const Courses = () => {
                 className="w-full"
                 style={{ backgroundColor: `hsl(var(--${course.color}))` }}
               >
-                اعرف المزيد
+                {t('اعرف المزيد', 'Learn More')}
               </Button>
             </Card>
           ))}

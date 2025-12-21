@@ -1,6 +1,9 @@
 import { Square, Semicircle, SprocketStar } from "./shapes/ShapeElements";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const WhyUs = () => {
+  const { t } = useLanguage();
+
   const reasons = [
     {
       title: "Age-Appropriate Curriculum",
@@ -50,17 +53,14 @@ const WhyUs = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16 space-y-3">
-          <h2 className="text-4xl md:text-5xl font-bold" dir="rtl">
-            لماذا تختار أكاديمية ستارن؟
+          <span className="inline-block px-4 py-2 bg-primary-foreground/20 text-primary-foreground rounded-full text-sm font-semibold">
+            {t('لماذا نحن', 'Why Us')}
+          </span>
+          <h2 className="text-4xl md:text-5xl font-bold">
+            {t('لماذا تختار أكاديمية ستارن؟', 'Why Choose Starn Academy?')}
           </h2>
-          <p className="text-lg opacity-80">
-            Why Choose Starn Academy?
-          </p>
-          <p className="text-xl opacity-95 max-w-2xl mx-auto" dir="rtl">
-            نحن لا نُعلّم البرمجة فقط، بل نبني مبتكري الغد
-          </p>
-          <p className="text-sm opacity-80 max-w-2xl mx-auto">
-            Building tomorrow's innovators
+          <p className="text-xl opacity-95 max-w-2xl mx-auto">
+            {t('نحن لا نُعلّم البرمجة فقط، بل نبني مبتكري الغد', 'We don\'t just teach coding, we build tomorrow\'s innovators')}
           </p>
         </div>
 
@@ -82,8 +82,12 @@ const WhyUs = () => {
                   }}
                 />
                 <div>
-                  <h3 className="text-xl font-bold mb-2" dir="rtl">{reason.titleAr}</h3>
-                  <p className="opacity-90 text-base" dir="rtl">{reason.descriptionAr}</p>
+                  <h3 className="text-xl font-bold mb-2">
+                    {t(reason.titleAr, reason.title)}
+                  </h3>
+                  <p className="opacity-90 text-base">
+                    {t(reason.descriptionAr, reason.description)}
+                  </p>
                 </div>
               </div>
             </div>
