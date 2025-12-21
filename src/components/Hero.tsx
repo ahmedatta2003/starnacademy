@@ -8,8 +8,11 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { CalendarDays, Users, Sparkles, Gift } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Hero = () => {
+  const { t, language } = useLanguage();
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-primary pt-20">
       {/* Code Pattern Background */}
@@ -38,20 +41,20 @@ const Hero = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="text-primary-foreground space-y-8">
             <div className="space-y-3">
-              <h1 className="text-5xl md:text-7xl font-bold leading-tight" dir="rtl">
-                نصنع عقول الغد
+              <h1 className="text-5xl md:text-7xl font-bold leading-tight">
+                {t('نصنع عقول الغد', 'Build Minds for Tomorrow')}
               </h1>
               <p className="text-xl md:text-2xl opacity-85">
-                Build Minds for Tomorrow
+                {t('Build Minds for Tomorrow', 'نصنع عقول الغد')}
               </p>
             </div>
 
             <div className="space-y-2">
-              <p className="text-xl md:text-2xl opacity-90 max-w-xl" dir="rtl">
-                نُمكّن الأطفال من سن 6-18 عاماً من إتقان البرمجة من خلال تجارب تعليمية تفاعلية وممتعة
-              </p>
-              <p className="text-base md:text-lg opacity-70 max-w-xl">
-                Empowering kids aged 6-18 to master coding through fun, interactive learning
+              <p className="text-xl md:text-2xl opacity-90 max-w-xl">
+                {t(
+                  'نُمكّن الأطفال من سن 6-18 عاماً من إتقان البرمجة من خلال تجارب تعليمية تفاعلية وممتعة',
+                  'Empowering kids aged 6-18 to master coding through fun, interactive learning experiences'
+                )}
               </p>
             </div>
 
@@ -61,38 +64,50 @@ const Hero = () => {
                   <Link to="/free-session">
                     <Button size="lg" variant="secondary" className="text-lg px-8 group relative overflow-hidden">
                       <Gift className="w-5 h-5 ml-2 group-hover:animate-bounce" />
-                      احجز حصتك المجانية
+                      {t('احجز حصتك المجانية', 'Book Your Free Session')}
                     </Button>
                   </Link>
                 </HoverCardTrigger>
                 <HoverCardContent 
                   className="w-80 bg-card border-2 border-golden/30 shadow-2xl animate-scale-in" 
                   side="bottom"
-                  dir="rtl"
+                  dir={language === 'ar' ? 'rtl' : 'ltr'}
                 >
                   <div className="space-y-4">
                     <div className="flex items-center gap-3">
                       <div className="p-2 rounded-full bg-golden/20">
                         <Sparkles className="w-6 h-6 text-golden" />
                       </div>
-                      <h4 className="text-lg font-bold text-foreground">🎉 فرصة ذهبية!</h4>
+                      <h4 className="text-lg font-bold text-foreground">
+                        {t('🎉 فرصة ذهبية!', '🎉 Golden Opportunity!')}
+                      </h4>
                     </div>
                     
                     <div className="space-y-3 text-sm">
                       <div className="flex items-center gap-2 text-muted-foreground">
                         <CalendarDays className="w-4 h-4 text-primary" />
-                        <span>الحصة المجانية يوم <strong className="text-primary">1 من كل شهر</strong></span>
+                        <span>
+                          {t('الحصة المجانية يوم ', 'Free session on the ')}
+                          <strong className="text-primary">{t('1 من كل شهر', '1st of every month')}</strong>
+                        </span>
                       </div>
                       
                       <div className="flex items-center gap-2 text-muted-foreground">
                         <Users className="w-4 h-4 text-coral" />
-                        <span>الأعداد <strong className="text-coral">محدودة جداً</strong> - سجل الآن!</span>
+                        <span>
+                          {t('الأعداد ', 'Spots are ')}
+                          <strong className="text-coral">{t('محدودة جداً', 'very limited')}</strong>
+                          {t(' - سجل الآن!', ' - Register now!')}
+                        </span>
                       </div>
                     </div>
                     
                     <div className="p-3 bg-primary/10 rounded-lg border border-primary/20">
                       <p className="text-sm text-foreground font-medium">
-                        ✨ امنح طفلك فرصة اكتشاف عالم البرمجة مجاناً! جلسة تفاعلية مع مدربين محترفين.
+                        {t(
+                          '✨ امنح طفلك فرصة اكتشاف عالم البرمجة مجاناً! جلسة تفاعلية مع مدربين محترفين.',
+                          '✨ Give your child a chance to explore the world of coding for free! Interactive session with professional trainers.'
+                        )}
                       </p>
                     </div>
                   </div>
@@ -100,18 +115,18 @@ const Hero = () => {
               </HoverCard>
             </div>
 
-            <div className="flex gap-8 pt-4" dir="rtl">
+            <div className="flex gap-8 pt-4">
               <div>
                 <p className="text-3xl font-bold text-golden">500+</p>
-                <p className="text-sm opacity-80">طالب</p>
+                <p className="text-sm opacity-80">{t('طالب', 'Students')}</p>
               </div>
               <div>
                 <p className="text-3xl font-bold text-golden">50+</p>
-                <p className="text-sm opacity-80">دورة</p>
+                <p className="text-sm opacity-80">{t('دورة', 'Courses')}</p>
               </div>
               <div>
                 <p className="text-3xl font-bold text-golden">98%</p>
-                <p className="text-sm opacity-80">رضا</p>
+                <p className="text-sm opacity-80">{t('رضا', 'Satisfaction')}</p>
               </div>
             </div>
           </div>
