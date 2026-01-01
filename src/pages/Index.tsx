@@ -12,6 +12,7 @@ import Certificate from "@/components/Certificate";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import AITutorChat from "@/components/AITutorChat";
 
 const Index = () => {
   return (
@@ -30,6 +31,7 @@ const Index = () => {
       <FAQ />
       <Footer />
       <WhatsAppButton />
+      <AITutorChat />
     </div>
   );
 };
