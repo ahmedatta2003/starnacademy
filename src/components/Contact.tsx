@@ -158,7 +158,7 @@ const Contact = () => {
               
               <div className="space-y-5">
                 <a 
-                  href="mailto:starnacademy42@gmail.com" 
+                  href="mailto:starnacademy.school@gmail.com" 
                   className="flex items-center gap-4 p-3 rounded-xl hover:bg-muted/50 transition-colors group"
                 >
                   <div className="w-12 h-12 rounded-xl bg-turquoise/10 flex items-center justify-center group-hover:bg-turquoise group-hover:text-white transition-colors">
@@ -166,7 +166,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-foreground">{t('البريد الإلكتروني', 'Email')}</p>
-                    <p className="text-muted-foreground text-sm">starnacademy42@gmail.com</p>
+                    <p className="text-muted-foreground text-sm">starnacademy.school@gmail.com</p>
                   </div>
                 </a>
 

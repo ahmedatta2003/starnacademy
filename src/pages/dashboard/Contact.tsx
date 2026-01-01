@@ -70,7 +70,7 @@ const Contact = () => {
                 <Mail className="h-5 w-5 text-primary mt-1" />
                 <div>
                   <p className="font-medium">البريد الإلكتروني</p>
-                  <p className="text-muted-foreground">info@starnacademy.com</p>
+                  <p className="text-muted-foreground">starnacademy.school@gmail.com</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
