@@ -28,6 +28,7 @@ import InstructorDashboard from "./pages/InstructorDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import GamificationSystem from "./components/GamificationSystem";
 import StudentProfile from "./pages/StudentProfile";
+import Community from "./pages/Community";
 
 const queryClient = new QueryClient();
 
@@ -63,6 +64,7 @@ const App = () => (
               <Route path="/admin-dashboard" element={<AdminDashboard />} />
               <Route path="/gamification" element={<GamificationSystem />} />
               <Route path="/student-profile/:studentId" element={<StudentProfile />} />
+              <Route path="/community" element={<Community />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

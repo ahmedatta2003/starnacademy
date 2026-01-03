@@ -19,6 +19,7 @@ const MobileMenu = () => {
     { title: "لماذا نحن", href: "#why-us" },
     { title: "احجز الآن", href: "/booking", isLink: true },
     { title: "تواصل معنا", href: "#contact" },
+    { title: "🌟 المجتمع", href: "/community", isLink: true },
   ];
 
   return (
