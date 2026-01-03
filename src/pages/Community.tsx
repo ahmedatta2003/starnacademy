@@ -28,6 +28,7 @@ import {
 import { formatDistanceToNow } from 'date-fns';
 import { ar } from 'date-fns/locale';
 import Header from '@/components/Header';
+import StickerPicker from '@/components/StickerPicker';
 
 interface Post {
   id: string;
@@ -498,6 +499,7 @@ const Community = () => {
                   />
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
+                      <StickerPicker onSelect={(emoji) => setNewPost(prev => prev + emoji)} />
                       <label className="cursor-pointer">
                         <Input
                           type="file"
@@ -771,7 +773,8 @@ const Community = () => {
                       </div>
                     </ScrollArea>
                     <div className="p-4 border-t border-border/50">
-                      <div className="flex gap-2">
+                      <div className="flex gap-2 items-center">
+                        <StickerPicker onSelect={(emoji) => setNewMessage(prev => prev + emoji)} />
                         <Input
                           placeholder="اكتب رسالتك..."
                           value={newMessage}
