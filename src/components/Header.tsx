@@ -35,6 +35,9 @@ const Header = () => {
           <a href="#contact" className="text-foreground hover:text-primary transition-colors font-medium">
             {t('تواصل معنا', 'Contact Us')}
           </a>
+          <Link to="/community" className="text-foreground hover:text-primary transition-colors font-medium flex items-center gap-1">
+            🌟 {t('المجتمع', 'Community')}
+          </Link>
         </div>
 
         <div className="flex items-center gap-2">
