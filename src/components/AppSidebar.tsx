@@ -77,15 +77,15 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar className={collapsed ? "w-14" : "w-64"} collapsible="icon">
+    <Sidebar className={collapsed ? "w-14" : "w-64"} collapsible="icon" side="right">
       <SidebarHeader className="border-b border-border/40 p-4">
-        <div className="flex items-center gap-2">
-          <img src="/src/assets/starn-logo.png" alt="Starn Academy" className="h-8 w-8" />
+        <div className="flex items-center gap-2 flex-row-reverse">
           {!collapsed && (
             <h2 className="font-bold text-lg bg-gradient-primary bg-clip-text text-transparent">
               Starn Academy
             </h2>
           )}
+          <img src="/src/assets/starn-logo.png" alt="Starn Academy" className="h-8 w-8" />
         </div>
       </SidebarHeader>
 
@@ -101,11 +101,11 @@ export function AppSidebar() {
                     <NavLink
                       to={item.url}
                       end
-                      className="hover:bg-muted/50 transition-colors"
-                      activeClassName="bg-primary/10 text-primary font-medium border-r-2 border-primary"
+                      className="hover:bg-muted/50 transition-colors flex flex-row-reverse gap-2"
+                      activeClassName="bg-primary/10 text-primary font-medium border-l-2 border-primary"
                     >
-                      <item.icon className="h-4 w-4" />
                       {!collapsed && <span>{item.title}</span>}
+                      <item.icon className="h-4 w-4" />
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -125,11 +125,11 @@ export function AppSidebar() {
                     <SidebarMenuButton asChild>
                       <NavLink
                         to={item.url}
-                        className="hover:bg-muted/50 transition-colors"
-                        activeClassName="bg-primary/10 text-primary font-medium border-r-2 border-primary"
+                        className="hover:bg-muted/50 transition-colors flex flex-row-reverse gap-2"
+                        activeClassName="bg-primary/10 text-primary font-medium border-l-2 border-primary"
                       >
-                        <item.icon className="h-4 w-4" />
                         {!collapsed && <span>{item.title}</span>}
+                        <item.icon className="h-4 w-4" />
                       </NavLink>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -149,11 +149,11 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <NavLink 
                       to={item.url + (item.hash || '')}
-                      className="hover:bg-muted/50 transition-colors" 
-                      activeClassName="bg-primary/10 text-primary font-medium border-r-2 border-primary"
+                      className="hover:bg-muted/50 transition-colors flex flex-row-reverse gap-2" 
+                      activeClassName="bg-primary/10 text-primary font-medium border-l-2 border-primary"
                     >
-                      <item.icon className="h-4 w-4" />
                       {!collapsed && <span>{item.title}</span>}
+                      <item.icon className="h-4 w-4" />
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -172,11 +172,11 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <NavLink 
                       to={item.url} 
-                      className="hover:bg-muted/50 transition-colors" 
-                      activeClassName="bg-primary/10 text-primary font-medium border-r-2 border-primary"
+                      className="hover:bg-muted/50 transition-colors flex flex-row-reverse gap-2" 
+                      activeClassName="bg-primary/10 text-primary font-medium border-l-2 border-primary"
                     >
-                      <item.icon className="h-4 w-4" />
                       {!collapsed && <span>{item.title}</span>}
+                      <item.icon className="h-4 w-4" />
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
