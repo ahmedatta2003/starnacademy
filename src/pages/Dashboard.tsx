@@ -27,12 +27,12 @@ const Dashboard = () => {
 
   return (
     <SidebarProvider defaultOpen={true}>
-      <div className="min-h-screen flex w-full">
+      <div className="min-h-screen flex flex-row-reverse w-full" dir="rtl">
         <AppSidebar />
         <main className="flex-1 flex flex-col min-w-0">
-          <header className="h-14 md:h-16 border-b border-border/40 flex items-center px-4 md:px-6 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-10">
-            <SidebarTrigger className="ml-2 md:ml-4" />
+          <header className="h-14 md:h-16 border-b border-border/40 flex items-center justify-between px-4 md:px-6 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-10">
             <h1 className="text-lg md:text-xl font-semibold truncate">لوحة التحكم</h1>
+            <SidebarTrigger className="mr-2 md:mr-4" />
           </header>
           <div className="flex-1 p-4 md:p-6 overflow-auto">
             <Outlet />
