@@ -791,8 +791,20 @@ const Community = () => {
                         {messages.map((message) => (
                           <div
                             key={message.id}
-                            className={`flex ${message.user_id === user?.id ? 'justify-end' : 'justify-start'}`}
+                            className={`group flex items-center gap-2 ${message.user_id === user?.id ? 'justify-end' : 'justify-start'}`}
                           >
+                            {/* Report button for other users' messages - appears on the right */}
+                            {message.user_id !== user?.id && (
+                              <button
+                                onClick={() => {
+                                  setReportDialog({ isOpen: true, contentType: 'message', contentId: message.id });
+                                }}
+                                className="opacity-0 group-hover:opacity-100 transition-opacity p-1.5 rounded-full hover:bg-destructive/10 text-muted-foreground hover:text-destructive"
+                                title="الإبلاغ عن الرسالة"
+                              >
+                                <Flag className="w-3.5 h-3.5" />
+                              </button>
+                            )}
                             <div
                               className={`max-w-[70%] rounded-2xl px-4 py-2 ${
                                 message.user_id === user?.id
