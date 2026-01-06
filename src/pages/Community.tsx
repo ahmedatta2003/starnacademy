@@ -23,12 +23,21 @@ import {
   Rocket,
   ArrowRight,
   Plus,
-  X
+  X,
+  Flag,
+  MoreVertical
 } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { formatDistanceToNow } from 'date-fns';
 import { ar } from 'date-fns/locale';
 import Header from '@/components/Header';
 import StickerPicker from '@/components/StickerPicker';
+import ReportContentDialog from '@/components/ReportContentDialog';
 
 interface Post {
   id: string;
@@ -100,7 +109,13 @@ const Community = () => {
   const [trainers, setTrainers] = useState<any[]>([]);
   const [students, setStudents] = useState<any[]>([]);
   const [showNewChatModal, setShowNewChatModal] = useState(false);
-
+  
+  // Report state
+  const [reportDialog, setReportDialog] = useState<{
+    isOpen: boolean;
+    contentType: 'post' | 'comment' | 'message';
+    contentId: string;
+  }>({ isOpen: false, contentType: 'post', contentId: '' });
   useEffect(() => {
     if (!authLoading && !user) {
       navigate('/auth');
@@ -574,6 +589,23 @@ const Community = () => {
                             {formatDistanceToNow(new Date(post.created_at), { addSuffix: true, locale: ar })}
                           </span>
                         </div>
+                        {/* Report Menu */}
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
+                              <MoreVertical className="w-4 h-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem 
+                              onClick={() => setReportDialog({ isOpen: true, contentType: 'post', contentId: post.id })}
+                              className="text-destructive focus:text-destructive cursor-pointer"
+                            >
+                              <Flag className="w-4 h-4 ml-2" />
+                              الإبلاغ عن المنشور
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
                       </div>
 
                       <p className="mt-4 text-lg leading-relaxed whitespace-pre-wrap">{post.content}</p>
@@ -637,7 +669,7 @@ const Community = () => {
 
                           <div className="space-y-3 max-h-60 overflow-y-auto">
                             {comments.map((comment) => (
-                              <div key={comment.id} className="flex gap-3 bg-muted/30 rounded-lg p-3">
+                              <div key={comment.id} className="flex gap-3 bg-muted/30 rounded-lg p-3 group">
                                 <Avatar className="w-8 h-8">
                                   <AvatarImage src={comment.profiles?.avatar_url || ''} />
                                   <AvatarFallback className="bg-secondary/20 text-secondary text-sm">
@@ -650,6 +682,13 @@ const Community = () => {
                                     <span className="text-xs text-muted-foreground">
                                       {formatDistanceToNow(new Date(comment.created_at), { addSuffix: true, locale: ar })}
                                     </span>
+                                    <button
+                                      onClick={() => setReportDialog({ isOpen: true, contentType: 'comment', contentId: comment.id })}
+                                      className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive mr-auto"
+                                      title="الإبلاغ عن التعليق"
+                                    >
+                                      <Flag className="w-3 h-3" />
+                                    </button>
                                   </div>
                                   <p className="text-sm mt-1">{comment.content}</p>
                                 </div>
@@ -887,6 +926,14 @@ const Community = () => {
             </Card>
           </div>
         )}
+        
+        {/* Report Content Dialog */}
+        <ReportContentDialog
+          isOpen={reportDialog.isOpen}
+          onClose={() => setReportDialog({ ...reportDialog, isOpen: false })}
+          contentType={reportDialog.contentType}
+          contentId={reportDialog.contentId}
+        />
       </main>
     </div>
   );
