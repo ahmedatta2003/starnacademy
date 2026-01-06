@@ -13,6 +13,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import FileUploader from '@/components/FileUploader';
+import AdminReportsPanel from '@/components/AdminReportsPanel';
 import {
   Users,
   Shield,
@@ -31,7 +32,8 @@ import {
   Mail,
   CheckCircle,
   XCircle,
-  Clock
+  Clock,
+  Flag
 } from 'lucide-react';
 import { toast } from 'sonner';
 import logo from "@/assets/starn-logo.png";
@@ -523,7 +525,7 @@ const AdminDashboard: React.FC = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full max-w-2xl grid-cols-4">
+          <TabsList className="grid w-full max-w-3xl grid-cols-5">
             <TabsTrigger value="students" className="flex items-center gap-2">
               <Users className="h-4 w-4" />
               الطلاب
@@ -539,6 +541,10 @@ const AdminDashboard: React.FC = () => {
             <TabsTrigger value="bookings" className="flex items-center gap-2">
               <Calendar className="h-4 w-4" />
               الحجوزات
+            </TabsTrigger>
+            <TabsTrigger value="reports" className="flex items-center gap-2">
+              <Flag className="h-4 w-4" />
+              البلاغات
             </TabsTrigger>
           </TabsList>
 
@@ -1001,6 +1007,11 @@ const AdminDashboard: React.FC = () => {
                 </CardContent>
               </Card>
             )}
+          </TabsContent>
+
+          {/* Reports Tab */}
+          <TabsContent value="reports" className="space-y-6">
+            <AdminReportsPanel />
           </TabsContent>
         </Tabs>
       </div>
