@@ -10,7 +10,7 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 w-full bg-background/95 backdrop-blur-sm border-b border-border z-50">
-      <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
+      <nav className="container mx-auto px-4 py-5 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
           <img src={logo} alt="Starn Academy Logo" className="h-16 w-16 md:h-20 md:w-20" />
           <div>
