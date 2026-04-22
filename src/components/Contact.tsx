@@ -4,6 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useSiteContent as useSiteContentWrapper } from "@/hooks/useSiteContent";
 
 const socialLinks = [
   {
@@ -60,6 +61,7 @@ const socialLinks = [
 
 const Contact = () => {
   const { t } = useLanguage();
+  const { c } = useSiteContentWrapper();
 
   return (
     <section id="contact" className="py-24 bg-gradient-to-b from-background to-muted/30 relative overflow-hidden">
@@ -70,13 +72,13 @@ const Contact = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16 space-y-4">
           <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-semibold">
-            {t('تواصل معنا', 'Contact Us')}
+            {c('contact', 'tag', 'تواصل معنا', 'Contact Us')}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-            {t('ابدأ رحلتك معنا اليوم', 'Start Your Journey Today')}
+            {c('contact', 'title', 'ابدأ رحلتك معنا اليوم', 'Start Your Journey Today')}
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            {t('هل أنت مستعد لبدء رحلة البرمجة؟ تواصل معنا لمعرفة المزيد عن التسجيل', 'Ready to start your coding journey? Contact us to learn more about enrollment')}
+            {c('contact', 'subtitle', 'هل أنت مستعد لبدء رحلة البرمجة؟ تواصل معنا لمعرفة المزيد عن التسجيل', 'Ready to start your coding journey? Contact us to learn more about enrollment')}
           </p>
         </div>
 

@@ -9,9 +9,11 @@ import {
 } from "@/components/ui/hover-card";
 import { CalendarDays, Users, Sparkles, Gift } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const Hero = () => {
   const { t, language } = useLanguage();
+  const { c } = useSiteContent();
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-primary pt-20">
@@ -42,18 +44,20 @@ const Hero = () => {
           <div className="text-primary-foreground space-y-8">
             <div className="space-y-3">
               <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-                {t('نصنع عقول الغد', 'Build Minds for Tomorrow')}
+                {c('hero', 'title', 'نصنع عقول الغد', 'Build Minds for Tomorrow')}
               </h1>
               <p className="text-xl md:text-2xl opacity-85">
-                {t('Build Minds for Tomorrow', 'نصنع عقول الغد')}
+                {c('hero', 'tagline', 'Build Minds for Tomorrow', 'نصنع عقول الغد')}
               </p>
             </div>
 
             <div className="space-y-2">
               <p className="text-xl md:text-2xl opacity-90 max-w-xl">
-                {t(
-                  'نُمكّن الأطفال من سن 6-18 عاماً من إتقان البرمجة من خلال تجارب تعليمية تفاعلية وممتعة',
-                  'Empowering kids aged 6-18 to master coding through fun, interactive learning experiences'
+                {c(
+                  'hero',
+                  'subtitle',
+                  'نُمكّن الأطفال من سن 6-18 عاماً من إتقان البرمجة من خلال تجارب تعليمية تفاعلية وممتعة — استثمر في مستقبل طفلك الآن.',
+                  'Empowering kids aged 6-18 to master coding through fun, interactive learning experiences — invest in your child\'s future today.'
                 )}
               </p>
             </div>
