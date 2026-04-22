@@ -317,6 +317,66 @@ export type Database = {
         }
         Relationships: []
       }
+      dynamic_courses: {
+        Row: {
+          age_range: string | null
+          created_at: string
+          description_ar: string | null
+          description_en: string | null
+          display_order: number
+          duration: string | null
+          features_ar: string[] | null
+          features_en: string[] | null
+          icon: string | null
+          id: string
+          image_url: string | null
+          is_visible: boolean
+          level: string | null
+          price: string | null
+          title_ar: string
+          title_en: string | null
+          updated_at: string
+        }
+        Insert: {
+          age_range?: string | null
+          created_at?: string
+          description_ar?: string | null
+          description_en?: string | null
+          display_order?: number
+          duration?: string | null
+          features_ar?: string[] | null
+          features_en?: string[] | null
+          icon?: string | null
+          id?: string
+          image_url?: string | null
+          is_visible?: boolean
+          level?: string | null
+          price?: string | null
+          title_ar: string
+          title_en?: string | null
+          updated_at?: string
+        }
+        Update: {
+          age_range?: string | null
+          created_at?: string
+          description_ar?: string | null
+          description_en?: string | null
+          display_order?: number
+          duration?: string | null
+          features_ar?: string[] | null
+          features_en?: string[] | null
+          icon?: string | null
+          id?: string
+          image_url?: string | null
+          is_visible?: boolean
+          level?: string | null
+          price?: string | null
+          title_ar?: string
+          title_en?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       free_session_bookings: {
         Row: {
           child_age: number
@@ -394,6 +454,48 @@ export type Database = {
           },
         ]
       }
+      parent_testimonials: {
+        Row: {
+          avatar_url: string | null
+          child_name: string | null
+          created_at: string
+          display_order: number
+          id: string
+          is_visible: boolean
+          parent_name: string
+          rating: number | null
+          testimonial_ar: string | null
+          testimonial_en: string | null
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          child_name?: string | null
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_visible?: boolean
+          parent_name: string
+          rating?: number | null
+          testimonial_ar?: string | null
+          testimonial_en?: string | null
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          child_name?: string | null
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_visible?: boolean
+          parent_name?: string
+          rating?: number | null
+          testimonial_ar?: string | null
+          testimonial_en?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       partners: {
         Row: {
           created_at: string
@@ -456,6 +558,66 @@ export type Database = {
           id?: string
           phone?: string | null
           role?: Database["public"]["Enums"]["app_role"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      site_content: {
+        Row: {
+          content_key: string
+          id: string
+          section: string
+          updated_at: string
+          updated_by: string | null
+          value_ar: string | null
+          value_en: string | null
+        }
+        Insert: {
+          content_key: string
+          id?: string
+          section: string
+          updated_at?: string
+          updated_by?: string | null
+          value_ar?: string | null
+          value_en?: string | null
+        }
+        Update: {
+          content_key?: string
+          id?: string
+          section?: string
+          updated_at?: string
+          updated_by?: string | null
+          value_ar?: string | null
+          value_en?: string | null
+        }
+        Relationships: []
+      }
+      site_sections: {
+        Row: {
+          display_order: number
+          id: string
+          is_visible: boolean
+          label_ar: string
+          label_en: string
+          section_key: string
+          updated_at: string
+        }
+        Insert: {
+          display_order?: number
+          id?: string
+          is_visible?: boolean
+          label_ar: string
+          label_en: string
+          section_key: string
+          updated_at?: string
+        }
+        Update: {
+          display_order?: number
+          id?: string
+          is_visible?: boolean
+          label_ar?: string
+          label_en?: string
+          section_key?: string
           updated_at?: string
         }
         Relationships: []
