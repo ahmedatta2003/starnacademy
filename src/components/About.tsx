@@ -1,9 +1,11 @@
 import { Card } from "@/components/ui/card";
 import { Code2, Users, Rocket, Award } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const About = () => {
   const { t } = useLanguage();
+  const { c } = useSiteContent();
 
   const features = [
     {
@@ -45,15 +47,17 @@ const About = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 space-y-3">
           <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-semibold">
-            {t('من نحن', 'About Us')}
+            {c('about', 'tag', 'من نحن', 'About Us')}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-            {t('مرحباً بك في أكاديمية ستارن', 'Welcome to Starn Academy')}
+            {c('about', 'title', 'مرحباً بك في أكاديمية ستارن', 'Welcome to Starn Academy')}
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            {t(
-              'نحن في مهمة لتمكين الجيل القادم بمهارات البرمجة التي ستشكل مستقبلهم. منهجنا المبتكر يجعل تعلم البرمجة ممتعاً وجذاباً ومتاحاً لجميع الأعمار',
-              'We are on a mission to empower the next generation with coding skills that will shape their future. Our innovative curriculum makes learning to code fun, engaging, and accessible for all ages'
+            {c(
+              'about',
+              'description',
+              'نحن في مهمة لتمكين الجيل القادم بمهارات البرمجة التي ستشكل مستقبلهم. منهجنا المبتكر يجعل تعلم البرمجة ممتعاً وجذاباً ومتاحاً لجميع الأعمار.',
+              'We are on a mission to empower the next generation with coding skills that will shape their future. Our innovative curriculum makes learning to code fun, engaging, and accessible for all ages.'
             )}
           </p>
         </div>
