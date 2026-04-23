@@ -10,7 +10,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-const MobileMenu = () => {
+const MobileMenu = ({ isAdmin = false }: { isAdmin?: boolean }) => {
   const [open, setOpen] = useState(false);
 
   const menuItems: { title: string; href: string; isLink?: boolean }[] = [
@@ -20,6 +20,7 @@ const MobileMenu = () => {
     { title: "احجز الآن", href: "/booking", isLink: true },
     { title: "تواصل معنا", href: "#contact" },
     { title: "🌟 المجتمع", href: "/community", isLink: true },
+    ...(isAdmin ? [{ title: "🛡️ لوحة الإدارة", href: "/admin/cms", isLink: true }] : []),
   ];
 
   return (
