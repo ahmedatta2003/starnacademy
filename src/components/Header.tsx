@@ -1,12 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Globe } from "lucide-react";
+import { Globe, Shield } from "lucide-react";
 import logo from "@/assets/starn-logo.png";
 import MobileMenu from "@/components/MobileMenu";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 const Header = () => {
   const { language, toggleLanguage, t } = useLanguage();
+  const isAdmin = useIsAdmin();
 
   return (
     <header className="fixed top-0 w-full bg-background/95 backdrop-blur-sm border-b border-border z-50">
@@ -54,13 +56,22 @@ const Header = () => {
             </span>
           </Button>
           
+          {isAdmin && (
+            <Link to="/admin/cms" className="hidden md:block">
+              <Button size="sm" variant="outline" className="gap-1">
+                <Shield className="w-4 h-4" />
+                {t('لوحة الإدارة', 'Admin')}
+              </Button>
+            </Link>
+          )}
+
           <Link to="/auth" className="hidden md:block">
             <Button size="lg">
               {t('تسجيل الدخول', 'Login')}
             </Button>
           </Link>
-          
-          <MobileMenu />
+
+          <MobileMenu isAdmin={isAdmin} />
         </div>
       </nav>
     </header>
