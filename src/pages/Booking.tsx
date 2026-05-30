@@ -444,32 +444,6 @@ const Booking = () => {
               </CardContent>
             </Card>
 
-            {/* Admin Section - Hidden for regular users */}
-            <Card className="border-dashed">
-              <CardHeader>
-                <CardTitle className="text-lg">إعداد Google Sheets</CardTitle>
-                <CardDescription>للمسؤولين فقط</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="space-y-2">
-                  <Label htmlFor="webhook">رابط Webhook</Label>
-                  <Input
-                    id="webhook"
-                    type="url"
-                    placeholder="https://script.google.com/..."
-                    value={webhookUrl}
-                    onChange={(e) => {
-                      setWebhookUrl(e.target.value);
-                      localStorage.setItem('booking_webhook_url', e.target.value);
-                    }}
-                    dir="ltr"
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    أدخل رابط Google Apps Script Web App
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </div>
