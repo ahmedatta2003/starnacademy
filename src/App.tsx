@@ -30,6 +30,7 @@ import GamificationSystem from "./components/GamificationSystem";
 import StudentProfile from "./pages/StudentProfile";
 import Community from "./pages/Community";
 import AdminCMS from "./pages/AdminCMS";
+import Quiz from "./pages/Quiz";
 
 const queryClient = new QueryClient();
 
@@ -67,6 +68,7 @@ const App = () => (
               <Route path="/student-profile/:studentId" element={<StudentProfile />} />
               <Route path="/community" element={<Community />} />
               <Route path="/admin/cms" element={<AdminCMS />} />
+              <Route path="/quiz" element={<Quiz />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

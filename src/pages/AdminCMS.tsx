@@ -10,6 +10,7 @@ import AdminSections from "@/components/admin/AdminSections";
 import AdminTestimonials from "@/components/admin/AdminTestimonials";
 import AdminCourses from "@/components/admin/AdminCourses";
 import AdminMedia from "@/components/admin/AdminMedia";
+import AdminQuiz from "@/components/admin/AdminQuiz";
 
 const AdminCMS = () => {
   const { user, loading } = useAuth();
@@ -70,12 +71,13 @@ const AdminCMS = () => {
         </div>
 
         <Tabs defaultValue="texts" className="w-full">
-          <TabsList className="grid grid-cols-2 md:grid-cols-5 w-full h-auto">
+          <TabsList className="grid grid-cols-2 md:grid-cols-6 w-full h-auto">
             <TabsTrigger value="texts">النصوص</TabsTrigger>
             <TabsTrigger value="sections">الأقسام</TabsTrigger>
             <TabsTrigger value="testimonials">آراء الأهل</TabsTrigger>
             <TabsTrigger value="courses">الكورسات</TabsTrigger>
             <TabsTrigger value="media">الوسائط</TabsTrigger>
+            <TabsTrigger value="quiz">الاختبار التكيفي</TabsTrigger>
           </TabsList>
 
           <TabsContent value="texts" className="mt-6">
@@ -92,6 +94,9 @@ const AdminCMS = () => {
           </TabsContent>
           <TabsContent value="media" className="mt-6">
             <AdminMedia />
+          </TabsContent>
+          <TabsContent value="quiz" className="mt-6">
+            <AdminQuiz />
           </TabsContent>
         </Tabs>
       </div>

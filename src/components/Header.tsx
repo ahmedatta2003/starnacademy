@@ -40,6 +40,9 @@ const Header = () => {
           <Link to="/community" className="text-foreground hover:text-primary transition-colors font-medium flex items-center gap-1">
             🌟 {t('المجتمع', 'Community')}
           </Link>
+          <Link to="/quiz" className="text-foreground hover:text-primary transition-colors font-medium flex items-center gap-1">
+            🧠 {t('اختبار المستوى', 'Quiz')}
+          </Link>
         </div>
 
         <div className="flex items-center gap-2">
