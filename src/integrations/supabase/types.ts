@@ -613,6 +613,120 @@ export type Database = {
         }
         Relationships: []
       }
+      quiz_attempts: {
+        Row: {
+          answers: Json | null
+          chosen_course: string
+          created_at: string
+          examinee_age: number
+          examinee_name: string
+          final_level: string | null
+          id: string
+          recommended_course: string | null
+          score: number
+          total_questions: number
+        }
+        Insert: {
+          answers?: Json | null
+          chosen_course: string
+          created_at?: string
+          examinee_age: number
+          examinee_name: string
+          final_level?: string | null
+          id?: string
+          recommended_course?: string | null
+          score?: number
+          total_questions?: number
+        }
+        Update: {
+          answers?: Json | null
+          chosen_course?: string
+          created_at?: string
+          examinee_age?: number
+          examinee_name?: string
+          final_level?: string | null
+          id?: string
+          recommended_course?: string | null
+          score?: number
+          total_questions?: number
+        }
+        Relationships: []
+      }
+      quiz_questions: {
+        Row: {
+          correct_option: number
+          course: string
+          created_at: string
+          difficulty: string
+          display_order: number
+          explanation_ar: string | null
+          explanation_en: string | null
+          id: string
+          is_visible: boolean
+          max_age: number
+          min_age: number
+          option_1_ar: string
+          option_1_en: string | null
+          option_2_ar: string
+          option_2_en: string | null
+          option_3_ar: string
+          option_3_en: string | null
+          option_4_ar: string
+          option_4_en: string | null
+          question_ar: string
+          question_en: string | null
+          updated_at: string
+        }
+        Insert: {
+          correct_option?: number
+          course: string
+          created_at?: string
+          difficulty?: string
+          display_order?: number
+          explanation_ar?: string | null
+          explanation_en?: string | null
+          id?: string
+          is_visible?: boolean
+          max_age?: number
+          min_age?: number
+          option_1_ar: string
+          option_1_en?: string | null
+          option_2_ar: string
+          option_2_en?: string | null
+          option_3_ar: string
+          option_3_en?: string | null
+          option_4_ar: string
+          option_4_en?: string | null
+          question_ar: string
+          question_en?: string | null
+          updated_at?: string
+        }
+        Update: {
+          correct_option?: number
+          course?: string
+          created_at?: string
+          difficulty?: string
+          display_order?: number
+          explanation_ar?: string | null
+          explanation_en?: string | null
+          id?: string
+          is_visible?: boolean
+          max_age?: number
+          min_age?: number
+          option_1_ar?: string
+          option_1_en?: string | null
+          option_2_ar?: string
+          option_2_en?: string | null
+          option_3_ar?: string
+          option_3_en?: string | null
+          option_4_ar?: string
+          option_4_en?: string | null
+          question_ar?: string
+          question_en?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       site_content: {
         Row: {
           content_key: string
