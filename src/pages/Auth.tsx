@@ -10,9 +10,21 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Loader2, ArrowRight, Sparkles, Code, Star } from 'lucide-react';
 import { z } from 'zod';
 
+const passwordSchema = z
+  .string()
+  .min(8, { message: "كلمة المرور يجب أن تكون 8 أحرف على الأقل" })
+  .regex(/[A-Z]/, { message: "يجب أن تحتوي على حرف كبير (A-Z) واحد على الأقل" })
+  .regex(/[a-z]/, { message: "يجب أن تحتوي على حرف صغير (a-z) واحد على الأقل" })
+  .regex(/[0-9]/, { message: "يجب أن تحتوي على رقم واحد على الأقل" });
+
 const authSchema = z.object({
   email: z.string().email({ message: "البريد الإلكتروني غير صحيح" }),
-  password: z.string().min(6, { message: "كلمة المرور يجب أن تكون 6 أحرف على الأقل" }),
+  password: z.string().min(1, { message: "كلمة المرور مطلوبة" }),
+});
+
+const authSignUpSchema = z.object({
+  email: z.string().email({ message: "البريد الإلكتروني غير صحيح" }),
+  password: passwordSchema,
 });
 
 const signUpSchema = authSchema.extend({
