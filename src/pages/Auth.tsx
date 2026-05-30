@@ -27,7 +27,7 @@ const authSignUpSchema = z.object({
   password: passwordSchema,
 });
 
-const signUpSchema = authSchema.extend({
+const signUpSchema = authSignUpSchema.extend({
   fullName: z.string().min(2, { message: "الاسم يجب أن يكون حرفين على الأقل" }),
   role: z.enum(['child', 'guardian'], { message: "يجب اختيار نوع الحساب" }),
 });
