@@ -317,6 +317,57 @@ export type Database = {
         }
         Relationships: []
       }
+      course_bookings: {
+        Row: {
+          child_age: number
+          child_name: string
+          course: string
+          created_at: string
+          email: string | null
+          id: string
+          notes: string | null
+          parent_name: string
+          phone: string
+          preferred_time: string
+          region: string
+          school_type: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          child_age: number
+          child_name: string
+          course: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          notes?: string | null
+          parent_name: string
+          phone: string
+          preferred_time: string
+          region: string
+          school_type: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          child_age?: number
+          child_name?: string
+          course?: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          notes?: string | null
+          parent_name?: string
+          phone?: string
+          preferred_time?: string
+          region?: string
+          school_type?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       dynamic_courses: {
         Row: {
           age_range: string | null

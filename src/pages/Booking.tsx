@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 import { Calendar, Clock, User, MapPin, School, Baby, Phone, Mail, Loader2, CheckCircle } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { supabase } from '@/integrations/supabase/client';
 
 const regions = [
   'الشرقية (الزقازيق)',
@@ -80,17 +81,14 @@ const Booking = () => {
     notes: ''
   });
 
-  const [webhookUrl, setWebhookUrl] = useState('');
-
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Validation
-    if (!formData.parentName || !formData.childName || !formData.phone || !formData.region || 
+
+    if (!formData.parentName || !formData.childName || !formData.phone || !formData.region ||
         !formData.childAge || !formData.schoolType || !formData.course || !formData.preferredTime) {
       toast.error('يرجى ملء جميع الحقول المطلوبة');
       return;
@@ -99,49 +97,23 @@ const Booking = () => {
     setLoading(true);
 
     try {
-      // Google Sheets webhook URL - will be configured
-      const googleSheetsUrl = webhookUrl || localStorage.getItem('booking_webhook_url');
-      
-      if (!googleSheetsUrl) {
-        // Store locally if no webhook configured
-        const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
-        bookings.push({
-          ...formData,
-          timestamp: new Date().toISOString(),
-          id: Date.now().toString()
-        });
-        localStorage.setItem('bookings', JSON.stringify(bookings));
-        
-        toast.success('تم حفظ الحجز بنجاح! سنتواصل معك قريباً');
-        setSubmitted(true);
-        return;
-      }
-
-      // Send to Google Sheets via webhook
-      const response = await fetch(googleSheetsUrl, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          parentName: formData.parentName,
-          childName: formData.childName,
-          phone: formData.phone,
-          email: formData.email,
-          region: formData.region,
-          childAge: formData.childAge,
-          schoolType: formData.schoolType,
-          course: formData.course,
-          preferredTime: formData.preferredTime,
-          notes: formData.notes,
-          timestamp: new Date().toISOString()
-        }),
+      const { error } = await supabase.from('course_bookings').insert({
+        parent_name: formData.parentName,
+        child_name: formData.childName,
+        phone: formData.phone,
+        email: formData.email || null,
+        region: formData.region,
+        child_age: parseInt(formData.childAge, 10),
+        school_type: formData.schoolType,
+        course: formData.course,
+        preferred_time: formData.preferredTime,
+        notes: formData.notes || null,
       });
+
+      if (error) throw error;
 
       toast.success('تم إرسال طلب الحجز بنجاح! سنتواصل معك قريباً');
       setSubmitted(true);
-      
     } catch (error) {
       console.error('Error submitting booking:', error);
       toast.error('حدث خطأ في إرسال الحجز. يرجى المحاولة مرة أخرى');
@@ -472,32 +444,6 @@ const Booking = () => {
               </CardContent>
             </Card>
 
-            {/* Admin Section - Hidden for regular users */}
-            <Card className="border-dashed">
-              <CardHeader>
-                <CardTitle className="text-lg">إعداد Google Sheets</CardTitle>
-                <CardDescription>للمسؤولين فقط</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="space-y-2">
-                  <Label htmlFor="webhook">رابط Webhook</Label>
-                  <Input
-                    id="webhook"
-                    type="url"
-                    placeholder="https://script.google.com/..."
-                    value={webhookUrl}
-                    onChange={(e) => {
-                      setWebhookUrl(e.target.value);
-                      localStorage.setItem('booking_webhook_url', e.target.value);
-                    }}
-                    dir="ltr"
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    أدخل رابط Google Apps Script Web App
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </div>
