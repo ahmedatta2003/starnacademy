@@ -230,7 +230,17 @@ const Quiz = () => {
   const chosenCourse = COURSES.find((c) => c.value === course);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
+    <div className="min-h-screen relative bg-gradient-to-b from-amber-50 via-orange-50/40 to-background">
+      <div
+        className="absolute inset-0 pointer-events-none opacity-20"
+        style={{
+          backgroundImage: `url(${quizPattern})`,
+          backgroundSize: "320px auto",
+          backgroundRepeat: "repeat",
+        }}
+        aria-hidden="true"
+      />
+      <div className="relative">
       <Header />
       <main className="container mx-auto px-4 pt-28 pb-12 max-w-3xl">
         <div className="flex items-center gap-3 mb-6">
