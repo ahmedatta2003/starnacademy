@@ -21,7 +21,7 @@ const Header = () => {
           </div>
         </Link>
         
-        <div className="hidden md:flex items-center gap-8 font-serif tracking-wide">
+        <div className="hidden md:flex items-center gap-8">
           <a href="#about" className="text-foreground hover:text-primary transition-colors font-medium">
             {t('من نحن', 'About Us')}
           </a>
