@@ -19,8 +19,9 @@ const MobileMenu = ({ isAdmin = false }: { isAdmin?: boolean }) => {
     { title: "لماذا نحن", href: "#why-us" },
     { title: "احجز الآن", href: "/booking", isLink: true },
     { title: "تواصل معنا", href: "#contact" },
-    { title: "🌟 المجتمع", href: "/community", isLink: true },
-    ...(isAdmin ? [{ title: "🛡️ لوحة الإدارة", href: "/admin/cms", isLink: true }] : []),
+    { title: "المجتمع", href: "/community", isLink: true },
+    { title: "اختبار المستوى", href: "/quiz", isLink: true },
+    ...(isAdmin ? [{ title: "لوحة الإدارة", href: "/admin/cms", isLink: true }] : []),
   ];
 
   return (
