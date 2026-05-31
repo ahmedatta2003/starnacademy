@@ -21,7 +21,7 @@ const Header = () => {
           </div>
         </Link>
         
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-8 font-serif tracking-wide">
           <a href="#about" className="text-foreground hover:text-primary transition-colors font-medium">
             {t('من نحن', 'About Us')}
           </a>
@@ -37,11 +37,11 @@ const Header = () => {
           <a href="#contact" className="text-foreground hover:text-primary transition-colors font-medium">
             {t('تواصل معنا', 'Contact Us')}
           </a>
-          <Link to="/community" className="text-foreground hover:text-primary transition-colors font-medium flex items-center gap-1">
-            🌟 {t('المجتمع', 'Community')}
+          <Link to="/community" className="text-foreground hover:text-primary transition-colors font-medium">
+            {t('المجتمع', 'Community')}
           </Link>
-          <Link to="/quiz" className="text-foreground hover:text-primary transition-colors font-medium flex items-center gap-1">
-            🧠 {t('اختبار المستوى', 'Quiz')}
+          <Link to="/quiz" className="text-foreground hover:text-primary transition-colors font-medium">
+            {t('اختبار المستوى', 'Quiz')}
           </Link>
         </div>
 
