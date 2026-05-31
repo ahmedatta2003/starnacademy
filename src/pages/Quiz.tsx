@@ -12,6 +12,7 @@ import { Loader2, Sparkles, ArrowLeft, RotateCcw, CheckCircle2, XCircle, Brain }
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
+import quizPattern from "@/assets/quiz-pattern.png";
 
 type Question = {
   id: string;
