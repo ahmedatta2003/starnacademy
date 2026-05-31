@@ -411,6 +411,7 @@ const Quiz = () => {
         )}
       </main>
       <Footer />
+      </div>
     </div>
   );
 };
