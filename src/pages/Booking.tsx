@@ -10,6 +10,13 @@ import { Calendar, Clock, User, MapPin, School, Baby, Phone, Mail, Loader2, Chec
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { supabase } from '@/integrations/supabase/client';
+import bookingPattern from '@/assets/booking-pattern.png.asset.json';
+
+const patternStyle: React.CSSProperties = {
+  backgroundImage: `url(${bookingPattern.url})`,
+  backgroundRepeat: 'repeat',
+  backgroundSize: '380px auto',
+};
 
 const regions = [
   'الشرقية (الزقازيق)',
