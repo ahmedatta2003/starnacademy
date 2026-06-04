@@ -31,6 +31,7 @@ import StudentProfile from "./pages/StudentProfile";
 import Community from "./pages/Community";
 import AdminCMS from "./pages/AdminCMS";
 import Quiz from "./pages/Quiz";
+import Methodology from "./pages/Methodology";
 
 const queryClient = new QueryClient();
 
@@ -69,6 +70,7 @@ const App = () => (
               <Route path="/community" element={<Community />} />
               <Route path="/admin/cms" element={<AdminCMS />} />
               <Route path="/quiz" element={<Quiz />} />
+              <Route path="/methodology" element={<Methodology />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

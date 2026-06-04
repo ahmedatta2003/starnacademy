@@ -37,8 +37,8 @@ const Header = () => {
           <a href="#contact" className="text-foreground hover:text-primary transition-colors font-medium">
             {t('تواصل معنا', 'Contact Us')}
           </a>
-          <Link to="/community" className="text-foreground hover:text-primary transition-colors font-medium">
-            {t('المجتمع', 'Community')}
+          <Link to="/methodology" className="text-foreground hover:text-primary transition-colors font-medium">
+            {t('حول منهجنا', 'Our Methodology')}
           </Link>
           <Link to="/quiz" className="text-foreground hover:text-primary transition-colors font-medium">
             {t('اختبار المستوى', 'Quiz')}
