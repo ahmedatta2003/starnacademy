@@ -10,6 +10,13 @@ import { Calendar, Clock, User, MapPin, School, Baby, Phone, Mail, Loader2, Chec
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { supabase } from '@/integrations/supabase/client';
+import bookingPattern from '@/assets/booking-pattern.png.asset.json';
+
+const patternStyle: React.CSSProperties = {
+  backgroundImage: `url(${bookingPattern.url})`,
+  backgroundRepeat: 'repeat',
+  backgroundSize: '380px auto',
+};
 
 const regions = [
   'الشرقية (الزقازيق)',
@@ -124,7 +131,9 @@ const Booking = () => {
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/5">
+      <div className="min-h-screen relative bg-gradient-to-br from-primary/5 via-background to-accent/5">
+        <div aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.08]" style={patternStyle} />
+        <div className="relative z-10">
         <Header />
         <div className="container mx-auto px-4 py-20">
           <Card className="max-w-lg mx-auto text-center">
@@ -149,12 +158,15 @@ const Booking = () => {
           </Card>
         </div>
         <Footer />
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/5" dir="rtl">
+    <div className="min-h-screen relative bg-gradient-to-br from-primary/5 via-background to-accent/5" dir="rtl">
+      <div aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.08]" style={patternStyle} />
+      <div className="relative z-10">
       <Header />
       
       <div className="container mx-auto px-4 py-16">
@@ -449,6 +461,7 @@ const Booking = () => {
       </div>
 
       <Footer />
+      </div>
     </div>
   );
 };
