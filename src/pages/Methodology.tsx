@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Brain, GraduationCap, Briefcase, Wrench, Sparkles, HelpCircle } from "lucide-react";
+import patternAsset from "@/assets/methodology-pattern.png.asset.json";
 
 const Methodology = () => {
   const faqs = [
