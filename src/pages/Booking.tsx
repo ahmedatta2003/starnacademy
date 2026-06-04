@@ -131,8 +131,9 @@ const Booking = () => {
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/5">
-        <Header />
+      <div className="min-h-screen relative bg-gradient-to-br from-primary/5 via-background to-accent/5">
+        <div aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.08]" style={patternStyle} />
+        <div className="relative z-10">
         <div className="container mx-auto px-4 py-20">
           <Card className="max-w-lg mx-auto text-center">
             <CardContent className="p-12">
