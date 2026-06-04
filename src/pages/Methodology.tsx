@@ -212,6 +212,7 @@ const Methodology = () => {
       </main>
 
       <Footer />
+      </div>
     </div>
   );
 };
