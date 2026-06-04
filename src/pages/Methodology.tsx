@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Brain, GraduationCap, Briefcase, Wrench, Sparkles, HelpCircle } from "lucide-react";
+import patternAsset from "@/assets/methodology-pattern.png.asset.json";
 
 const Methodology = () => {
   const faqs = [
@@ -68,7 +69,18 @@ const Methodology = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col" dir="rtl">
+    <div className="min-h-screen flex flex-col relative" dir="rtl">
+      {/* Repeating geometric pattern background */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none opacity-[0.08]"
+        style={{
+          backgroundImage: `url(${patternAsset.url})`,
+          backgroundRepeat: "repeat",
+          backgroundSize: "320px 320px",
+        }}
+      />
+      <div className="relative z-10 flex flex-col flex-1">
       <Header />
 
       <main className="flex-1 pt-28 pb-16">
@@ -200,6 +212,7 @@ const Methodology = () => {
       </main>
 
       <Footer />
+      </div>
     </div>
   );
 };
