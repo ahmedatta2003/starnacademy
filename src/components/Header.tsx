@@ -14,7 +14,7 @@ const Header = () => {
     <header className="fixed top-0 w-full bg-background/95 backdrop-blur-sm border-b border-border z-50">
       <nav className="container mx-auto px-4 py-5 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-          <img src={logo} alt="Starn Academy Logo" className="h-[3.3rem] w-[3.3rem]" />
+          <img src={logo} alt="Starn Academy Logo" className="h-[3.3rem] w-[3.3rem] text-center" />
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-primary">starn academy</h1>
             <p className="text-xs md:text-sm text-muted-foreground">Build Minds for Tomorrow</p>
