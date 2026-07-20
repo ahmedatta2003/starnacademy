@@ -1,4 +1,4 @@
-import certificateTemplate from "@/assets/certificate-template.png";
+import certificateTemplate from "@/assets/certificate-template-new.png.asset.json";
 import {
   Carousel,
   CarouselContent,
@@ -77,7 +77,7 @@ const Certificate = () => {
             <div className="absolute -inset-1 bg-gradient-to-r from-primary via-turquoise to-purple rounded-lg blur-lg opacity-25 group-hover:opacity-50 transition duration-500"></div>
             <div className="relative bg-background p-4 md:p-6 rounded-lg shadow-2xl">
               <img 
-                src={certificateTemplate} 
+                src={certificateTemplate.url} 
                 alt="Starn Academy Certificate of Completion - شهادة إتمام من أكاديمية ستارن" 
                 className="w-full h-auto rounded-lg shadow-lg"
               />
