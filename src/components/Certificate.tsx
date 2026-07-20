@@ -1,4 +1,4 @@
-import certificateTemplate from "@/assets/certificate-template.png";
+import certificateTemplate from "@/assets/certificate-template-new.png.asset.json";
 import {
   Carousel,
   CarouselContent,
