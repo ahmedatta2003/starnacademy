@@ -191,6 +191,21 @@ const Methodology = () => {
               <h2 className="text-3xl md:text-4xl font-bold">أسئلة شائعة حول المنهج</h2>
             </div>
 
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "FAQPage",
+                  mainEntity: faqs.map((f) => ({
+                    "@type": "Question",
+                    name: f.question,
+                    acceptedAnswer: { "@type": "Answer", text: f.answer },
+                  })),
+                }),
+              }}
+            />
+
             <Accordion type="single" collapsible className="space-y-3">
               {faqs.map((f, i) => (
                 <AccordionItem
@@ -207,6 +222,7 @@ const Methodology = () => {
                 </AccordionItem>
               ))}
             </Accordion>
+
           </section>
         </div>
       </main>
