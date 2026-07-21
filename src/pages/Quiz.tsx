@@ -97,7 +97,7 @@ const Quiz = () => {
       toast({ variant: "destructive", title: "لا توجد أسئلة", description: "لم يتم إضافة أسئلة لهذا الكورس بعد." });
       return;
     }
-    const pool = data as Question[];
+    const pool = data as unknown as Question[];
     setAllQuestions(pool);
     const first = pickNext(pool, [], "easy", ageNum);
     if (!first) {
