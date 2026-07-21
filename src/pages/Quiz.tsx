@@ -116,10 +116,23 @@ const Quiz = () => {
     setStage("quiz");
   };
 
-  const submitAnswer = () => {
+  const submitAnswer = async () => {
     if (!current || !answer) return;
     const chosen = parseInt(answer);
-    const isCorrect = chosen === current.correct_option;
+    const { data: checkData, error: checkError } = await supabase.rpc("check_quiz_answer", {
+      _question_id: current.id,
+      _chosen: chosen,
+    });
+    if (checkError || !checkData || checkData.length === 0) {
+      toast({ variant: "destructive", title: "خطأ", description: "تعذر التحقق من الإجابة" });
+      return;
+    }
+    const result = checkData[0];
+    const isCorrect = result.is_correct;
+    const correctOption = result.correct_option;
+    const explanationAr = result.explanation_ar;
+    // Store correct option on current for feedback rendering
+    setCurrent({ ...current, correct_option: correctOption, explanation_ar: explanationAr });
     const newScore = score + (isCorrect ? 1 : 0);
     const newStreak = isCorrect ? streak + 1 : 0;
     const newMiss = isCorrect ? 0 : missStreak + 1;
@@ -128,7 +141,7 @@ const Quiz = () => {
       {
         q: current.question_ar,
         chosen,
-        correct: current.correct_option,
+        correct: correctOption,
         difficulty: current.difficulty,
         ok: isCorrect,
       },
@@ -139,7 +152,7 @@ const Quiz = () => {
     setMissStreak(newMiss);
     setFeedback({
       ok: isCorrect,
-      text: isCorrect ? "إجابة صحيحة! 🎉" : `إجابة خاطئة. ${current.explanation_ar ?? ""}`,
+      text: isCorrect ? "إجابة صحيحة! 🎉" : `إجابة خاطئة. ${explanationAr ?? ""}`,
     });
 
     // Adaptive level shift
