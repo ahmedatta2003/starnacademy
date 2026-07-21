@@ -25,8 +25,8 @@ type Question = {
   option_2_ar: string;
   option_3_ar: string;
   option_4_ar: string;
-  correct_option: number;
-  explanation_ar: string | null;
+  correct_option?: number;
+  explanation_ar?: string | null;
 };
 
 const COURSES = [
@@ -88,7 +88,7 @@ const Quiz = () => {
     }
     setLoading(true);
     const { data, error } = await supabase
-      .from("quiz_questions")
+      .from("quiz_questions_public" as any)
       .select("*")
       .eq("course", course)
       .eq("is_visible", true);
@@ -97,7 +97,7 @@ const Quiz = () => {
       toast({ variant: "destructive", title: "لا توجد أسئلة", description: "لم يتم إضافة أسئلة لهذا الكورس بعد." });
       return;
     }
-    const pool = data as Question[];
+    const pool = data as unknown as Question[];
     setAllQuestions(pool);
     const first = pickNext(pool, [], "easy", ageNum);
     if (!first) {
@@ -116,10 +116,23 @@ const Quiz = () => {
     setStage("quiz");
   };
 
-  const submitAnswer = () => {
+  const submitAnswer = async () => {
     if (!current || !answer) return;
     const chosen = parseInt(answer);
-    const isCorrect = chosen === current.correct_option;
+    const { data: checkData, error: checkError } = await supabase.rpc("check_quiz_answer", {
+      _question_id: current.id,
+      _chosen: chosen,
+    });
+    if (checkError || !checkData || checkData.length === 0) {
+      toast({ variant: "destructive", title: "خطأ", description: "تعذر التحقق من الإجابة" });
+      return;
+    }
+    const result = checkData[0];
+    const isCorrect = result.is_correct;
+    const correctOption = result.correct_option;
+    const explanationAr = result.explanation_ar;
+    // Store correct option on current for feedback rendering
+    setCurrent({ ...current, correct_option: correctOption, explanation_ar: explanationAr });
     const newScore = score + (isCorrect ? 1 : 0);
     const newStreak = isCorrect ? streak + 1 : 0;
     const newMiss = isCorrect ? 0 : missStreak + 1;
@@ -128,7 +141,7 @@ const Quiz = () => {
       {
         q: current.question_ar,
         chosen,
-        correct: current.correct_option,
+        correct: correctOption,
         difficulty: current.difficulty,
         ok: isCorrect,
       },
@@ -139,7 +152,7 @@ const Quiz = () => {
     setMissStreak(newMiss);
     setFeedback({
       ok: isCorrect,
-      text: isCorrect ? "إجابة صحيحة! 🎉" : `إجابة خاطئة. ${current.explanation_ar ?? ""}`,
+      text: isCorrect ? "إجابة صحيحة! 🎉" : `إجابة خاطئة. ${explanationAr ?? ""}`,
     });
 
     // Adaptive level shift

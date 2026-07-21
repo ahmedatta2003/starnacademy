@@ -92,20 +92,26 @@ export type Database = {
       chat_rooms: {
         Row: {
           created_at: string
+          created_by: string | null
           id: string
           is_group: boolean | null
+          is_public: boolean
           name: string | null
         }
         Insert: {
           created_at?: string
+          created_by?: string | null
           id?: string
           is_group?: boolean | null
+          is_public?: boolean
           name?: string | null
         }
         Update: {
           created_at?: string
+          created_by?: string | null
           id?: string
           is_group?: boolean | null
+          is_public?: boolean
           name?: string | null
         }
         Relationships: []
@@ -946,10 +952,83 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      quiz_questions_public: {
+        Row: {
+          course: string | null
+          created_at: string | null
+          difficulty: string | null
+          display_order: number | null
+          id: string | null
+          is_visible: boolean | null
+          max_age: number | null
+          min_age: number | null
+          option_1_ar: string | null
+          option_1_en: string | null
+          option_2_ar: string | null
+          option_2_en: string | null
+          option_3_ar: string | null
+          option_3_en: string | null
+          option_4_ar: string | null
+          option_4_en: string | null
+          question_ar: string | null
+          question_en: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          course?: string | null
+          created_at?: string | null
+          difficulty?: string | null
+          display_order?: number | null
+          id?: string | null
+          is_visible?: boolean | null
+          max_age?: number | null
+          min_age?: number | null
+          option_1_ar?: string | null
+          option_1_en?: string | null
+          option_2_ar?: string | null
+          option_2_en?: string | null
+          option_3_ar?: string | null
+          option_3_en?: string | null
+          option_4_ar?: string | null
+          option_4_en?: string | null
+          question_ar?: string | null
+          question_en?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          course?: string | null
+          created_at?: string | null
+          difficulty?: string | null
+          display_order?: number | null
+          id?: string | null
+          is_visible?: boolean | null
+          max_age?: number | null
+          min_age?: number | null
+          option_1_ar?: string | null
+          option_1_en?: string | null
+          option_2_ar?: string | null
+          option_2_en?: string | null
+          option_3_ar?: string | null
+          option_3_en?: string | null
+          option_4_ar?: string | null
+          option_4_en?: string | null
+          question_ar?: string | null
+          question_en?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
-      [_ in never]: never
+      check_quiz_answer: {
+        Args: { _chosen: number; _question_id: string }
+        Returns: {
+          correct_option: number
+          explanation_ar: string
+          explanation_en: string
+          is_correct: boolean
+        }[]
+      }
     }
     Enums: {
       app_role: "admin" | "guardian" | "child" | "trainer"
