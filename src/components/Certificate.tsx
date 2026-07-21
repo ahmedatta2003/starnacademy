@@ -16,6 +16,7 @@ import businessPartnersLogo from "@/assets/partners/business-partners-logo.png";
 import trackuLogo from "@/assets/partners/tracku-logo.png";
 import partner6Logo from "@/assets/partners/partner6-logo.png";
 import partner7Logo from "@/assets/partners/partner7-logo.jpeg";
+import floricaLogoAsset from "@/assets/partners/florica-plants-logo.png.asset.json";
 
 interface Partner {
   id: string;
@@ -33,6 +34,7 @@ const staticPartners = [
   { id: '5', name: "تراكي نشاط طلابي", logo_url: trackuLogo, website_url: null, display_order: 5 },
   { id: '6', name: "Partner 6", logo_url: partner6Logo, website_url: null, display_order: 6 },
   { id: '7', name: "Partner 7", logo_url: partner7Logo, website_url: null, display_order: 7 },
+  { id: '8', name: "Florica Plants", logo_url: floricaLogoAsset.url, website_url: null, display_order: 8 },
 ];
 
 const Certificate = () => {
