@@ -25,8 +25,8 @@ type Question = {
   option_2_ar: string;
   option_3_ar: string;
   option_4_ar: string;
-  correct_option: number;
-  explanation_ar: string | null;
+  correct_option?: number;
+  explanation_ar?: string | null;
 };
 
 const COURSES = [
