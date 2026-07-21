@@ -88,7 +88,7 @@ const Quiz = () => {
     }
     setLoading(true);
     const { data, error } = await supabase
-      .from("quiz_questions")
+      .from("quiz_questions_public" as any)
       .select("*")
       .eq("course", course)
       .eq("is_visible", true);
