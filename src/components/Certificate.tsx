@@ -16,7 +16,7 @@ import businessPartnersLogo from "@/assets/partners/business-partners-logo.png";
 import trackuLogo from "@/assets/partners/tracku-logo.png";
 import partner6Logo from "@/assets/partners/partner6-logo.png";
 import partner7Logo from "@/assets/partners/partner7-logo.jpeg";
-import floricaLogoAsset from "@/assets/partners/florica-plants-logo.png.asset.json";
+import floricaLogoAsset from "@/assets/partners/florica-plants-logo-new.png.asset.json";
 
 interface Partner {
   id: string;
