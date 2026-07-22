@@ -36,6 +36,8 @@ import {
   Bell
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { getPersonalization } from '@/data/studentPersonalization';
+import PersonalizedInsightCard from '@/components/student/PersonalizedInsightCard';
 
 interface Student {
   id: string;
@@ -612,33 +614,43 @@ const StudentProfile: React.FC = () => {
             </Tabs>
           </div>
 
-          {/* Student Header */}
-          <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
-              <Avatar className="h-24 w-24">
-                <AvatarImage src={student.avatar_url} />
-                <AvatarFallback className="text-2xl">
-                  {student.full_name.split(' ').map(n => n[0]).join('')}
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex-1">
-                <h1 className="text-3xl font-bold text-gradient-fun mb-2">
-                  {student.full_name}
-                </h1>
-                <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-                  <span>{student.age} سنة</span>
-                  <span>•</span>
-                  <span>انضم في {new Date(student.join_date).toLocaleDateString('ar-SA')}</span>
-                  <span>•</span>
-                  <span>الترتيب #{student.rank}</span>
+          {(() => {
+            const personalization = getPersonalization(student.id);
+            return (
+              <>
+                {/* Student Header */}
+                <div className={`bg-white rounded-xl shadow-lg p-6 mb-6 border-t-4 ${personalization.theme.ring.replace('ring-', 'border-')}`}>
+                  <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
+                    <Avatar className={`h-24 w-24 ring-4 ${personalization.theme.ring}`}>
+                      <AvatarImage src={student.avatar_url} />
+                      <AvatarFallback className={`text-2xl text-white bg-gradient-to-br ${personalization.theme.gradient}`}>
+                        {student.full_name.split(' ').map(n => n[0]).join('')}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1">
+                      <h1 className="text-3xl font-bold text-gradient-fun mb-2">
+                        {student.full_name}
+                      </h1>
+                      <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+                        <span>{student.age} سنة</span>
+                        <span>•</span>
+                        <span>انضم في {new Date(student.join_date).toLocaleDateString('ar-SA')}</span>
+                        <span>•</span>
+                        <span>الترتيب #{student.rank}</span>
+                      </div>
+                      <p className="mt-3 text-gray-700">{student.bio}</p>
+                    </div>
+                  </div>
                 </div>
-                <p className="mt-3 text-gray-700">{student.bio}</p>
-              </div>
-              <div className={`w-20 h-20 rounded-full flex items-center justify-center bg-gradient-to-br from-purple-400 to-pink-500`}>
-                <Star className="h-8 w-8 text-white" />
-              </div>
-            </div>
-          </div>
+
+                {/* AI-personalized insight + adaptive path */}
+                <PersonalizedInsightCard
+                  studentName={student.full_name}
+                  personalization={personalization}
+                />
+              </>
+            );
+          })()}
 
           {/* Content Sections */}
           {activeSection === 'overview' && (
