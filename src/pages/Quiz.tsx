@@ -119,15 +119,14 @@ const Quiz = () => {
   const submitAnswer = async () => {
     if (!current || !answer) return;
     const chosen = parseInt(answer);
-    const { data: checkData, error: checkError } = await supabase.rpc("check_quiz_answer", {
-      _question_id: current.id,
-      _chosen: chosen,
+    const { data: checkData, error: checkError } = await supabase.functions.invoke("check-quiz-answer", {
+      body: { question_id: current.id, chosen },
     });
-    if (checkError || !checkData || checkData.length === 0) {
+    if (checkError || !checkData) {
       toast({ variant: "destructive", title: "خطأ", description: "تعذر التحقق من الإجابة" });
       return;
     }
-    const result = checkData[0];
+    const result = checkData;
     const isCorrect = result.is_correct;
     const correctOption = result.correct_option;
     const explanationAr = result.explanation_ar;
