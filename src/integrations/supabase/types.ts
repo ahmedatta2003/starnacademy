@@ -14,6 +14,92 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_events: {
+        Row: {
+          action: string
+          actor_id: string | null
+          created_at: string
+          id: string
+          inputs: Json
+          model: string | null
+          module: string
+          output: Json
+          overridden: boolean
+          override_reason: string | null
+          reasoning: string | null
+          student_id: string | null
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          created_at?: string
+          id?: string
+          inputs?: Json
+          model?: string | null
+          module: string
+          output?: Json
+          overridden?: boolean
+          override_reason?: string | null
+          reasoning?: string | null
+          student_id?: string | null
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          created_at?: string
+          id?: string
+          inputs?: Json
+          model?: string | null
+          module?: string
+          output?: Json
+          overridden?: boolean
+          override_reason?: string | null
+          reasoning?: string | null
+          student_id?: string | null
+        }
+        Relationships: []
+      }
+      attendance: {
+        Row: {
+          course_id: string | null
+          created_at: string
+          id: string
+          notes: string | null
+          recorded_by: string | null
+          session_date: string
+          status: string
+          student_id: string
+        }
+        Insert: {
+          course_id?: string | null
+          created_at?: string
+          id?: string
+          notes?: string | null
+          recorded_by?: string | null
+          session_date: string
+          status?: string
+          student_id: string
+        }
+        Update: {
+          course_id?: string | null
+          created_at?: string
+          id?: string
+          notes?: string | null
+          recorded_by?: string | null
+          session_date?: string
+          status?: string
+          student_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "dynamic_courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       chat_messages: {
         Row: {
           content: string
@@ -511,6 +597,163 @@ export type Database = {
           },
         ]
       }
+      homework_submissions: {
+        Row: {
+          course_id: string | null
+          created_at: string
+          feedback: string | null
+          id: string
+          reviewed_at: string | null
+          score: number | null
+          status: string
+          student_id: string
+          submitted_at: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          course_id?: string | null
+          created_at?: string
+          feedback?: string | null
+          id?: string
+          reviewed_at?: string | null
+          score?: number | null
+          status?: string
+          student_id: string
+          submitted_at?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          course_id?: string | null
+          created_at?: string
+          feedback?: string | null
+          id?: string
+          reviewed_at?: string | null
+          score?: number | null
+          status?: string
+          student_id?: string
+          submitted_at?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "homework_submissions_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "dynamic_courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      learning_paths: {
+        Row: {
+          course_id: string | null
+          created_at: string
+          created_by: string | null
+          current_stage_index: number
+          eta_weeks: number | null
+          id: string
+          source: string
+          stages: Json
+          status: string
+          student_id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          course_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          current_stage_index?: number
+          eta_weeks?: number | null
+          id?: string
+          source?: string
+          stages?: Json
+          status?: string
+          student_id: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          course_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          current_stage_index?: number
+          eta_weeks?: number | null
+          id?: string
+          source?: string
+          stages?: Json
+          status?: string
+          student_id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "learning_paths_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "dynamic_courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      parent_reports: {
+        Row: {
+          created_at: string
+          home_actions: string | null
+          id: string
+          improvements: string | null
+          metrics: Json
+          next_milestone: string | null
+          period: string
+          period_end: string
+          period_start: string
+          risk_alerts: string[]
+          student_id: string
+          summary: string
+          support_areas: string | null
+          what_happened: string | null
+          why_it_happened: string | null
+        }
+        Insert: {
+          created_at?: string
+          home_actions?: string | null
+          id?: string
+          improvements?: string | null
+          metrics?: Json
+          next_milestone?: string | null
+          period: string
+          period_end: string
+          period_start: string
+          risk_alerts?: string[]
+          student_id: string
+          summary: string
+          support_areas?: string | null
+          what_happened?: string | null
+          why_it_happened?: string | null
+        }
+        Update: {
+          created_at?: string
+          home_actions?: string | null
+          id?: string
+          improvements?: string | null
+          metrics?: Json
+          next_milestone?: string | null
+          period?: string
+          period_end?: string
+          period_start?: string
+          risk_alerts?: string[]
+          student_id?: string
+          summary?: string
+          support_areas?: string | null
+          what_happened?: string | null
+          why_it_happened?: string | null
+        }
+        Relationships: []
+      }
       parent_testimonials: {
         Row: {
           avatar_url: string | null
@@ -585,6 +828,86 @@ export type Database = {
           website_url?: string | null
         }
         Relationships: []
+      }
+      placement_assessments: {
+        Row: {
+          age: number | null
+          answers: Json
+          confidence: number | null
+          created_at: string
+          dimension_scores: Json
+          expected_duration_weeks: number | null
+          id: string
+          prerequisites: string[]
+          prior_experience: string | null
+          reasoning: string | null
+          recommended_course_id: string | null
+          recommended_course_key: string | null
+          recommended_level: string | null
+          roadmap: Json
+          self_confidence: number | null
+          status: string
+          strengths: string[]
+          student_id: string
+          target_course: string | null
+          updated_at: string
+          weaknesses: string[]
+        }
+        Insert: {
+          age?: number | null
+          answers?: Json
+          confidence?: number | null
+          created_at?: string
+          dimension_scores?: Json
+          expected_duration_weeks?: number | null
+          id?: string
+          prerequisites?: string[]
+          prior_experience?: string | null
+          reasoning?: string | null
+          recommended_course_id?: string | null
+          recommended_course_key?: string | null
+          recommended_level?: string | null
+          roadmap?: Json
+          self_confidence?: number | null
+          status?: string
+          strengths?: string[]
+          student_id: string
+          target_course?: string | null
+          updated_at?: string
+          weaknesses?: string[]
+        }
+        Update: {
+          age?: number | null
+          answers?: Json
+          confidence?: number | null
+          created_at?: string
+          dimension_scores?: Json
+          expected_duration_weeks?: number | null
+          id?: string
+          prerequisites?: string[]
+          prior_experience?: string | null
+          reasoning?: string | null
+          recommended_course_id?: string | null
+          recommended_course_key?: string | null
+          recommended_level?: string | null
+          roadmap?: Json
+          self_confidence?: number | null
+          status?: string
+          strengths?: string[]
+          student_id?: string
+          target_course?: string | null
+          updated_at?: string
+          weaknesses?: string[]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "placement_assessments_recommended_course_id_fkey"
+            columns: ["recommended_course_id"]
+            isOneToOne: false
+            referencedRelation: "dynamic_courses"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
@@ -664,6 +987,7 @@ export type Database = {
           course: string
           created_at: string
           difficulty: string
+          dimension: string | null
           display_order: number
           explanation_ar: string | null
           explanation_en: string | null
@@ -688,6 +1012,7 @@ export type Database = {
           course: string
           created_at?: string
           difficulty?: string
+          dimension?: string | null
           display_order?: number
           explanation_ar?: string | null
           explanation_en?: string | null
@@ -712,6 +1037,7 @@ export type Database = {
           course?: string
           created_at?: string
           difficulty?: string
+          dimension?: string | null
           display_order?: number
           explanation_ar?: string | null
           explanation_en?: string | null
@@ -792,6 +1118,144 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      skill_scores: {
+        Row: {
+          id: string
+          recorded_at: string
+          score: number
+          skill: string
+          source: string
+          source_id: string | null
+          student_id: string
+        }
+        Insert: {
+          id?: string
+          recorded_at?: string
+          score: number
+          skill: string
+          source: string
+          source_id?: string | null
+          student_id: string
+        }
+        Update: {
+          id?: string
+          recorded_at?: string
+          score?: number
+          skill?: string
+          source?: string
+          source_id?: string | null
+          student_id?: string
+        }
+        Relationships: []
+      }
+      student_intelligence: {
+        Row: {
+          achievements: Json
+          ai_narrative: string | null
+          ai_narrative_updated_at: string | null
+          ai_score: number
+          badges: Json
+          communication_score: number
+          completed_courses: Json
+          consistency_score: number
+          course_progress: number
+          created_at: string
+          creativity_score: number
+          current_course_id: string | null
+          current_level: string | null
+          learning_speed: number
+          logical_thinking_score: number
+          milestones: Json
+          next_recommended_course_id: string | null
+          predicted_success_rate: number
+          presentation_score: number
+          problem_solving_score: number
+          programming_score: number
+          recommended_improvements: string[]
+          risk_indicators: string[]
+          strengths: string[]
+          student_id: string
+          teamwork_score: number
+          updated_at: string
+          weaknesses: string[]
+        }
+        Insert: {
+          achievements?: Json
+          ai_narrative?: string | null
+          ai_narrative_updated_at?: string | null
+          ai_score?: number
+          badges?: Json
+          communication_score?: number
+          completed_courses?: Json
+          consistency_score?: number
+          course_progress?: number
+          created_at?: string
+          creativity_score?: number
+          current_course_id?: string | null
+          current_level?: string | null
+          learning_speed?: number
+          logical_thinking_score?: number
+          milestones?: Json
+          next_recommended_course_id?: string | null
+          predicted_success_rate?: number
+          presentation_score?: number
+          problem_solving_score?: number
+          programming_score?: number
+          recommended_improvements?: string[]
+          risk_indicators?: string[]
+          strengths?: string[]
+          student_id: string
+          teamwork_score?: number
+          updated_at?: string
+          weaknesses?: string[]
+        }
+        Update: {
+          achievements?: Json
+          ai_narrative?: string | null
+          ai_narrative_updated_at?: string | null
+          ai_score?: number
+          badges?: Json
+          communication_score?: number
+          completed_courses?: Json
+          consistency_score?: number
+          course_progress?: number
+          created_at?: string
+          creativity_score?: number
+          current_course_id?: string | null
+          current_level?: string | null
+          learning_speed?: number
+          logical_thinking_score?: number
+          milestones?: Json
+          next_recommended_course_id?: string | null
+          predicted_success_rate?: number
+          presentation_score?: number
+          problem_solving_score?: number
+          programming_score?: number
+          recommended_improvements?: string[]
+          risk_indicators?: string[]
+          strengths?: string[]
+          student_id?: string
+          teamwork_score?: number
+          updated_at?: string
+          weaknesses?: string[]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_intelligence_current_course_id_fkey"
+            columns: ["current_course_id"]
+            isOneToOne: false
+            referencedRelation: "dynamic_courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_intelligence_next_recommended_course_id_fkey"
+            columns: ["next_recommended_course_id"]
+            isOneToOne: false
+            referencedRelation: "dynamic_courses"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       student_projects: {
         Row: {
@@ -887,6 +1351,97 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      teacher_assignments: {
+        Row: {
+          assigned_by: string | null
+          course_id: string | null
+          created_at: string
+          id: string
+          is_active: boolean
+          notes: string | null
+          student_id: string
+          teacher_id: string
+          updated_at: string
+        }
+        Insert: {
+          assigned_by?: string | null
+          course_id?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          notes?: string | null
+          student_id: string
+          teacher_id: string
+          updated_at?: string
+        }
+        Update: {
+          assigned_by?: string | null
+          course_id?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          notes?: string | null
+          student_id?: string
+          teacher_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "teacher_assignments_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "dynamic_courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      teacher_evaluations: {
+        Row: {
+          course_id: string | null
+          created_at: string
+          id: string
+          notes: string | null
+          overall_rating: number | null
+          skill_ratings: Json
+          student_id: string
+          teacher_id: string
+          updated_at: string
+          visible_to_parent: boolean
+        }
+        Insert: {
+          course_id?: string | null
+          created_at?: string
+          id?: string
+          notes?: string | null
+          overall_rating?: number | null
+          skill_ratings?: Json
+          student_id: string
+          teacher_id: string
+          updated_at?: string
+          visible_to_parent?: boolean
+        }
+        Update: {
+          course_id?: string | null
+          created_at?: string
+          id?: string
+          notes?: string | null
+          overall_rating?: number | null
+          skill_ratings?: Json
+          student_id?: string
+          teacher_id?: string
+          updated_at?: string
+          visible_to_parent?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "teacher_evaluations_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "dynamic_courses"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       trainers: {
         Row: {
@@ -1029,6 +1584,8 @@ export type Database = {
           is_correct: boolean
         }[]
       }
+      is_assigned_teacher: { Args: { _student_id: string }; Returns: boolean }
+      is_guardian_of: { Args: { _child_user_id: string }; Returns: boolean }
     }
     Enums: {
       app_role: "admin" | "guardian" | "child" | "trainer"
