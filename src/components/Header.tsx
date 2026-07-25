@@ -60,7 +60,7 @@ const Header = () => {
           </Button>
           
           {isAdmin && (
-            <Link to="/admin/cms" className="hidden md:block">
+            <Link to="/admin" className="hidden md:block">
               <Button size="sm" variant="outline" className="gap-1">
                 <Shield className="w-4 h-4" />
                 {t('لوحة الإدارة', 'Admin')}
