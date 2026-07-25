@@ -21,7 +21,7 @@ const MobileMenu = ({ isAdmin = false }: { isAdmin?: boolean }) => {
     { title: "تواصل معنا", href: "#contact" },
     { title: "حول منهجنا", href: "/methodology", isLink: true },
     { title: "اختبار المستوى", href: "/quiz", isLink: true },
-    ...(isAdmin ? [{ title: "لوحة الإدارة", href: "/admin/cms", isLink: true }] : []),
+    ...(isAdmin ? [{ title: "لوحة الإدارة", href: "/admin", isLink: true }] : []),
   ];
 
   return (

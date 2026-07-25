@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -25,15 +26,21 @@ import FreeSession from "./pages/FreeSession";
 import StudentDashboard from "./pages/StudentDashboard";
 import ParentDashboard from "./pages/ParentDashboard";
 import InstructorDashboard from "./pages/InstructorDashboard";
-import AdminDashboard from "./pages/AdminDashboard";
 import GamificationSystem from "./components/GamificationSystem";
 import StudentProfile from "./pages/StudentProfile";
 import Community from "./pages/Community";
-import AdminCMS from "./pages/AdminCMS";
 import Quiz from "./pages/Quiz";
 import Methodology from "./pages/Methodology";
 
+const AdminRoutes = lazy(() => import("./admin/AdminRoutes"));
+
 const queryClient = new QueryClient();
+
+const AdminFallback = () => (
+  <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
+    <div className="animate-pulse text-sm text-muted-foreground">Loading admin…</div>
+  </div>
+);
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -64,13 +71,19 @@ const App = () => (
               <Route path="/student-dashboard" element={<StudentDashboard />} />
               <Route path="/parent-dashboard" element={<ParentDashboard />} />
               <Route path="/instructor-dashboard" element={<InstructorDashboard />} />
-              <Route path="/admin-dashboard" element={<AdminDashboard />} />
               <Route path="/gamification" element={<GamificationSystem />} />
               <Route path="/student-profile/:studentId" element={<StudentProfile />} />
               <Route path="/community" element={<Community />} />
-              <Route path="/admin/cms" element={<AdminCMS />} />
               <Route path="/quiz" element={<Quiz />} />
               <Route path="/methodology" element={<Methodology />} />
+              <Route
+                path="/admin/*"
+                element={
+                  <Suspense fallback={<AdminFallback />}>
+                    <AdminRoutes />
+                  </Suspense>
+                }
+              />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
