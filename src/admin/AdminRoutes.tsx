@@ -4,7 +4,20 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminGuard from "./guards/AdminGuard";
 import AdminLayout from "./layout/AdminLayout";
 import AdminDashboard from "./pages/AdminDashboard";
-import AdminPlaceholder from "./pages/AdminPlaceholder";
+import AdminStudents from "./pages/AdminStudents";
+import AdminParents from "./pages/AdminParents";
+import AdminTeachers from "./pages/AdminTeachers";
+import AdminCourses from "./pages/AdminCourses";
+import AdminQuizzes from "./pages/AdminQuizzes";
+import AdminBookings from "./pages/AdminBookings";
+import AdminAttendance from "./pages/AdminAttendance";
+import AdminCommunity from "./pages/AdminCommunity";
+import AdminWebsite from "./pages/AdminWebsite";
+import AdminAI from "./pages/AdminAI";
+import AdminAnalytics from "./pages/AdminAnalytics";
+import AdminAudit from "./pages/AdminAudit";
+import AdminFeatureFlags from "./pages/AdminFeatureFlags";
+import AdminSettings from "./pages/AdminSettings";
 
 const AdminRoutes = () => (
   <AdminThemeProvider>
@@ -18,20 +31,20 @@ const AdminRoutes = () => (
         }
       >
         <Route index element={<AdminDashboard />} />
-        <Route path="students" element={<AdminPlaceholder title="Students" phase={2} />} />
-        <Route path="parents" element={<AdminPlaceholder title="Parents" phase={2} />} />
-        <Route path="teachers" element={<AdminPlaceholder title="Teachers" phase={2} />} />
-        <Route path="courses" element={<AdminPlaceholder title="Courses" phase={2} />} />
-        <Route path="quizzes" element={<AdminPlaceholder title="Quizzes" phase={2} />} />
-        <Route path="bookings" element={<AdminPlaceholder title="Bookings" phase={2} />} />
-        <Route path="attendance" element={<AdminPlaceholder title="Attendance" phase={2} />} />
-        <Route path="community" element={<AdminPlaceholder title="Community & Moderation" phase={2} />} />
-        <Route path="website" element={<AdminPlaceholder title="Website CMS" phase={2} />} />
-        <Route path="ai" element={<AdminPlaceholder title="AI Engine" phase={3} />} />
-        <Route path="analytics" element={<AdminPlaceholder title="Analytics" phase={3} />} />
-        <Route path="audit" element={<AdminPlaceholder title="Audit Logs" phase={3} />} />
-        <Route path="feature-flags" element={<AdminPlaceholder title="Feature Flags" phase={3} />} />
-        <Route path="settings" element={<AdminPlaceholder title="Settings" phase={3} />} />
+        <Route path="students" element={<AdminStudents />} />
+        <Route path="parents" element={<AdminParents />} />
+        <Route path="teachers" element={<AdminTeachers />} />
+        <Route path="courses" element={<AdminCourses />} />
+        <Route path="quizzes" element={<AdminQuizzes />} />
+        <Route path="bookings" element={<AdminBookings />} />
+        <Route path="attendance" element={<AdminAttendance />} />
+        <Route path="community" element={<AdminCommunity />} />
+        <Route path="website" element={<AdminWebsite />} />
+        <Route path="ai" element={<AdminAI />} />
+        <Route path="analytics" element={<AdminAnalytics />} />
+        <Route path="audit" element={<AdminAudit />} />
+        <Route path="feature-flags" element={<AdminFeatureFlags />} />
+        <Route path="settings" element={<AdminSettings />} />
       </Route>
       <Route path="*" element={<Navigate to="/admin" replace />} />
     </Routes>
