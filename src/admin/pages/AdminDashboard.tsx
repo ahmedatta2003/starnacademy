@@ -168,7 +168,7 @@ const AdminDashboard = () => {
             </li>
             <li className="flex items-center justify-between">
               <span className="text-muted-foreground">Version</span>
-              <span className="text-xs">v2.0 · Phase 1</span>
+              <span className="text-xs">v2.0</span>
             </li>
           </ul>
           <a
