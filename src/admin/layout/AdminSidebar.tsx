@@ -100,7 +100,7 @@ const AdminSidebar = () => {
         ))}
       </nav>
       <div className="p-3 border-t border-border text-[10px] text-muted-foreground">
-        v2.0 · Phase 1
+        v2.0 · EduOS Console
       </div>
     </aside>
   );
