@@ -30,9 +30,9 @@ type Question = {
 };
 
 const COURSES = [
-  { value: "genius", label: "Genius — شهرين", desc: "أساسيات البرمجة للمبتدئين" },
-  { value: "stars", label: "Stars of Tomorrow —شهر  4", desc: "بناء مهارات متوسطة" },
-  { value: "diploma", label: "Diploma — شهور 6", desc: "دبلومة احترافية متقدمة" },
+  { value: "genius", label: "شهرين — Genius", desc: "أساسيات البرمجة للمبتدئين" },
+  { value: "stars", label: "شهور 4 — Stars of Tomorrow", desc: "بناء مهارات متوسطة" },
+  { value: "diploma", label: "شهور 6 — Diploma", desc: "دبلومة احترافية متقدمة" },
 ];
 
 const LEVELS = ["easy", "medium", "hard"] as const;
