@@ -31,7 +31,7 @@ type Question = {
 
 const COURSES = [
   { value: "genius", label: "Genius — شهرين", desc: "أساسيات البرمجة للمبتدئين" },
-  { value: "stars", label: "Stars of Tomorrow — شهور 4", desc: "بناء مهارات متوسطة" },
+  { value: "stars", label: "Stars of Tomorrow —شهر  4", desc: "بناء مهارات متوسطة" },
   { value: "diploma", label: "Diploma — شهور 6", desc: "دبلومة احترافية متقدمة" },
 ];
 
