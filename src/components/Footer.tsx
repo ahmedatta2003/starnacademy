@@ -105,6 +105,12 @@ const Footer = () => {
         <div className="border-t border-background/10 pt-8 text-center text-background/50 text-sm">
           <p>© 2025 Starn Academy. {t('جميع الحقوق محفوظة', 'All rights reserved')}.</p>
           <p className="mt-2">Build Minds for Tomorrow</p>
+          <Link
+            to="/admin/login"
+            className="mt-4 inline-flex items-center justify-center rounded-md border border-background/20 px-4 py-2 text-xs font-semibold text-background/80 transition-colors hover:border-background/40 hover:bg-background/10 hover:text-background"
+          >
+            Admin
+          </Link>
         </div>
       </div>
     </footer>

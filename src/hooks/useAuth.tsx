@@ -27,11 +27,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const loadProfile = async (userId: string) => {
     try {
-      const { data: profile } = await supabase
+      const { data: profile, error } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', userId)
-        .single();
+        .maybeSingle();
+
+      if (error) {
+        console.error('Error loading profile:', error);
+        setProfile(null);
+        return;
+      }
 
       setProfile(profile);
     } catch (error) {
@@ -43,12 +49,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
+      (_event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
 
         if (session?.user) {
-          await loadProfile(session.user.id);
+          setProfile(null);
+          window.setTimeout(() => {
+            void loadProfile(session.user.id);
+          }, 0);
         } else {
           setProfile(null);
         }
@@ -146,8 +155,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           email: email,
           full_name: fullName,
           role: role,
-          is_active: true,
-          email_verified: false,
         };
 
         if (additionalData?.date_of_birth) {

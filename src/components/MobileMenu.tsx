@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,7 +10,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-const MobileMenu = ({ isAdmin = false }: { isAdmin?: boolean }) => {
+const MobileMenu = () => {
   const [open, setOpen] = useState(false);
 
   const menuItems: { title: string; href: string; isLink?: boolean }[] = [
@@ -21,7 +21,6 @@ const MobileMenu = ({ isAdmin = false }: { isAdmin?: boolean }) => {
     { title: "تواصل معنا", href: "#contact" },
     { title: "حول منهجنا", href: "/methodology", isLink: true },
     { title: "اختبار المستوى", href: "/quiz", isLink: true },
-    ...(isAdmin ? [{ title: "لوحة الإدارة", href: "/admin", isLink: true }] : []),
   ];
 
   return (

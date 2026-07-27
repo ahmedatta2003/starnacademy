@@ -10,11 +10,17 @@ import {
   UserCheck,
   MessagesSquare,
   Globe,
+  Image,
+  Quote,
+  Newspaper,
   Sparkles,
   BarChart3,
   ScrollText,
   ToggleLeft,
   Settings,
+  Bell,
+  UserCircle,
+  LogOut,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -29,6 +35,7 @@ const groups: { label: string; items: { to: string; icon: any; label: string; en
       { to: "/admin/students", icon: Users, label: "Students" },
       { to: "/admin/parents", icon: UserCog, label: "Parents" },
       { to: "/admin/teachers", icon: GraduationCap, label: "Teachers" },
+      { to: "/admin/users", icon: UserCircle, label: "User Management" },
     ],
   },
   {
@@ -45,6 +52,9 @@ const groups: { label: string; items: { to: string; icon: any; label: string; en
     items: [
       { to: "/admin/community", icon: MessagesSquare, label: "Community" },
       { to: "/admin/website", icon: Globe, label: "Website CMS" },
+      { to: "/admin/media", icon: Image, label: "Media Library" },
+      { to: "/admin/testimonials", icon: Quote, label: "Testimonials" },
+      { to: "/admin/blog", icon: Newspaper, label: "Blog" },
     ],
   },
   {
@@ -52,9 +62,13 @@ const groups: { label: string; items: { to: string; icon: any; label: string; en
     items: [
       { to: "/admin/ai", icon: Sparkles, label: "AI Engine" },
       { to: "/admin/analytics", icon: BarChart3, label: "Analytics" },
+      { to: "/admin/reports", icon: ScrollText, label: "Reports" },
+      { to: "/admin/notifications", icon: Bell, label: "Notifications" },
       { to: "/admin/audit", icon: ScrollText, label: "Audit Logs" },
       { to: "/admin/feature-flags", icon: ToggleLeft, label: "Feature Flags" },
+      { to: "/admin/profile", icon: UserCircle, label: "Profile" },
       { to: "/admin/settings", icon: Settings, label: "Settings" },
+      { to: "/admin/logout", icon: LogOut, label: "Logout" },
     ],
   },
 ];

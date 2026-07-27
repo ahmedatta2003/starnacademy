@@ -18,6 +18,18 @@ import AdminAnalytics from "./pages/AdminAnalytics";
 import AdminAudit from "./pages/AdminAudit";
 import AdminFeatureFlags from "./pages/AdminFeatureFlags";
 import AdminSettings from "./pages/AdminSettings";
+import {
+  AdminAIModules,
+  AdminBlog,
+  AdminLogout,
+  AdminMediaLibrary,
+  AdminNotifications,
+  AdminProfile,
+  AdminReports,
+  AdminTestimonials,
+  AdminUserManagement,
+  AdminWebsiteContent,
+} from "./pages/AdminExtraPages";
 
 const AdminRoutes = () => (
   <AdminThemeProvider>
@@ -40,10 +52,20 @@ const AdminRoutes = () => (
         <Route path="attendance" element={<AdminAttendance />} />
         <Route path="community" element={<AdminCommunity />} />
         <Route path="website" element={<AdminWebsite />} />
+        <Route path="media" element={<AdminMediaLibrary />} />
+        <Route path="testimonials" element={<AdminTestimonials />} />
+        <Route path="content" element={<AdminWebsiteContent />} />
+        <Route path="blog" element={<AdminBlog />} />
         <Route path="ai" element={<AdminAI />} />
+        <Route path="ai-modules" element={<AdminAIModules />} />
         <Route path="analytics" element={<AdminAnalytics />} />
+        <Route path="reports" element={<AdminReports />} />
         <Route path="audit" element={<AdminAudit />} />
         <Route path="feature-flags" element={<AdminFeatureFlags />} />
+        <Route path="users" element={<AdminUserManagement />} />
+        <Route path="notifications" element={<AdminNotifications />} />
+        <Route path="profile" element={<AdminProfile />} />
+        <Route path="logout" element={<AdminLogout />} />
         <Route path="settings" element={<AdminSettings />} />
       </Route>
       <Route path="*" element={<Navigate to="/admin" replace />} />
