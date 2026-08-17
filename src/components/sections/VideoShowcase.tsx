@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Play, Pause, Sparkles, Video as VideoIcon, Volume2, VolumeX } from "lucide-react";
+import { Play, Sparkles, Video as VideoIcon, Volume2, VolumeX } from "lucide-react";
 import { Square, Semicircle, PlusSign } from "@/components/shapes/ShapeElements";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
