@@ -90,14 +90,18 @@ const VideoShowcase = () => {
           </div>
 
           <div className="relative">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-primary-foreground/10 bg-black">
+            <div
+              className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-primary-foreground/10 bg-black"
+              onMouseEnter={play}
+              onMouseLeave={pause}
+            >
               <video
                 ref={videoRef}
                 src={introVideo.url}
                 poster={introPoster.url}
-                preload="none"
+                preload="metadata"
                 playsInline
-                controls={playing}
+                muted={muted}
                 className="w-full h-auto"
                 onPlay={() => setPlaying(true)}
                 onPause={() => setPlaying(false)}
@@ -111,14 +115,19 @@ const VideoShowcase = () => {
                   className="absolute inset-0 flex items-center justify-center bg-primary/40 hover:bg-primary/25 transition-colors group"
                 >
                   <span className="w-20 h-20 rounded-full bg-golden flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
-                    {playing ? (
-                      <Pause className="w-8 h-8 text-primary" />
-                    ) : (
-                      <Play className="w-8 h-8 text-primary ms-1" />
-                    )}
+                    <Play className="w-8 h-8 text-primary ms-1" />
                   </span>
                 </button>
               )}
+
+              <button
+                type="button"
+                onClick={() => setMuted((m) => !m)}
+                aria-label={t("كتم / تشغيل الصوت", "Toggle sound")}
+                className="absolute bottom-4 end-4 w-11 h-11 rounded-full bg-primary/70 text-primary-foreground flex items-center justify-center hover:bg-primary transition-colors"
+              >
+                {muted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+              </button>
             </div>
 
             <Square className="absolute -top-5 -left-5 w-10 h-10 animate-float" color="golden" />
