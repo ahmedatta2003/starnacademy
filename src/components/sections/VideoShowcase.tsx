@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { Play, Pause, Sparkles, Video as VideoIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Play, Pause, Sparkles, Video as VideoIcon, Volume2, VolumeX } from "lucide-react";
 import { Square, Semicircle, PlusSign } from "@/components/shapes/ShapeElements";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
@@ -11,18 +11,38 @@ const VideoShowcase = () => {
   const { c } = useSiteContent();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
+  const [muted, setMuted] = useState(true);
+
+  const play = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.play().catch(() => {});
+  };
+
+  const pause = () => {
+    videoRef.current?.pause();
+  };
 
   const toggle = () => {
     const v = videoRef.current;
     if (!v) return;
-    if (v.paused) {
-      v.play();
-      setPlaying(true);
-    } else {
-      v.pause();
-      setPlaying(false);
-    }
+    if (v.paused) play();
+    else pause();
   };
+
+  // Pause automatically when the video scrolls out of view
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) v.pause();
+      },
+      { threshold: 0.35 }
+    );
+    observer.observe(v);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section id="video" className="relative py-24 bg-primary overflow-hidden">
