@@ -7,6 +7,7 @@ import VideoShowcase from "@/components/sections/VideoShowcase";
 import Results from "@/components/sections/Results";
 import ParentTestimonials from "@/components/ParentTestimonials";
 import FAQ from "@/components/FAQ";
+import Downloads from "@/components/sections/Downloads";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -27,6 +28,7 @@ const Index = () => {
         <SectionGate sectionKey="results"><Results /></SectionGate>
         <SectionGate sectionKey="testimonials"><ParentTestimonials /></SectionGate>
         <SectionGate sectionKey="faq"><FAQ /></SectionGate>
+        <SectionGate sectionKey="downloads"><Downloads /></SectionGate>
         <SectionGate sectionKey="contact"><Contact /></SectionGate>
       </main>
 
