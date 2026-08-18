@@ -13,6 +13,18 @@ const VideoShowcase = () => {
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(true);
 
+  // Devices without hover (touch/mobile) auto-play on visibility instead
+  const [hoverCapable, setHoverCapable] = useState(true);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    const mql = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const update = () => setHoverCapable(mql.matches);
+    update();
+    mql.addEventListener("change", update);
+    return () => mql.removeEventListener("change", update);
+  }, []);
+
   const play = () => {
     const v = videoRef.current;
     if (!v) return;
@@ -30,19 +42,25 @@ const VideoShowcase = () => {
     else pause();
   };
 
-  // Pause automatically when the video scrolls out of view
+  // Play/pause based on viewport visibility.
+  // Hover devices: only pause when leaving view. Touch devices: also auto-play.
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting) v.pause();
+        if (entry.isIntersecting) {
+          if (!hoverCapable) v.play().catch(() => {});
+        } else {
+          v.pause();
+        }
       },
       { threshold: 0.35 }
     );
     observer.observe(v);
     return () => observer.disconnect();
-  }, []);
+  }, [hoverCapable]);
+
 
   return (
     <section id="video" className="relative py-24 bg-primary overflow-hidden">
@@ -92,8 +110,9 @@ const VideoShowcase = () => {
           <div className="relative">
             <div
               className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-primary-foreground/10 bg-black"
-              onMouseEnter={play}
-              onMouseLeave={pause}
+              onMouseEnter={hoverCapable ? play : undefined}
+              onMouseLeave={hoverCapable ? pause : undefined}
+
             >
               <video
                 ref={videoRef}
