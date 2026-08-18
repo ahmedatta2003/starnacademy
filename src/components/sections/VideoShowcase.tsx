@@ -110,8 +110,9 @@ const VideoShowcase = () => {
           <div className="relative">
             <div
               className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-primary-foreground/10 bg-black"
-              onMouseEnter={play}
-              onMouseLeave={pause}
+              onMouseEnter={hoverCapable ? play : undefined}
+              onMouseLeave={hoverCapable ? pause : undefined}
+
             >
               <video
                 ref={videoRef}
