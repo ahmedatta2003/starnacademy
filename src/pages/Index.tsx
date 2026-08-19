@@ -5,6 +5,7 @@ import Courses from "@/components/Courses";
 import Benefits from "@/components/sections/Benefits";
 import VideoShowcase from "@/components/sections/VideoShowcase";
 import Results from "@/components/sections/Results";
+import StudentShowcase from "@/components/StudentShowcase";
 import ParentTestimonials from "@/components/ParentTestimonials";
 import FAQ from "@/components/FAQ";
 import Downloads from "@/components/sections/Downloads";
