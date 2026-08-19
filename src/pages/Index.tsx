@@ -25,6 +25,7 @@ const Index = () => {
         <SectionGate sectionKey="courses"><Courses /></SectionGate>
         <SectionGate sectionKey="video"><VideoShowcase /></SectionGate>
         <SectionGate sectionKey="benefits"><Benefits /></SectionGate>
+        <SectionGate sectionKey="students"><StudentShowcase /></SectionGate>
         <SectionGate sectionKey="results"><Results /></SectionGate>
         <SectionGate sectionKey="testimonials"><ParentTestimonials /></SectionGate>
         <SectionGate sectionKey="faq"><FAQ /></SectionGate>
