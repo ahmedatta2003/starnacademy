@@ -3,8 +3,6 @@ import { Play, Sparkles, Video as VideoIcon, Volume2, VolumeX } from "lucide-rea
 import { Square, Semicircle, PlusSign } from "@/components/shapes/ShapeElements";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
-import introVideo from "@/assets/starn-intro.mp4.asset.json";
-import introPoster from "@/assets/starn-intro-poster.jpg.asset.json";
 
 const VideoShowcase = () => {
   const { t } = useLanguage();
@@ -116,8 +114,8 @@ const VideoShowcase = () => {
             >
               <video
                 ref={videoRef}
-                src={introVideo.url}
-                poster={introPoster.url}
+                src="/media/starn-intro.mp4"
+                poster="/media/starn-intro-poster.jpg"
                 preload="metadata"
                 playsInline
                 muted={muted}
