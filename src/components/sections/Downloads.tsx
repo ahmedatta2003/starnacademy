@@ -2,8 +2,6 @@ import { Download, FileImage, FileVideo, Award } from "lucide-react";
 import { Square, Semicircle, PlusSign } from "@/components/shapes/ShapeElements";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
-import introVideo from "@/assets/starn-intro.mp4.asset.json";
-import introPoster from "@/assets/starn-intro-poster.jpg.asset.json";
 import certificateTemplate from "@/assets/certificate-template-new.png";
 
 type Item = {
@@ -24,7 +22,7 @@ const items: Item[] = [
     en: "Academy Intro Video",
     descAr: "جولة قصيرة جوّه حصصنا ومشاريع الأطفال.",
     descEn: "A short tour inside our sessions and student projects.",
-    href: introVideo.url,
+    href: "/media/starn-intro.mp4",
     fileName: "starn-academy-intro.mp4",
     color: "turquoise",
   },
@@ -44,7 +42,7 @@ const items: Item[] = [
     en: "Latest Work Poster",
     descAr: "صورة عالية الجودة من أحدث أعمال طلابنا.",
     descEn: "A high-quality shot from our students' latest work.",
-    href: introPoster.url,
+    href: "/media/starn-intro-poster.jpg",
     fileName: "starn-academy-latest-work.jpg",
     color: "coral",
   },
