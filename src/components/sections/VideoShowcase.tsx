@@ -104,12 +104,7 @@ const VideoShowcase = () => {
           </div>
 
           <div className="relative">
-            <div
-              className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-primary-foreground/10 bg-black"
-              onMouseEnter={hoverCapable ? play : undefined}
-              onMouseLeave={hoverCapable ? pause : undefined}
-
-            >
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-primary-foreground/10 bg-black">
               <video
                 ref={videoRef}
                 src="/media/starn-intro.mp4"
