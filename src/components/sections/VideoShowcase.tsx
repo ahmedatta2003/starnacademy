@@ -9,24 +9,18 @@ const VideoShowcase = () => {
   const { c } = useSiteContent();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
-  const [muted, setMuted] = useState(true);
+  const [muted, setMuted] = useState(false);
 
-  // Devices without hover (touch/mobile) auto-play on visibility instead
-  const [hoverCapable, setHoverCapable] = useState(true);
-
-  useEffect(() => {
-    if (typeof window === "undefined" || !window.matchMedia) return;
-    const mql = window.matchMedia("(hover: hover) and (pointer: fine)");
-    const update = () => setHoverCapable(mql.matches);
-    update();
-    mql.addEventListener("change", update);
-    return () => mql.removeEventListener("change", update);
-  }, []);
-
+  // Try to play with sound; fall back to muted if the browser blocks it.
   const play = () => {
     const v = videoRef.current;
     if (!v) return;
-    v.play().catch(() => {});
+    v.muted = muted;
+    v.play().catch(() => {
+      v.muted = true;
+      setMuted(true);
+      v.play().catch(() => {});
+    });
   };
 
   const pause = () => {
@@ -40,15 +34,18 @@ const VideoShowcase = () => {
     else pause();
   };
 
-  // Play/pause based on viewport visibility.
-  // Hover devices: only pause when leaving view. Touch devices: also auto-play.
+  // Auto-play whenever the video is on screen, auto-pause when it leaves.
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          if (!hoverCapable) v.play().catch(() => {});
+          v.play().catch(() => {
+            v.muted = true;
+            setMuted(true);
+            v.play().catch(() => {});
+          });
         } else {
           v.pause();
         }
@@ -57,7 +54,8 @@ const VideoShowcase = () => {
     );
     observer.observe(v);
     return () => observer.disconnect();
-  }, [hoverCapable]);
+  }, []);
+
 
 
   return (
