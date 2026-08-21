@@ -102,6 +102,11 @@ const Footer = () => {
             </div>
           </div>
         </div>
+
+        {/* Partners Section */}
+        <div className="mb-8">
+          <Partners />
+        </div>
         
         <div className="border-t border-background/10 pt-8 text-center text-background/50 text-sm">
           <p>© 2025 Starn Academy. {t('جميع الحقوق محفوظة', 'All rights reserved')}.</p>
