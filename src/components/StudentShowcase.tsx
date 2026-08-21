@@ -131,7 +131,25 @@ const StudentShowcase: React.FC<StudentShowcaseProps> = ({
   const [showAll, setShowAll] = useState(false);
 
   const featured = realStudents.slice(0, featuredCount);
+  const distinguished = realStudents.slice(featuredCount, featuredCount + 8);
   const open = (id: string) => navigate(`/student-profile/${id}`);
+
+  const renderCarousel = (students: Student[], delay: number) => (
+    <Carousel
+      opts={{ align: 'start', loop: true, direction: 'rtl' }}
+      plugins={[Autoplay({ delay, stopOnInteraction: false, stopOnMouseEnter: true })]}
+      className="mx-auto w-full max-w-6xl"
+      dir="rtl"
+    >
+      <CarouselContent className="-ml-4">
+        {students.map((student) => (
+          <CarouselItem key={student.id} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/4">
+            <StudentCard student={student} onClick={() => open(student.id)} />
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+    </Carousel>
+  );
 
   return (
     <section id="students" className="py-20 bg-gradient-to-b from-background to-secondary/40">
@@ -141,20 +159,16 @@ const StudentShowcase: React.FC<StudentShowcaseProps> = ({
           <p className="mx-auto max-w-2xl text-lg text-muted-foreground">{subtitle}</p>
         </div>
 
-        <Carousel
-          opts={{ align: 'start', loop: true, direction: 'rtl' }}
-          plugins={[Autoplay({ delay: 2500, stopOnInteraction: false, stopOnMouseEnter: true })]}
-          className="mx-auto w-full max-w-6xl"
-          dir="rtl"
-        >
-          <CarouselContent className="-ml-4">
-            {featured.map((student) => (
-              <CarouselItem key={student.id} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/4">
-                <StudentCard student={student} onClick={() => open(student.id)} />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
+        {renderCarousel(featured, 2500)}
+
+        <div className="mb-12 mt-20 text-center">
+          <h2 className="mb-3 text-4xl font-bold text-gradient-fun">طلابنا المميزون</h2>
+          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
+            نماذج مشرفة من طلابنا الذين واصلوا التقدم وحققوا إنجازات متميزة
+          </p>
+        </div>
+
+        {renderCarousel(distinguished, 3200)}
 
         <div className="mt-12 text-center">
           <Button size="lg" onClick={() => setShowAll(true)}>
@@ -163,6 +177,7 @@ const StudentShowcase: React.FC<StudentShowcaseProps> = ({
           </Button>
         </div>
       </div>
+
 
       <Dialog open={showAll} onOpenChange={setShowAll}>
         <DialogContent dir="rtl" className="max-h-[85vh] max-w-5xl overflow-y-auto">

@@ -253,66 +253,8 @@ const StudentSuccess: React.FC = () => {
           </Card>
         </div>
 
-        {/* Featured Students Carousel */}
-        <div className="mb-16">
-          <div className="flex items-center justify-between mb-8">
-            <h3 className="text-2xl font-bold text-foreground">الطلاب المميزون</h3>
-            <Button variant="outline" className="gap-2">
-              <Eye className="h-4 w-4" />
-              عرض جميع الطلاب
-            </Button>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredStudents.map((student) => (
-              <Card key={student.id} className="text-center hover-lift group">
-                <CardContent className="pt-6">
-                  <div className="relative mb-4">
-                    <Avatar className="h-20 w-20 mx-auto mb-3 ring-4 ring-primary/20 group-hover:scale-110 transition-transform">
-                      <AvatarImage src={student.avatar} alt={student.name} />
-                      <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white text-2xl font-bold">
-                        {student.name.split(' ').map(n => n[0]).join('')}
-                      </AvatarFallback>
-                    </Avatar>
 
-                    {student.badge && (
-                      <div className="absolute -top-2 -right-2 bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full text-xs font-medium border border-yellow-200">
-                        {student.badge}
-                      </div>
-                    )}
-                  </div>
-
-                  <h4 className="font-bold text-lg mb-1 group-hover:text-primary transition-colors">
-                    {student.name}
-                  </h4>
-
-                  <div className="text-sm text-muted-foreground mb-4">
-                    المستوى {student.level}
-                  </div>
-
-                  <div className="grid grid-cols-3 gap-2 text-center mb-4">
-                    <div className="p-2 bg-yellow-50 rounded">
-                      <div className="text-lg font-bold text-yellow-600">{student.stars}</div>
-                      <div className="text-xs text-muted-foreground">نجوم</div>
-                    </div>
-                    <div className="p-2 bg-blue-50 rounded">
-                      <div className="text-lg font-bold text-blue-600">{student.projects}</div>
-                      <div className="text-xs text-muted-foreground">مشاريع</div>
-                    </div>
-                    <div className="p-2 bg-purple-50 rounded">
-                      <div className="text-lg font-bold text-purple-600">{student.achievements}</div>
-                      <div className="text-xs text-muted-foreground">إنجازات</div>
-                    </div>
-                  </div>
-
-                  <Button variant="outline" size="sm" className="w-full group-hover:bg-primary group-hover:text-white transition-colors">
-                    عرض الملف الشخصي
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
 
         {/* Recent Achievements */}
         <div>
