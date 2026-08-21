@@ -36,7 +36,11 @@ const staticPartners = [
   { id: '8', name: "Florica Plants", logo_url: floricaLogo, website_url: null, display_order: 8 },
 ];
 
-const Partners = () => {
+interface PartnersProps {
+  dark?: boolean;
+}
+
+const Partners = ({ dark = false }: PartnersProps) => {
   const [api, setApi] = useState<any>();
   const [partners, setPartners] = useState<Partner[]>(staticPartners);
 
@@ -59,10 +63,10 @@ const Partners = () => {
   return (
     <div className="w-full">
       <div className="text-center mb-8 animate-fade-in">
-        <h3 className="text-2xl md:text-3xl font-bold mb-2" dir="rtl">
+        <h3 className={`text-2xl md:text-3xl font-bold mb-2 ${dark ? 'text-background' : ''}`} dir="rtl">
           شركاؤنا
         </h3>
-        <p className="text-lg text-muted-foreground/70">Our Partners</p>
+        <p className={`text-lg ${dark ? 'text-background/70' : 'text-muted-foreground/70'}`}>Our Partners</p>
       </div>
 
       <Carousel
@@ -91,7 +95,7 @@ const Partners = () => {
                 rel={partner.website_url ? 'noopener noreferrer' : undefined}
                 className="block"
               >
-                <div className="p-4 h-24 flex items-center justify-center bg-card rounded-lg shadow-sm hover:shadow-md transition-all duration-500">
+                <div className={`p-4 h-24 flex items-center justify-center rounded-lg shadow-sm hover:shadow-md transition-all duration-500 ${dark ? 'bg-background/10 hover:bg-background/20' : 'bg-card'}`}>
                   {partner.logo_url ? (
                     <img
                       src={partner.logo_url}
@@ -99,7 +103,7 @@ const Partners = () => {
                       className="max-h-14 max-w-full object-contain hover:scale-110 transition-transform duration-300"
                     />
                   ) : (
-                    <span className="text-sm font-medium text-muted-foreground">{partner.name}</span>
+                    <span className={`text-sm font-medium ${dark ? 'text-background/80' : 'text-muted-foreground'}`}>{partner.name}</span>
                   )}
                 </div>
               </a>
