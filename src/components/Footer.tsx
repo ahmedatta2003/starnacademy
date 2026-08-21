@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
+import Partners from "@/components/Partners";
 
 const socialLinks = [
   {
@@ -100,6 +101,11 @@ const Footer = () => {
               ))}
             </div>
           </div>
+        </div>
+
+        {/* Partners Section */}
+        <div className="mb-8">
+          <Partners />
         </div>
         
         <div className="border-t border-background/10 pt-8 text-center text-background/50 text-sm">
