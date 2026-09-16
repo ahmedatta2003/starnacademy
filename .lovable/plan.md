@@ -1,71 +1,62 @@
+# Student Data Platform — Real Database Upgrade
 
-# Starn Academy — Admin Panel V2 (EduOS Back Office)
+## Audit result (what already exists)
 
-This is a very large scope. I'll deliver it in **phases** so each turn ships working, verified code instead of a giant unverified drop. Nothing in the Student / Parent / Teacher / Public site changes except a hidden `/admin` entry.
+Good news: this project is **already** on a real, persistent PostgreSQL database (Lovable Cloud / Supabase) with row-level security. There is no fake database — no JSON store, no localStorage student records, no hardcoded student arrays. The only localStorage use is the admin light/dark theme preference, which is correct.
 
-## Scope corrections vs. the master prompt
+Already live and persistent: student/parent/teacher accounts (`profiles`, `user_roles`, `children`, `guardians`, `trainers`), courses, attendance, homework, skill scores, placement assessments, learning paths, teacher evaluations, parent reports, quiz questions/attempts, AI events, audit logs, feature flags.
 
-Some items in the prompt don't match this project's real stack. I'll adapt, not fake:
+So this is **not** a rebuild. It is a set of real gaps to close:
 
-- **Stack is fixed**: React + Vite + TS + Tailwind + shadcn + Supabase (Lovable Cloud). No Prisma / Express / Node server — Supabase is the backend, edge functions are the server layer. I'll build clean architecture *within* that stack.
-- **Auth is Supabase Auth** (single identity system). "Isolated admin auth" = a dedicated `/admin/login` route + admin-only guards + `user_roles.role='admin'` + audit logging + session/device tracking table. We cannot fork Supabase Auth into a second system without breaking every existing feature.
-- **2FA / email verification / refresh tokens / secure cookies** are handled by Supabase; I'll expose the switches (HIBP already on) and add TOTP-ready UI hooks, not reimplement them.
-- **First super admin**: already handled by the `handle_new_user` trigger for `starnacademy.school@gmail.com`. I will NOT hardcode the password in code or migrations. A seeder is unnecessary — the trigger auto-promotes on first signup.
-- **Modules with no data model yet** (Finance, CRM, HR, Inventory, Branches, Rooms, Marketing campaigns, Coupons, Referrals, Feature Flags, API Keys, Backups, etc.) will be **scaffolded as real pages with real tables when the domain is clear**, or marked as "Phase N" stubs that are hidden from the sidebar until built — no placeholder pages shipped to production.
+| Gap | Today | Needed |
+|---|---|---|
+| Enrollments | none — "current course" is a single column | proper `enrollments` table with history |
+| Skills | free-text skill names in scores | skills catalogue + per-student skill levels + history |
+| Student questions | not stored anywhere | persistent questions & answers |
+| Achievements / certificates | JSON blobs inside one row | real tables |
+| Student profile fields | name/email/phone only | date of birth, gender, photo, city, governorate, country, school, grade |
+| Admin student pages | read-only list of names | create / edit / archive, full profile page, search + filters |
+| Lists | fetch up to 1000 rows into the browser, filter in JS | server-side pagination, search, filters |
+| Export / import | none | CSV + JSON export, CSV import with validation |
+| Roles | admin / guardian / child / trainer | + manager, super admin |
 
-## Phased delivery
+## Delivery plan
 
-### Phase 1 — Foundation (this next turn)
-1. **Delete old admin surface**: remove `/admin/cms` route wiring, `src/pages/AdminCMS.tsx`, `src/pages/AdminDashboard.tsx`, `src/components/admin/*`, `src/components/AdminReportsPanel.tsx`. Remove any header/nav links pointing to them.
-2. **New admin shell** under `/admin/*`:
-   - `/admin/login` — dedicated login page (Supabase Auth, admin-role gate, failed-login logging).
-   - `AdminLayout` with collapsible sidebar (shadcn `Sidebar`), topbar (search, theme toggle, user menu), dark/light mode, responsive.
-   - `AdminGuard` HOC: checks `user_roles.role='admin'`, else 403.
-   - Route-level code splitting via `React.lazy`.
-3. **Database (one migration)**:
-   - `admin_audit_logs` (actor_id, action, entity, entity_id, metadata, ip, ua, created_at)
-   - `admin_sessions` (user_id, device, ua, ip, last_seen, created_at)
-   - `admin_permissions` enum + `role_permissions` table (RBAC layer on top of existing `app_role`)
-   - `feature_flags` (key, enabled, description, updated_by)
-   - GRANTs + RLS: admin-only via `has_role(auth.uid(),'admin')`.
-4. **Dashboard home**: real KPIs from existing tables — students count, guardians count, trainers, bookings today/month, quiz attempts, AI events, community posts, storage/DB health via `supabase--db_health`-style client queries. Charts with `recharts` (already installed via shadcn).
+### Phase 1 — Schema and data migration
+One migration adding: `student_details` (personal/location/school fields), `enrollments`, `skills` catalogue, `student_skills` + `student_skill_history`, `student_questions`, `achievements`, `certificates`, `progress_snapshots`, `activity_logs`. Adds `manager` and `super_admin` roles. Indexes on every foreign key and on the columns used for search and sorting. Access rules: a student sees only their own rows, a parent only their linked children, a teacher only assigned students, admins everything — enforced in the database, not the browser. Existing course/skill/achievement data is copied into the new tables by the migration itself; nothing is deleted.
 
-### Phase 2 — Core operations
-- **Students**, **Parents**, **Teachers**: full CRUD tables (data table, filters, pagination, drawer detail views) reading `profiles`, `children`, `guardians`, `trainers`, `student_intelligence`, `skill_scores`, `attendance`, `homework_submissions`, `parent_reports`, `teacher_evaluations`, `teacher_assignments`.
-- **Bookings & Attendance**: `course_bookings`, `free_session_bookings`, `attendance`.
-- **LMS**: `dynamic_courses`, `learning_paths`, `quiz_questions` (moves the old AdminQuiz into new shell, rebuilt).
-- **Website CMS**: `site_content`, `site_sections`, `parent_testimonials`, `partners`, `students_showcase` — rebuilt from scratch in new shell (replaces old AdminTexts/Sections/Testimonials/Courses/Media).
-- **Content Moderation**: `content_reports`, `community_posts`, `community_comments`.
+### Phase 2 — Server-side data layer
+Replace the current "load everything then filter in the browser" helper with a paginated query layer: page size, sort, search and filters are sent to the database, only one page comes back. Applied to every admin list. Student lists stay fast at 1,000+ records.
 
-### Phase 3 — Intelligence & Ops
-- **AI**: gateway usage from `ai_events`, prompt template editor (new `ai_prompt_templates` table), per-module toggles via `feature_flags`.
-- **Analytics**: executive KPIs, retention, completion, growth, AI usage — powered by SQL views.
-- **Security**: audit log viewer, session/device history, failed logins, RBAC/permissions editor.
-- **Settings**: brand, SEO, social, integrations (Resend etc.), notifications.
+### Phase 3 — Admin student management
+- Student list: server-side search (name, email, ID, phone), filters (course, level, school, city, governorate, status, teacher, account status), sorting, pagination.
+- Create / edit / archive student, with validation (unique email, valid email format, age and date sanity, progress 0–100, real course and skill IDs).
+- Full student profile page with sections: overview, personal, academic, current course, progress, skills, assessments, projects, attendance, questions, achievements, learning path, teacher feedback, AI recommendations, activity history.
+- Every create/edit/archive writes an audit entry (who, what, when, before/after).
 
-### Phase 4 — Deferred domains (only when the business defines them)
-Finance, CRM, HR, Inventory, Branches, Rooms, Marketing campaigns, Coupons, Referrals, Backups. These need real requirements from the user (pricing model, currency, payroll rules, etc.) before I build schema. They will NOT appear in the sidebar until defined — no dead pages.
+### Phase 4 — Parents, teachers, enrollments, questions
+Admin screens for parent records and child links, teacher records and student assignments, course enrolment management, and the student questions inbox (answer, categorise, close).
 
-## Technical section
+### Phase 5 — Export, import, backup
+- Export: CSV and JSON per entity, plus a relationship-preserving full JSON export. Runs server-side and streams in batches so large exports do not hang the browser.
+- Import: CSV upload with a dry-run validation report before anything is written.
+- Backup/restore: documented in `DEPLOYMENT_GUIDE.md`.
 
-- **Folder layout**
-  - `src/admin/` — self-contained module: `layout/`, `pages/`, `components/`, `hooks/`, `lib/`, `guards/`.
-  - `src/admin/routes.tsx` mounted once in `App.tsx` at `/admin/*` behind lazy import.
-- **Data access**: one `useAdminQuery` wrapper around `@tanstack/react-query` + supabase client. Repository-style modules per entity: `src/admin/lib/repos/students.ts`, etc.
-- **Forms**: `react-hook-form` + `zod` (already in project) with shared `<AdminForm>` primitives.
-- **Audit**: every write goes through a `logAdminAction()` helper that inserts into `admin_audit_logs`.
-- **RLS**: all new admin tables — `SELECT/INSERT/UPDATE/DELETE` restricted to `has_role(auth.uid(),'admin')` from `private` schema.
-- **Theming**: dark/light via existing tokens in `index.css`; admin uses a denser typographic scale but same brand tokens (no new palette).
-- **Perf**: `React.lazy` per admin page, `Suspense` boundaries, virtualized tables (`@tanstack/react-virtual`) for >500 rows.
-- **Public site**: only change is a single hidden entry (Ctrl+Shift+A shortcut + `/admin` route). Header/MobileMenu admin link removed.
+### Phase 6 — Verification
+Sign in as admin, student and parent in a real browser session and walk the whole flow: create student, edit, archive, enroll, update progress and skills, add and answer a question, run an export, confirm unauthorised users are blocked, confirm data survives reload and sign-out. Existing public pages, dashboards, quiz and AI features re-checked for regressions.
 
-## What ships in the next turn (Phase 1 only)
+## What I cannot do, and why
 
-1. Migration: `admin_audit_logs`, `admin_sessions`, `feature_flags` (+ RLS + GRANTs).
-2. Delete old admin files & references.
-3. New `/admin/login`, `/admin` shell, `AdminGuard`, sidebar, topbar, dark/light.
-4. Real dashboard with live KPIs from existing tables.
-5. Hidden entry (`Ctrl+Shift+A` + typed `/admin`).
-6. Typecheck + preview verification.
+- **Managed database backups/restore**: the hosting platform already runs automated backups, but it exposes no API for me to trigger or restore one from inside the app. What I *can* build is the full-data JSON export plus written restore and migration steps. Point-in-time restore has to be requested through support.
+- **Raw SQL dump download**: the database password is not available to this app by design, so a `pg_dump` button is not possible. The JSON/CSV export is the supported equivalent.
+- **Password hashing, sessions, tokens**: already handled by the platform's auth service. Passwords are never stored by this app.
 
-After Phase 1 lands and you confirm it looks right, I move to Phase 2. Please confirm this plan (or tell me which modules to reprioritize) and I'll start Phase 1.
+## Technical notes
+
+- No new backend service: PostgreSQL + row-level security + edge functions for export/import, which is the production path for this stack.
+- Every new table gets created-at/updated-at timestamps, an update trigger, foreign keys with sensible delete behaviour, unique constraints and indexes.
+- History tables are append-only so "what changed last month" is answerable.
+- Deletion is archival (status flag) rather than physical removal, so relationships and audit trail stay intact.
+- All schema changes go through migration files, so they are reproducible on any environment.
+
+Phase 1 starts as soon as you approve; I report back after each phase rather than dropping everything unverified at the end.
