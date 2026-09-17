@@ -1005,32 +1005,53 @@ export type Database = {
       profiles: {
         Row: {
           avatar_url: string | null
+          bio: string | null
+          city: string | null
           created_at: string
+          date_of_birth: string | null
           email: string | null
           full_name: string
+          governorate: string | null
+          grade_level: string | null
           id: string
           phone: string | null
           role: Database["public"]["Enums"]["app_role"]
+          school_name: string | null
+          status: string
           updated_at: string
         }
         Insert: {
           avatar_url?: string | null
+          bio?: string | null
+          city?: string | null
           created_at?: string
+          date_of_birth?: string | null
           email?: string | null
           full_name: string
+          governorate?: string | null
+          grade_level?: string | null
           id: string
           phone?: string | null
           role: Database["public"]["Enums"]["app_role"]
+          school_name?: string | null
+          status?: string
           updated_at?: string
         }
         Update: {
           avatar_url?: string | null
+          bio?: string | null
+          city?: string | null
           created_at?: string
+          date_of_birth?: string | null
           email?: string | null
           full_name?: string
+          governorate?: string | null
+          grade_level?: string | null
           id?: string
           phone?: string | null
           role?: Database["public"]["Enums"]["app_role"]
+          school_name?: string | null
+          status?: string
           updated_at?: string
         }
         Relationships: []
@@ -1242,6 +1263,63 @@ export type Database = {
         }
         Relationships: []
       }
+      student_grades: {
+        Row: {
+          course_id: string | null
+          created_at: string
+          created_by: string | null
+          graded_on: string
+          id: string
+          max_score: number
+          notes: string | null
+          score: number
+          student_id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          course_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          graded_on?: string
+          id?: string
+          max_score?: number
+          notes?: string | null
+          score?: number
+          student_id: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          course_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          graded_on?: string
+          id?: string
+          max_score?: number
+          notes?: string | null
+          score?: number
+          student_id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_grades_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "dynamic_courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_grades_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       student_intelligence: {
         Row: {
           achievements: Json
@@ -1357,6 +1435,7 @@ export type Database = {
           id: string
           image_url: string | null
           is_featured: boolean | null
+          profile_id: string | null
           project_type: string | null
           student_id: string | null
           technologies: string[] | null
@@ -1370,6 +1449,7 @@ export type Database = {
           id?: string
           image_url?: string | null
           is_featured?: boolean | null
+          profile_id?: string | null
           project_type?: string | null
           student_id?: string | null
           technologies?: string[] | null
@@ -1383,6 +1463,7 @@ export type Database = {
           id?: string
           image_url?: string | null
           is_featured?: boolean | null
+          profile_id?: string | null
           project_type?: string | null
           student_id?: string | null
           technologies?: string[] | null
@@ -1391,6 +1472,13 @@ export type Database = {
           video_url?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "student_projects_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "student_projects_student_id_fkey"
             columns: ["student_id"]
