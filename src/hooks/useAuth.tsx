@@ -127,107 +127,57 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           data: {
             full_name: fullName,
             role: role,
+            phone: additionalData?.phone ?? null,
           },
         },
       });
 
       if (authError) {
-        if (authError.message.includes("already registered")) {
-          toast({
-            variant: "destructive",
-            title: "خطأ في التسجيل",
-            description: "هذا البريد الإلكتروني مسجل بالفعل",
-          });
-        } else {
-          toast({
-            variant: "destructive",
-            title: "خطأ في التسجيل",
-            description: authError.message,
-          });
-        }
+        toast({
+          variant: "destructive",
+          title: "خطأ في التسجيل",
+          description: authError.message.includes("already registered")
+            ? "هذا البريد الإلكتروني مسجل بالفعل"
+            : authError.message,
+        });
         return { error: authError };
       }
 
-      // Create profile record
-      if (data.user) {
-        const profileData: any = {
-          id: data.user.id,
-          email: email,
-          full_name: fullName,
-          role: role,
-        };
-
-        if (additionalData?.date_of_birth) {
-          profileData.date_of_birth = additionalData.date_of_birth;
-        }
-
+      // The database creates the profile and role automatically on signup.
+      // Only extra role-specific data is written here, and only when the user
+      // already has an active session (i.e. email confirmation is not pending).
+      if (data.user && data.session) {
         if (additionalData?.phone) {
-          profileData.phone = additionalData.phone;
+          await supabase.from('profiles').update({ phone: additionalData.phone }).eq('id', data.user.id);
         }
 
-        const { error: profileError } = await supabase
-          .from('profiles')
-          .insert(profileData);
-
-        if (profileError) {
-          console.error('Error creating profile:', profileError);
-          toast({
-            variant: "destructive",
-            title: "خطأ في إنشاء الملف الشخصي",
-            description: "تم تسجيل الحساب ولكن حدث خطأ في إنشاء الملف الشخصي",
+        if (role === 'guardian') {
+          const { error: guardianError } = await supabase.from('guardians').insert({
+            user_id: data.user.id,
+            occupation: additionalData?.occupation || null,
+            address: additionalData?.address || null,
           });
-          return { error: profileError };
+          if (guardianError) console.error('Error creating guardian profile:', guardianError);
         }
 
-        // Create role-specific profile using existing tables
-        try {
-          switch (role) {
-            case 'child':
-              // Children table requires a guardian, so skip for now
-              // This would need additional logic to link to a guardian
-              break;
-
-            case 'guardian':
-              const { error: guardianError } = await supabase
-                .from('guardians')
-                .insert({
-                  user_id: data.user.id,
-                  occupation: additionalData?.occupation || null,
-                  address: additionalData?.address || null,
-                });
-              if (guardianError) {
-                console.error('Error creating guardian profile:', guardianError);
-              }
-              break;
-
-            case 'instructor':
-              const { error: trainerError } = await supabase
-                .from('trainers')
-                .insert({
-                  user_id: data.user.id,
-                  bio: additionalData?.bio || null,
-                  specialization: additionalData?.specialization || null,
-                  education: additionalData?.education || null,
-                  years_of_experience: additionalData?.years_of_experience || null,
-                });
-              if (trainerError) {
-                console.error('Error creating trainer profile:', trainerError);
-              }
-              break;
-
-            case 'admin':
-              // Admins don't need additional profile data
-              break;
-          }
-        } catch (error) {
-          console.error('Error creating role-specific profile:', error);
+        if (role === 'instructor') {
+          const { error: trainerError } = await supabase.from('trainers').insert({
+            user_id: data.user.id,
+            bio: additionalData?.bio || null,
+            specialization: additionalData?.specialization || null,
+            education: additionalData?.education || null,
+            years_of_experience: additionalData?.years_of_experience || null,
+          });
+          if (trainerError) console.error('Error creating trainer profile:', trainerError);
         }
-
-        toast({
-          title: "تم التسجيل بنجاح",
-          description: "مرحباً بك في Starn Academy! يرجى التحقق من بريدك الإلكتروني لتأكيد الحساب",
-        });
       }
+
+      toast({
+        title: "تم التسجيل بنجاح",
+        description: data.session
+          ? "مرحباً بك في Starn Academy"
+          : "مرحباً بك! يرجى تأكيد بريدك الإلكتروني من الرسالة المُرسلة إليك",
+      });
 
       return { error: null };
     } catch (error: any) {
