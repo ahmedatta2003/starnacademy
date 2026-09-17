@@ -8,6 +8,13 @@
       "when": 1789644435872,
       "tag": "0000_handle_new_user_phone",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1789644862539,
+      "tag": "0001_student_records_admin",
+      "breakpoints": true
     }
   ]
 }
