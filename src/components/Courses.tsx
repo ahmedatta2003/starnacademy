@@ -4,7 +4,8 @@ import { Badge } from "@/components/ui/badge";
 import { Clock, Users, BookOpen, Brain, Code, Monitor, Sparkles, ArrowLeft, Loader2 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Link } from "react-router-dom";
-import { PublicCourse, useCourses } from "@/hooks/useCourses";
+import { useCourses } from "@/hooks/useCourses";
+import type { PublicCourse } from "@/hooks/useCourses";
 
 type CourseVisual = {
   accent: "turquoise" | "purple" | "coral";
@@ -182,7 +183,7 @@ const CourseTile = ({
             <div key={feature} className="flex items-center gap-2 rounded-lg bg-muted p-2.5 text-sm text-foreground">
               <Sparkles className={`h-4 w-4 shrink-0 ${softAccentClasses}`} />
               <span>{feature}</span>
-            </Card>
+            </div>
           ))}
         </div>
       </div>
