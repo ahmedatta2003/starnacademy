@@ -1,85 +1,78 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Users, BookOpen, Brain, Code, Monitor, Sparkles } from "lucide-react";
+import { Clock, Users, BookOpen, Brain, Code, Monitor, Sparkles, ArrowLeft, Loader2 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
+import { Link } from "react-router-dom";
+import { useCourses } from "@/hooks/useCourses";
+import type { PublicCourse } from "@/hooks/useCourses";
+
+type CourseVisual = {
+  accent: "turquoise" | "purple" | "coral";
+  Icon: typeof BookOpen;
+};
+
+const visuals: CourseVisual[] = [
+  { accent: "turquoise", Icon: Code },
+  { accent: "purple", Icon: Brain },
+  { accent: "coral", Icon: Monitor },
+];
+
+const fallbackCourses: PublicCourse[] = [
+  {
+    id: "genius",
+    title_ar: "كورس العباقرة",
+    title_en: "Genius Course",
+    duration: "شهران",
+    age_range: "للأطفال ذوي الخبرة البرمجية",
+    level: "متقدم",
+    price: null,
+    icon: null,
+    description_ar: "مسار تطبيقي يطوّر مهارات البرمجة وحل المشكلات بصورة عملية.",
+    description_en: "A practical track that advances coding and problem-solving skills.",
+    features_ar: ["M Block", "بايثون المتقدم", "Framework", "مشروعات تطبيقية"],
+    features_en: ["M Block", "Advanced Python", "Framework", "Practical projects"],
+    image_url: null,
+    display_order: 1,
+  },
+  {
+    id: "future-stars",
+    title_ar: "كورس نجوم المستقبل",
+    title_en: "Future Stars Course",
+    duration: "٤ شهور",
+    age_range: "الانطلاقة المثالية للمبتدئين",
+    level: "مبتدئ",
+    price: null,
+    icon: null,
+    description_ar: "بداية منظمة وممتعة من أساسيات الكمبيوتر إلى البرمجة والذكاء الاصطناعي.",
+    description_en: "A structured start from computer basics to coding and AI.",
+    features_ar: ["أساسيات الكمبيوتر", "Scratch", "Python", "أساسيات الذكاء الاصطناعي"],
+    features_en: ["Computer Basics", "Scratch", "Python", "AI Basics"],
+    image_url: null,
+    display_order: 2,
+  },
+  {
+    id: "diploma",
+    title_ar: "كورس الدبلومة",
+    title_en: "Diploma Course",
+    duration: "٦ شهور",
+    age_range: "من الصفر إلى الاحتراف",
+    level: "شامل",
+    price: null,
+    icon: null,
+    description_ar: "مسار شامل ومتدرج يبني أساسًا قويًا وينقل الطالب إلى تنفيذ مشروعات متكاملة.",
+    description_en: "A complete progressive track from strong foundations to full projects.",
+    features_ar: ["أساسيات الكمبيوتر", "Scratch", "Python", "مشروعات وذكاء اصطناعي"],
+    features_en: ["Computer Basics", "Scratch", "Python", "Projects and AI"],
+    image_url: null,
+    display_order: 3,
+  },
+];
 
 const Courses = () => {
-  const { t } = useLanguage();
-
-  const courses = [
-    {
-      title: "🚀 كورس العباقرة",
-      titleEn: "🚀 Genius Course",
-      duration: "شهرين",
-      durationEn: "2 Months",
-      weeks: "٨ أسابيع",
-      weeksEn: "8 weeks",
-      students: "150+",
-      color: "turquoise",
-      description: "للأطفال ذوي الخبرة البرمجية 💡",
-      descriptionEn: "For kids with programming experience 💡",
-      hoverTitle: "🎯 محتوى كورس العباقرة",
-      hoverTitleEn: "🎯 Genius Course Content",
-      hoverDescription: "هذا الكورس مخصص للأطفال الذين لديهم خبرة ولو بسيطة في البرمجة ✨",
-      hoverDescriptionEn: "This course is designed for children who have some programming experience ✨",
-      contents: [
-        { icon: Code, text: "M Block", textEn: "M Block" },
-        { icon: Brain, text: "بايثون المتقدم", textEn: "Advanced Python" },
-        { icon: Monitor, text: "فريم ورك", textEn: "Framework" },
-        { icon: Sparkles, text: "جلسات تطبيقية عملية", textEn: "Practical Sessions" },
-      ]
-    },
-    {
-      title: "⭐ كورس نجوم المستقبل",
-      titleEn: "⭐ Future Stars Course",
-      duration: "٤ شهور",
-      durationEn: "4 Months",
-      weeks: "١٦ أسبوع",
-      weeksEn: "16 weeks",
-      students: "200+",
-      color: "purple",
-      description: "الانطلاقة المثالية لطفلك 🌟",
-      descriptionEn: "The perfect start for your child 🌟",
-      hoverTitle: "🎯 محتوى كورس نجوم المستقبل",
-      hoverTitleEn: "🎯 Future Stars Course Content",
-      hoverDescription: "هذا الكورس هو الأنسب للأطفال المبتدئين في عالم البرمجة 🎮",
-      hoverDescriptionEn: "This is the most suitable course for children new to programming 🎮",
-      contents: [
-        { icon: Monitor, text: "أساسيات الكمبيوتر", textEn: "Computer Basics" },
-        { icon: Code, text: "سكراتش", textEn: "Scratch" },
-        { icon: Brain, text: "بايثون", textEn: "Python" },
-        { icon: Sparkles, text: "أساسيات الذكاء الاصطناعي", textEn: "AI Basics" },
-      ]
-    },
-    {
-      title: "🏆 كورس الدبلومة",
-      titleEn: "🏆 Diploma Course",
-      duration: "٦ شهور",
-      durationEn: "6 Months",
-      weeks: "٢٤ أسبوع",
-      weeksEn: "24 weeks",
-      students: "120+",
-      color: "coral",
-      description: "من الصفر إلى الاحتراف 💪",
-      descriptionEn: "From zero to hero 💪",
-      hoverTitle: "🎯 محتوى كورس الدبلومة",
-      hoverTitleEn: "🎯 Diploma Course Content",
-      hoverDescription: "كورس شامل يأخذ مستوى طفلك من 0% إلى 100% 🎓 - النسخة المطولة من كورس نجوم المستقبل بتبسيط أكثر يناسب جميع المستويات",
-      hoverDescriptionEn: "A comprehensive course that takes your child from 0% to 100% 🎓 - An extended version of the Future Stars course with more simplification",
-      contents: [
-        { icon: Monitor, text: "أساسيات الكمبيوتر", textEn: "Computer Basics" },
-        { icon: Code, text: "سكراتش", textEn: "Scratch" },
-        { icon: Brain, text: "بايثون", textEn: "Python" },
-        { icon: Sparkles, text: "أساسيات الذكاء الاصطناعي", textEn: "AI Basics" },
-      ]
-    }
-  ];
+  const { language, t } = useLanguage();
+  const { data, isLoading } = useCourses();
+  const courses = data && data.length > 0 ? data : fallbackCourses;
 
   return (
     <section id="courses" className="py-24 bg-background">
@@ -99,116 +92,107 @@ const Courses = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        {isLoading && (
+          <div className="mb-8 flex items-center justify-center gap-2 text-muted-foreground" role="status">
+            <Loader2 className="h-5 w-5 animate-spin" />
+            <span>{t("جاري تحميل الدورات...", "Loading courses...")}</span>
+          </div>
+        )}
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {courses.map((course, index) => (
-            <Card 
-              key={index}
-              className="p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 flex flex-col group"
-            >
-              <div 
-                className="h-2 rounded-t-lg -mx-6 -mt-6 mb-6"
-                style={{ backgroundColor: `hsl(var(--${course.color}))` }}
-              />
-              
-              <div className="flex justify-between items-start mb-4">
-                <Badge 
-                  variant="secondary"
-                  className="text-white font-bold px-3 py-1"
-                  style={{ 
-                    backgroundColor: `hsl(var(--${course.color}))`,
-                  }}
-                >
-                  {t(course.duration, course.durationEn)}
-                </Badge>
-                <div 
-                  className="w-10 h-10 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: `hsl(var(--${course.color}) / 0.15)` }}
-                >
-                  <BookOpen 
-                    className="w-5 h-5" 
-                    style={{ color: `hsl(var(--${course.color}))` }}
-                  />
-                </div>
-              </div>
-
-              <h3 className="text-2xl font-bold mb-2 text-foreground">
-                {t(course.title, course.titleEn)}
-              </h3>
-              <p className="text-base text-muted-foreground mb-6 flex-grow">
-                {t(course.description, course.descriptionEn)}
-              </p>
-
-              <div className="space-y-3 mb-6 text-sm text-muted-foreground">
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4" style={{ color: `hsl(var(--${course.color}))` }} />
-                  <span>{t(course.weeks, course.weeksEn)}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Users className="w-4 h-4" style={{ color: `hsl(var(--${course.color}))` }} />
-                  <span>{course.students} {t('طالب مسجل', 'enrolled students')}</span>
-                </div>
-              </div>
-
-              <HoverCard>
-                <HoverCardTrigger asChild>
-                  <Button 
-                    className="w-full text-white font-semibold transition-all duration-300 hover:scale-105"
-                    style={{ backgroundColor: `hsl(var(--${course.color}))` }}
-                  >
-                    {t('اعرف المزيد', 'Learn More')}
-                  </Button>
-                </HoverCardTrigger>
-                <HoverCardContent 
-                  className="w-80 p-4 border-2"
-                  style={{ borderColor: `hsl(var(--${course.color}))` }}
-                >
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-2">
-                      <div 
-                        className="w-8 h-8 rounded-full flex items-center justify-center"
-                        style={{ backgroundColor: `hsl(var(--${course.color}))` }}
-                      >
-                        <BookOpen className="w-4 h-4 text-white" />
-                      </div>
-                      <h4 className="font-bold text-foreground">
-                        {t(course.hoverTitle, course.hoverTitleEn)}
-                      </h4>
-                    </div>
-                    
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {t(course.hoverDescription, course.hoverDescriptionEn)}
-                    </p>
-                    
-                    <div className="border-t pt-3">
-                      <p className="text-xs font-semibold text-muted-foreground mb-2">
-                        {t('محتويات الكورس:', 'Course Contents:')}
-                      </p>
-                      <div className="grid grid-cols-2 gap-2">
-                        {course.contents.map((content, idx) => (
-                          <div 
-                            key={idx} 
-                            className="flex items-center gap-2 text-sm p-2 rounded-lg transition-colors"
-                            style={{ backgroundColor: `hsl(var(--${course.color}) / 0.1)` }}
-                          >
-                            <content.icon 
-                              className="w-4 h-4 flex-shrink-0" 
-                              style={{ color: `hsl(var(--${course.color}))` }}
-                            />
-                            <span className="text-foreground text-xs font-medium">
-                              {t(content.text, content.textEn)}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </HoverCardContent>
-              </HoverCard>
-            </Card>
+            <CourseTile key={course.id} course={course} index={index} language={language} t={t} />
           ))}
+        </div>
+
+        <div className="mt-12 flex justify-center">
+          <Button asChild variant="outline" size="lg" className="gap-2 border-primary/30">
+            <Link to="/courses">
+              {t("عرض صفحة كل الدورات", "View all courses")}
+              <ArrowLeft className="h-4 w-4" />
+            </Link>
+          </Button>
         </div>
       </div>
     </section>
+  );
+};
+
+const CourseTile = ({
+  course,
+  index,
+  language,
+  t,
+}: {
+  course: PublicCourse;
+  index: number;
+  language: string;
+  t: (ar: string, en: string) => string;
+}) => {
+  const visual = visuals[index % visuals.length];
+  const Icon = visual.Icon;
+  const features = language === "ar" ? course.features_ar : course.features_en;
+  const title = language === "ar" ? course.title_ar : course.title_en || course.title_ar;
+  const description = language === "ar"
+    ? course.description_ar
+    : course.description_en || course.description_ar;
+  const accentClasses = {
+    turquoise: "bg-secondary text-secondary-foreground border-secondary/30",
+    purple: "bg-primary text-primary-foreground border-primary/30",
+    coral: "bg-accent text-accent-foreground border-accent/30",
+  }[visual.accent];
+  const softAccentClasses = {
+    turquoise: "bg-secondary/10 text-secondary",
+    purple: "bg-primary/10 text-primary",
+    coral: "bg-accent/10 text-accent",
+  }[visual.accent];
+
+  return (
+    <Card className="relative overflow-hidden border-2 p-6 flex min-h-[34rem] flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-playful-lg group">
+      <div className={`absolute inset-x-0 top-0 h-2 ${accentClasses}`} />
+      <div className={`absolute -start-10 -top-10 h-28 w-28 rotate-12 rounded-[2rem] opacity-10 ${accentClasses}`} aria-hidden="true" />
+      <div className={`absolute end-7 top-24 h-10 w-10 rotate-45 rounded-md opacity-10 ${accentClasses}`} aria-hidden="true" />
+
+      <div className="relative mb-6 flex items-start justify-between gap-4">
+        <div className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl ${softAccentClasses}`}>
+          {course.image_url ? (
+            <img src={course.image_url} alt="" className="h-full w-full rounded-2xl object-cover" />
+          ) : (
+            <Icon className="h-8 w-8" />
+          )}
+        </div>
+        <div className="flex flex-wrap justify-end gap-2">
+          {course.duration && <Badge variant="secondary"><Clock className="me-1 h-3 w-3" />{course.duration}</Badge>}
+          {course.level && <Badge variant="outline">{course.level}</Badge>}
+        </div>
+      </div>
+
+      <h3 className="relative mb-3 text-2xl font-bold text-foreground">{title}</h3>
+      {course.age_range && (
+        <p className="mb-3 flex items-center gap-2 text-sm font-semibold text-primary">
+          <Users className="h-4 w-4" />
+          {course.age_range}
+        </p>
+      )}
+      <p className="mb-6 leading-7 text-muted-foreground">{description}</p>
+
+      <div className="mb-6 flex-1 border-t border-border pt-5">
+        <p className="mb-3 text-sm font-bold text-foreground">{t("محتويات الكورس", "Course contents")}</p>
+        <div className="grid gap-2">
+          {(features ?? []).slice(0, 5).map((feature) => (
+            <div key={feature} className="flex items-center gap-2 rounded-lg bg-muted p-2.5 text-sm text-foreground">
+              <Sparkles className={`h-4 w-4 shrink-0 ${softAccentClasses}`} />
+              <span>{feature}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {course.price && <p className="mb-4 text-lg font-bold text-foreground">{course.price}</p>}
+      <Button asChild className={`w-full font-semibold ${accentClasses}`}>
+        <Link to="/booking">{t("احجز هذا الكورس", "Book this course")}</Link>
+      </Button>
+    </Card>
   );
 };
 
