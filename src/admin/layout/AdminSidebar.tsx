@@ -21,6 +21,7 @@ import {
   Bell,
   UserCircle,
   LogOut,
+  Video,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -42,6 +43,7 @@ const groups: { label: string; items: { to: string; icon: any; label: string; en
     label: "Learning",
     items: [
       { to: "/admin/courses", icon: BookOpen, label: "Courses" },
+      { to: "/admin/lessons", icon: Video, label: "Lesson Videos" },
       { to: "/admin/quizzes", icon: ClipboardList, label: "Quizzes" },
       { to: "/admin/bookings", icon: Calendar, label: "Bookings" },
       { to: "/admin/attendance", icon: UserCheck, label: "Attendance" },

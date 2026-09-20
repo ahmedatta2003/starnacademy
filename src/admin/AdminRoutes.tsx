@@ -9,6 +9,7 @@ import AdminParents from "./pages/AdminParents";
 import AdminTeachers from "./pages/AdminTeachers";
 import AdminCourses from "./pages/AdminCourses";
 import AdminQuizzes from "./pages/AdminQuizzes";
+import AdminLessons from "./pages/AdminLessons";
 import AdminBookings from "./pages/AdminBookings";
 import AdminAttendance from "./pages/AdminAttendance";
 import AdminCommunity from "./pages/AdminCommunity";
@@ -48,6 +49,7 @@ const AdminRoutes = () => (
         <Route path="teachers" element={<AdminTeachers />} />
         <Route path="courses" element={<AdminCourses />} />
         <Route path="quizzes" element={<AdminQuizzes />} />
+        <Route path="lessons" element={<AdminLessons />} />
         <Route path="bookings" element={<AdminBookings />} />
         <Route path="attendance" element={<AdminAttendance />} />
         <Route path="community" element={<AdminCommunity />} />
