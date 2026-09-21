@@ -31,6 +31,9 @@ import StudentProfile from "./pages/StudentProfile";
 import Community from "./pages/Community";
 import Quiz from "./pages/Quiz";
 import Methodology from "./pages/Methodology";
+import MyCourses from "./pages/learn/MyCourses";
+import LearnCoursePage from "./pages/learn/CoursePage";
+import LearnLessonPage from "./pages/learn/LessonPage";
 
 const AdminRoutes = lazy(() => import("./admin/AdminRoutes"));
 
@@ -76,6 +79,9 @@ const App = () => (
               <Route path="/community" element={<Community />} />
               <Route path="/quiz" element={<Quiz />} />
               <Route path="/methodology" element={<Methodology />} />
+              <Route path="/learn" element={<MyCourses />} />
+              <Route path="/learn/course/:courseId" element={<LearnCoursePage />} />
+              <Route path="/learn/lesson/:lessonId" element={<LearnLessonPage />} />
               <Route
                 path="/admin/*"
                 element={
