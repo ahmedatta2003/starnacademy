@@ -31,14 +31,28 @@ serve(async (req) => {
     if (userErr || !userData?.user) return json({ error: "Unauthorized" }, 401);
     const userId = userData.user.id;
 
-    const { lesson_id } = (await req.json().catch(() => ({}))) ?? {};
-    if (!lesson_id) return json({ error: "lesson_id is required" }, 400);
+    const body = (await req.json().catch(() => ({}))) ?? {};
+    let lesson_id: string | undefined = typeof body.lesson_id === "string" ? body.lesson_id : undefined;
+    const resource_id: string | undefined = typeof body.resource_id === "string" ? body.resource_id : undefined;
 
     const admin = createClient(
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
       { auth: { persistSession: false } },
     );
+
+    let resourcePath: string | null = null;
+    if (resource_id) {
+      const { data: res } = await admin
+        .from("lesson_resources")
+        .select("lesson_id, storage_path")
+        .eq("id", resource_id)
+        .maybeSingle();
+      if (!res?.storage_path) return json({ error: "File not found" }, 404);
+      lesson_id = res.lesson_id as string;
+      resourcePath = res.storage_path as string;
+    }
+    if (!lesson_id) return json({ error: "lesson_id is required" }, 400);
 
     const { data: lesson, error: lessonErr } = await admin
       .from("lessons")
@@ -69,6 +83,12 @@ serve(async (req) => {
         .eq("status", "active")
         .maybeSingle();
       if (!enrollment) return json({ error: "Not enrolled in this course" }, 403);
+    }
+
+    if (resourcePath) {
+      const { data: s, error: e } = await admin.storage.from(BUCKET).createSignedUrl(resourcePath, EXPIRES_IN, { download: true });
+      if (e || !s) return json({ error: e?.message ?? "Could not sign URL" }, 400);
+      return json({ url: s.signedUrl, expires_in: EXPIRES_IN });
     }
 
     if (lesson.content_kind !== "video" || !lesson.content_path) {
