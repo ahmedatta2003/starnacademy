@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { getLessonFileUrl } from "@/lib/lessonVideo";
+import { toast } from "sonner";
 import LearnLayout from "./LearnLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -103,6 +105,25 @@ const CoursePage = () => {
     },
   });
 
+  const { data: files } = useQuery({
+    queryKey: ["learn", "course-files", courseId],
+    enabled: !!courseId,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("lesson_resources")
+        .select("id, lesson_id, title, external_url")
+        .eq("course_id", courseId!);
+      if (error) throw error;
+      return data ?? [];
+    },
+  });
+
+  const openFile = async (f: any) => {
+    if (f.external_url) return window.open(f.external_url, "_blank");
+    try { window.open(await getLessonFileUrl(f.id), "_blank"); }
+    catch { toast.error("الملف غير متاح بعد"); }
+  };
+
   const done = (id: string) => (progress ?? []).some((p: any) => p.lesson_id === id && p.state === "completed");
 
   const grouped = [
@@ -146,9 +167,10 @@ const CoursePage = () => {
                 <CardContent className="space-y-2">
                   {g.items.map((l) => {
                     const open = isReleased(l) || l.is_preview;
+                    const lf = isReleased(l) ? (files ?? []).filter((f: any) => f.lesson_id === l.id) : [];
                     return (
+                      <div key={l.id} className="space-y-1">
                       <div
-                        key={l.id}
                         className="flex items-center justify-between gap-3 rounded-lg border border-border/60 p-3"
                       >
                         <div className="flex items-start gap-3 min-w-0">
@@ -178,6 +200,17 @@ const CoursePage = () => {
                         <Button asChild={open} size="sm" variant={open ? "default" : "outline"} disabled={!open}>
                           {open ? <Link to={`/learn/lesson/${l.id}`}>ابدأ</Link> : <span>مقفول</span>}
                         </Button>
+                      </div>
+                      {lf.length > 0 && (
+                        <div className="flex flex-wrap gap-2 pr-8">
+                          {lf.map((f: any) => (
+                            <button key={f.id} type="button" onClick={() => openFile(f)}
+                              className="flex items-center gap-1 rounded-full bg-muted px-3 py-1 text-xs hover:bg-accent">
+                              <FileText className="w-3 h-3" />{f.title}
+                            </button>
+                          ))}
+                        </div>
+                      )}
                       </div>
                     );
                   })}
