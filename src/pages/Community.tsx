@@ -406,7 +406,7 @@ const Community = () => {
       // Create new room
       const { data: newRoom, error: roomError } = await supabase
         .from('chat_rooms')
-        .insert({ is_group: false })
+        .insert({ is_group: false, created_by: user?.id })
         .select()
         .single();
 
