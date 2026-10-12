@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
-import { getLessonVideoUrl } from "@/lib/lessonVideo";
+import { getLessonVideoUrl, getLessonFileUrl } from "@/lib/lessonVideo";
 import LearnLayout from "./LearnLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -181,10 +181,6 @@ const LessonPage = () => {
     }
   };
 
-  const resourceUrl = (r: any) =>
-    r.external_url ??
-    (r.storage_path ? supabase.storage.from("uploads").getPublicUrl(r.storage_path).data.publicUrl : null);
-
   if (isLoading) {
     return (
       <LearnLayout title="جارٍ التحميل…">
@@ -326,14 +322,16 @@ const LessonPage = () => {
                 <p className="text-sm text-muted-foreground">لا توجد ملفات مرفقة.</p>
               ) : (
                 (resources ?? []).map((r: any) => {
-                  const url = resourceUrl(r);
                   return (
-                    <a
+                    <button
                       key={r.id}
-                      href={url ?? "#"}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flex items-center justify-between gap-2 rounded-lg border border-border/60 p-3 text-sm hover:bg-muted transition-colors"
+                      type="button"
+                      onClick={async () => {
+                        if (r.external_url) return window.open(r.external_url, "_blank");
+                        try { window.open(await getLessonFileUrl(r.id), "_blank"); }
+                        catch (e: any) { toast.error("الملف غير متاح بعد"); }
+                      }}
+                      className="w-full flex items-center justify-between gap-2 rounded-lg border border-border/60 p-3 text-sm hover:bg-muted transition-colors"
                     >
                       <span className="truncate">{r.title}</span>
                       {r.external_url ? (
@@ -341,7 +339,7 @@ const LessonPage = () => {
                       ) : (
                         <Download className="w-4 h-4 shrink-0" />
                       )}
-                    </a>
+                    </button>
                   );
                 })
               )}

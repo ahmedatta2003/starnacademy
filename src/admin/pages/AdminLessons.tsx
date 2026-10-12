@@ -15,6 +15,7 @@ import {
 import { toast } from "@/hooks/use-toast";
 import { Loader2, Upload, PlayCircle, Trash2 } from "lucide-react";
 import { getLessonVideoUrl } from "@/lib/lessonVideo";
+import LessonFilesManager from "../components/LessonFilesManager";
 
 const BUCKET = "lesson-videos";
 const MAX_BYTES = 2 * 1024 * 1024 * 1024; // 2GB
@@ -253,6 +254,8 @@ const AdminLessons = () => {
                   Stored in a private bucket. Max 2GB. Students never get a direct file URL.
                 </p>
               </div>
+
+              <LessonFilesManager lessonId={active.id} courseId={active.course_id} />
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-2">
