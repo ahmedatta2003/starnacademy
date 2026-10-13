@@ -4,6 +4,7 @@ import { Globe } from "lucide-react";
 import logo from "@/assets/starn-logo.png";
 import MobileMenu from "@/components/MobileMenu";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { publicNavigation } from "@/data/publicNavigation";
 
 const Header = () => {
   const { language, toggleLanguage, t } = useLanguage();
@@ -19,28 +20,12 @@ const Header = () => {
           </div>
         </Link>
         
-        <div className="hidden md:flex items-center gap-8">
-          <a href="#about" className="text-foreground hover:text-primary transition-colors font-medium">
-            {t('من نحن', 'About Us')}
-          </a>
-          <a href="#courses" className="text-foreground hover:text-primary transition-colors font-medium">
-            {t('الدورات', 'Courses')}
-          </a>
-          <a href="#why-us" className="text-foreground hover:text-primary transition-colors font-medium">
-            {t('لماذا نحن', 'Why Us')}
-          </a>
-          <Link to="/booking" className="text-foreground hover:text-primary transition-colors font-medium">
-            {t('احجز الآن', 'Book Now')}
-          </Link>
-          <a href="#contact" className="text-foreground hover:text-primary transition-colors font-medium">
-            {t('تواصل معنا', 'Contact Us')}
-          </a>
-          <Link to="/methodology" className="text-foreground hover:text-primary transition-colors font-medium">
-            {t('حول منهجنا', 'Our Methodology')}
-          </Link>
-          <Link to="/quiz" className="text-foreground hover:text-primary transition-colors font-medium">
-            {t('اختبار المستوى', 'Quiz')}
-          </Link>
+        <div className="hidden xl:flex items-center gap-6">
+          {publicNavigation.map((item) => (
+            <Link key={item.href} to={item.href} className="text-foreground hover:text-primary transition-colors font-medium whitespace-nowrap">
+              {t(item.ar, item.en)}
+            </Link>
+          ))}
         </div>
 
         <div className="flex items-center gap-2">
@@ -57,7 +42,7 @@ const Header = () => {
             </span>
           </Button>
           
-          <Link to="/auth" className="hidden md:block">
+          <Link to="/auth" className="hidden xl:block">
             <Button size="lg">
               {t('تسجيل الدخول', 'Login')}
             </Button>
