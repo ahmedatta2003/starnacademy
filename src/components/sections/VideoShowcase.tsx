@@ -103,8 +103,8 @@ const VideoShowcase = () => {
             </ul>
           </div>
 
-          <div className="relative">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-primary-foreground/10 bg-black">
+          <div className="relative animate-float-delayed">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-primary-foreground/10 bg-black animate-pulse-glow">
               <video
                 ref={videoRef}
                 src="/media/starn-intro.mp4"

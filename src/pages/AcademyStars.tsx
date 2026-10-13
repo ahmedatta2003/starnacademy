@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import AITutorChat from "@/components/AITutorChat";
 import SectionGate from "@/components/SectionGate";
+import VideoShowcase from "@/components/sections/VideoShowcase";
 
 const AcademyStars = () => {
   useEffect(() => {
@@ -18,6 +19,7 @@ const AcademyStars = () => {
     <div className="min-h-screen">
       <Header />
       <main className="pt-28">
+        <SectionGate sectionKey="video"><VideoShowcase /></SectionGate>
         <SectionGate sectionKey="students"><StudentShowcase /></SectionGate>
         <SectionGate sectionKey="results"><Results /></SectionGate>
         <SectionGate sectionKey="testimonials"><ParentTestimonials /></SectionGate>
