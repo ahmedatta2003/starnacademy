@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { Play, Sparkles, Video as VideoIcon, Volume2, VolumeX } from "lucide-react";
+import { Pause, Play, Sparkles, Video as VideoIcon, Volume2, VolumeX } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Square, Semicircle, PlusSign } from "@/components/shapes/ShapeElements";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
@@ -10,11 +11,13 @@ const VideoShowcase = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
+  const manuallyPaused = useRef(false);
 
   // Try to play with sound; fall back to muted if the browser blocks it.
   const play = () => {
     const v = videoRef.current;
     if (!v) return;
+    manuallyPaused.current = false;
     v.muted = muted;
     v.play().catch(() => {
       v.muted = true;
@@ -24,6 +27,7 @@ const VideoShowcase = () => {
   };
 
   const pause = () => {
+    manuallyPaused.current = true;
     videoRef.current?.pause();
   };
 
@@ -38,22 +42,32 @@ const VideoShowcase = () => {
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
+    let visible = false;
+    const syncPlayback = () => {
+      if (visible && !document.hidden && !manuallyPaused.current) {
+        v.play().catch(() => {
+          v.muted = true;
+          setMuted(true);
+          if (visible && !document.hidden && !manuallyPaused.current) v.play().catch(() => {});
+        });
+      } else {
+        v.pause();
+      }
+    };
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          v.play().catch(() => {
-            v.muted = true;
-            setMuted(true);
-            v.play().catch(() => {});
-          });
-        } else {
-          v.pause();
-        }
+        visible = entry.isIntersecting && entry.intersectionRatio >= 0.35;
+        syncPlayback();
       },
       { threshold: 0.35 }
     );
     observer.observe(v);
-    return () => observer.disconnect();
+    document.addEventListener("visibilitychange", syncPlayback);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", syncPlayback);
+      v.pause();
+    };
   }, []);
 
 
@@ -61,9 +75,9 @@ const VideoShowcase = () => {
   return (
     <section id="video" className="relative py-24 bg-primary overflow-hidden">
       {/* Decorative brand shapes */}
-      <Square className="absolute top-16 left-10 w-8 h-8 animate-float" color="turquoise" />
-      <Semicircle className="absolute bottom-24 right-16 w-12 h-12 animate-float-delayed" color="coral" />
-      <PlusSign className="absolute top-1/2 left-1/3 animate-pulse" color="golden" />
+      <Square className="absolute top-16 left-10 w-8 h-8 animate-float motion-reduce:animate-none" color="turquoise" />
+      <Semicircle className="absolute bottom-24 right-16 w-12 h-12 animate-float-delayed motion-reduce:animate-none" color="coral" />
+      <PlusSign className="absolute top-1/2 left-1/3 animate-pulse motion-reduce:animate-none" color="golden" />
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -103,45 +117,57 @@ const VideoShowcase = () => {
             </ul>
           </div>
 
-          <div className="relative">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-primary-foreground/10 bg-black">
+          <div className="relative animate-bounce-gentle motion-reduce:animate-none">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-primary-foreground/10 bg-foreground">
               <video
                 ref={videoRef}
                 src="/media/starn-intro.mp4"
                 poster="/media/starn-intro-poster.jpg"
                 preload="metadata"
                 playsInline
+                loop
                 muted={muted}
-                className="w-full h-auto"
+                className="w-full aspect-video object-contain"
                 onPlay={() => setPlaying(true)}
                 onPause={() => setPlaying(false)}
               />
 
               {!playing && (
-                <button
+                <Button
                   type="button"
+                  variant="ghost"
                   onClick={toggle}
                   aria-label={t("تشغيل الفيديو التعريفي", "Play intro video")}
-                  className="absolute inset-0 flex items-center justify-center bg-primary/40 hover:bg-primary/25 transition-colors group"
+                  className="absolute inset-0 w-full h-full flex items-center justify-center bg-primary/40 hover:bg-primary/25 transition-colors group"
                 >
                   <span className="w-20 h-20 rounded-full bg-golden flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
                     <Play className="w-8 h-8 text-primary ms-1" />
                   </span>
-                </button>
+                </Button>
               )}
 
-              <button
+              {playing && (
+                <Button type="button" size="icon" onClick={pause}
+                  aria-label={t("إيقاف الجولة مؤقتًا", "Pause tour")}
+                  title={t("إيقاف الجولة مؤقتًا", "Pause tour")}
+                  className="absolute bottom-4 start-4 w-11 h-11 rounded-full bg-primary/70 text-primary-foreground hover:bg-primary">
+                  <Pause className="w-5 h-5" />
+                </Button>
+              )}
+              <Button
                 type="button"
+                size="icon"
                 onClick={() => setMuted((m) => !m)}
                 aria-label={t("كتم / تشغيل الصوت", "Toggle sound")}
+                title={t("كتم / تشغيل الصوت", "Toggle sound")}
                 className="absolute bottom-4 end-4 w-11 h-11 rounded-full bg-primary/70 text-primary-foreground flex items-center justify-center hover:bg-primary transition-colors"
               >
                 {muted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
-              </button>
+              </Button>
             </div>
 
-            <Square className="absolute -top-5 -left-5 w-10 h-10 animate-float" color="golden" />
-            <Semicircle className="absolute -bottom-5 -right-5 w-14 h-14 animate-pulse" color="purple" />
+            <Square className="absolute -top-5 -left-5 w-10 h-10 animate-float motion-reduce:animate-none" color="golden" />
+            <Semicircle className="absolute -bottom-5 -right-5 w-14 h-14 animate-pulse motion-reduce:animate-none" color="purple" />
           </div>
         </div>
       </div>
