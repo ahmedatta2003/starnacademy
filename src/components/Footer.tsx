@@ -67,9 +67,9 @@ const Footer = () => {
           <div>
             <h4 className="font-bold mb-4">{t('روابط سريعة', 'Quick Links')}</h4>
             <ul className="space-y-2 text-background/70 text-sm">
-              <li><a href="#about" className="hover:text-background transition-colors">{t('من نحن', 'About Us')}</a></li>
-              <li><a href="#courses" className="hover:text-background transition-colors">{t('الدورات', 'Courses')}</a></li>
-              <li><a href="#why-us" className="hover:text-background transition-colors">{t('لماذا نحن', 'Why Us')}</a></li>
+              <li><a href="/#about" className="hover:text-background transition-colors">{t('من نحن', 'About Us')}</a></li>
+              <li><a href="/#courses" className="hover:text-background transition-colors">{t('الدورات', 'Courses')}</a></li>
+              <li><a href="/#why-us" className="hover:text-background transition-colors">{t('لماذا نحن', 'Why Us')}</a></li>
               <li><Link to="/booking" className="hover:text-background transition-colors">{t('احجز الآن', 'Book Now')}</Link></li>
             </ul>
           </div>
