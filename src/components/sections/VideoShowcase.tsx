@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Square, Semicircle, PlusSign } from "@/components/shapes/ShapeElements";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
+import tourWebm from "@/assets/starn-tour.webm.asset.json";
 
 const VideoShowcase = () => {
   const { t } = useLanguage();
@@ -121,7 +122,6 @@ const VideoShowcase = () => {
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-primary-foreground/10 bg-foreground">
               <video
                 ref={videoRef}
-                src="/media/starn-intro.mp4"
                 poster="/media/starn-intro-poster.jpg"
                 preload="metadata"
                 playsInline
@@ -130,7 +130,10 @@ const VideoShowcase = () => {
                 className="w-full aspect-video object-contain"
                 onPlay={() => setPlaying(true)}
                 onPause={() => setPlaying(false)}
-              />
+              >
+                <source src={tourWebm.url} type="video/webm" />
+                <source src="/media/starn-intro.mp4" type="video/mp4" />
+              </video>
 
               {!playing && (
                 <Button
