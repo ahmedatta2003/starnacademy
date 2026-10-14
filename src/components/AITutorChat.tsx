@@ -103,7 +103,7 @@ const AITutorChat = () => {
       {/* Floating Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 overflow-hidden ${isOpen ? "hidden" : "block"}`}
+        className={`fixed bottom-6 left-6 z-50 w-16 h-16 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 overflow-hidden ${isOpen ? "hidden" : "block"}`}
         aria-label="Open AI Tutor Chat"
       >
         <img src={aiTutorIcon} alt="AI Tutor" className="w-full h-full object-cover" />
@@ -111,7 +111,7 @@ const AITutorChat = () => {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 z-50 w-[360px] h-[500px] bg-card rounded-2xl shadow-2xl border flex flex-col overflow-hidden animate-scale-in">
+        <div className="fixed bottom-6 left-6 z-50 w-[360px] max-w-[calc(100vw-3rem)] h-[500px] max-h-[calc(100vh-6rem)] bg-card rounded-2xl shadow-2xl border flex flex-col overflow-hidden animate-scale-in">
           {/* Header */}
           <div className="bg-[#3949AB] text-white p-4 flex items-center gap-3">
             <div className="w-10 h-10 rounded-full overflow-hidden">
