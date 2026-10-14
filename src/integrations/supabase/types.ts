@@ -954,6 +954,41 @@ export type Database = {
           },
         ]
       }
+      lesson_chat_messages: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          lesson_id: string
+          role: string
+          student_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          lesson_id: string
+          role: string
+          student_id?: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          lesson_id?: string
+          role?: string
+          student_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lesson_chat_messages_lesson_id_fkey"
+            columns: ["lesson_id"]
+            isOneToOne: false
+            referencedRelation: "lessons"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       lesson_comments: {
         Row: {
           content: string
