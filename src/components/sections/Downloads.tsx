@@ -42,7 +42,7 @@ const items: Item[] = [
     en: "Latest Work Poster",
     descAr: "صورة عالية الجودة من أحدث أعمال طلابنا.",
     descEn: "A high-quality shot from our students' latest work.",
-    href: "/media/starn-intro-poster.jpg",
+    href: "/media/latest-work-poster.jpg",
     fileName: "starn-academy-latest-work.jpg",
     color: "coral",
   },
