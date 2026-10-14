@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { getLessonVideoUrl, getLessonFileUrl } from "@/lib/lessonVideo";
 import LearnLayout from "./LearnLayout";
+import LessonChat from "@/components/learn/LessonChat";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -309,6 +310,15 @@ const LessonPage = () => {
                 </div>
               </CardContent>
             </Card>
+          )}
+
+          {user && (
+            <LessonChat
+              lessonId={lesson.id}
+              userId={user.id}
+              lessonTitle={lesson.title_ar}
+              assignmentTitle={assignment?.title}
+            />
           )}
         </div>
 
