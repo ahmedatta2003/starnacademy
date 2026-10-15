@@ -34,6 +34,7 @@ import Methodology from "./pages/Methodology";
 import MyCourses from "./pages/learn/MyCourses";
 import LearnCoursePage from "./pages/learn/CoursePage";
 import LearnLessonPage from "./pages/learn/LessonPage";
+import TeamPage from "./pages/Team";
 
 const AdminRoutes = lazy(() => import("./admin/AdminRoutes"));
 const AcademyStars = lazy(() => import("./pages/AcademyStars"));
