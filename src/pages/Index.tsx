@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Courses from "@/components/Courses";
 import Benefits from "@/components/sections/Benefits";
+import Team from "@/components/sections/Team";
 import VideoShowcase from "@/components/sections/VideoShowcase";
 import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
@@ -22,6 +23,7 @@ const Index = () => {
         <SectionGate sectionKey="video"><VideoShowcase /></SectionGate>
         <SectionGate sectionKey="courses"><Courses /></SectionGate>
         <SectionGate sectionKey="benefits"><Benefits /></SectionGate>
+        <SectionGate sectionKey="team"><Team /></SectionGate>
         <SectionGate sectionKey="faq"><FAQ /></SectionGate>
         <SectionGate sectionKey="contact"><Contact /></SectionGate>
       </main>
