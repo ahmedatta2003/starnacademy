@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Courses from "@/components/Courses";
 import Benefits from "@/components/sections/Benefits";
+import Team from "@/components/sections/Team";
 import VideoShowcase from "@/components/sections/VideoShowcase";
 import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
