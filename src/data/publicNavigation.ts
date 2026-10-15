@@ -3,4 +3,5 @@ export const publicNavigation = [
   { ar: "حول منهجنا", en: "Our Methodology", href: "/methodology" },
   { ar: "اختبار المستوى", en: "Level Quiz", href: "/quiz" },
   { ar: "نجوم الأكاديمية", en: "Academy Stars", href: "/academy-stars" },
+  { ar: "فريقنا", en: "Our Team", href: "/team" },
 ];

@@ -23,7 +23,6 @@ const Index = () => {
         <SectionGate sectionKey="video"><VideoShowcase /></SectionGate>
         <SectionGate sectionKey="courses"><Courses /></SectionGate>
         <SectionGate sectionKey="benefits"><Benefits /></SectionGate>
-        <SectionGate sectionKey="team"><Team /></SectionGate>
         <SectionGate sectionKey="faq"><FAQ /></SectionGate>
         <SectionGate sectionKey="contact"><Contact /></SectionGate>
       </main>
