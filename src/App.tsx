@@ -82,6 +82,7 @@ const App = () => (
               <Route path="/quiz" element={<Quiz />} />
               <Route path="/methodology" element={<Methodology />} />
               <Route path="/academy-stars" element={<Suspense fallback={<div className="min-h-screen bg-background" />}><AcademyStars /></Suspense>} />
+              <Route path="/team" element={<TeamPage />} />
               <Route path="/learn" element={<MyCourses />} />
               <Route path="/learn/course/:courseId" element={<LearnCoursePage />} />
               <Route path="/learn/lesson/:lessonId" element={<LearnLessonPage />} />
