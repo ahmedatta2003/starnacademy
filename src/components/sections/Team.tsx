@@ -10,6 +10,7 @@ import {
   Globe,
   Blocks,
   Sparkles,
+  GraduationCap,
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
@@ -19,8 +20,8 @@ const leadership = [
     icon: Megaphone,
     titleAr: "مدير التسويق",
     titleEn: "Marketing Manager",
-    descriptionAr: "مسؤول عن انتشار الأكاديمية والتواصل مع أولياء الأمور",
-    descriptionEn: "Drives the academy's growth and parent communication",
+    descriptionAr: "يُدير سياسات الاتصال المؤسسي ويعزّز حضور الأكاديمية لدى أولياء الأمور والمجتمع التعليمي",
+    descriptionEn: "Directs institutional communication policy and strengthens the academy's standing with parents and the wider education community",
     color: "coral",
     featured: false,
   },
@@ -28,8 +29,8 @@ const leadership = [
     icon: Cpu,
     titleAr: "مدير فرع التكنولوجيا",
     titleEn: "Technology Branch Manager",
-    descriptionAr: "يشرف على المحتوى التقني ويراقب جودة كل درس وبرنامج",
-    descriptionEn: "Oversees technical content and the quality of every program",
+    descriptionAr: "يشرف على البنية التقنية للمحتوى ويضبط معايير الجودة في كل برنامج تعليمي",
+    descriptionEn: "Oversees the technical infrastructure of content and enforces quality standards across every educational programme",
     color: "purple",
     featured: false,
   },
@@ -37,8 +38,8 @@ const leadership = [
     icon: HeartHandshake,
     titleAr: "الموارد البشرية",
     titleEn: "Human Resources",
-    descriptionAr: "تجمع أفضل الكفاءات وتعتني بفريق العمل وبيئة التدريب",
-    descriptionEn: "Recruits top talent and cares for the team environment",
+    descriptionAr: "تستقطب الكفاءات التربوية وتستثمر في التطوير المهني لبيئة العمل والتدريب",
+    descriptionEn: "Attracts educational talent and invests in the professional development of the training environment",
     color: "secondary",
     featured: false,
   },
@@ -46,8 +47,8 @@ const leadership = [
     icon: Presentation,
     titleAr: "رئيس المحاضرين",
     titleEn: "Head of Instructors",
-    descriptionAr: "يراقب أداء المحاضرين ويطور أساليب الشرح لكل مرحلة عمرية",
-    descriptionEn: "Supervises instructors and refines teaching methods per age group",
+    descriptionAr: "يُقيّم الأداء التدريسي ويطوّر الاستراتيجيات التعليمية بما يراعي الفروق العمرية والمعرفية",
+    descriptionEn: "Evaluates teaching performance and develops instructional strategies attuned to age and cognitive differences",
     color: "golden",
     featured: false,
   },
@@ -84,7 +85,7 @@ const Team = () => {
       />
 
       <div className="relative container mx-auto px-4">
-        <div className="text-center mb-16 space-y-3">
+        <div className="text-center mb-12 space-y-3">
           <span className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-semibold">
             <Sparkles className="w-4 h-4" />
             {c("team", "tag", "فريقنا", "Our Team")}
@@ -96,11 +97,47 @@ const Team = () => {
             {c(
               "team",
               "description",
-              "فريق متخصص من القيادات والمدربين يعمل معاً ليمنح طفلك تجربة تعليمية آمنة وممتعة وذات جودة عالية.",
-              "A dedicated team of leaders and trainers working together to give your child a safe, fun, and high-quality learning experience."
+              "فريقٌ أكاديمي متخصص من القيادات والمدربين، يعمل وفق منظومة واحدة لضمان تجربة تعليمية آمنة ومنهجية وعالية الجودة.",
+              "A specialised academic team of leaders and instructors, working within a single framework to ensure a safe, systematic, and high-quality learning experience."
             )}
           </p>
         </div>
+
+        {/* Vision statement */}
+        <Card className="relative overflow-hidden border-2 border-transparent mb-12 max-w-4xl mx-auto shadow-lg">
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(135deg, hsl(var(--primary) / 0.08), hsl(var(--purple) / 0.08))",
+            }}
+          />
+          <div
+            className="absolute inset-y-0 start-0 w-1.5"
+            style={{
+              background: "linear-gradient(180deg, hsl(var(--primary)), hsl(var(--golden)))",
+            }}
+          />
+          <div className="relative p-8 md:p-10">
+            <div className="flex items-center gap-3 mb-4">
+              <div
+                className="w-11 h-11 rounded-xl flex items-center justify-center"
+                style={{ backgroundColor: "hsl(var(--primary) / 0.14)" }}
+              >
+                <GraduationCap className="w-6 h-6" style={{ color: "hsl(var(--primary))" }} />
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold text-foreground">
+                {t("رؤيتنا التربوية", "Our Educational Vision")}
+              </h3>
+            </div>
+            <p className="text-lg leading-loose text-muted-foreground md:text-xl">
+              {t(
+                "تنطلق الأكاديمية من قناعةٍ راسخة بأنّ تربية الأجيال أمانةٌ علمية وتربوية قبل أن تكون نقلًا للمعرفة؛ لذلك يتّجه فريقنا إلى تطوير أساليب التدريس بصفةٍ مستمرة، وبناء مسارات تعليمية قائمة على التدرّج المعرفي والتعلّم التكيّفي والتقييم المستمر، بما يُخرّج جيلًا قادرًا على التحليل والإبداع والتعامل الواعي مع التقنية.",
+                "The academy is founded on the conviction that nurturing generations is a scientific and educational trust before it is the transfer of knowledge. Our team therefore pursues the continuous development of teaching methods and builds learning pathways grounded in cognitive progression, adaptive learning, and continuous assessment, preparing a generation capable of analysis, creativity, and informed engagement with technology."
+              )}
+            </p>
+          </div>
+        </Card>
 
         {/* Featured leadership card */}
         <Card className="relative overflow-hidden border-0 mb-6 max-w-2xl mx-auto shadow-xl hover:shadow-2xl transition-shadow duration-500">
@@ -125,8 +162,8 @@ const Team = () => {
               </h3>
               <p className="text-white/85">
                 {t(
-                  "يقود رؤية الأكاديمية وخطتها الاستراتيجية لصناعة جيل مبدع",
-                  "Leads the academy's vision and strategy for a creative generation"
+                  "يقود الرؤية التربوية والخطة الاستراتيجية للأكاديمية إزاء تنشئة جيلٍ مبدع ومؤهل",
+                  "Leads the academy's educational vision and strategic plan toward nurturing a creative and qualified generation"
                 )}
               </p>
             </div>
@@ -192,8 +229,8 @@ const Team = () => {
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     {t(
-                      "خبرة في تدريب الأطفال وتقديم المحتوى بطريقة مبسطة وممتعة",
-                      "Experienced in teaching kids with simple, engaging content"
+                      "كفاءة تدريبية متخصصة في تعليم الأطفال وفق أساليب مبسطة قائمة على الممارسة والتطبيق",
+                      "Specialised instructional expertise in teaching children through simplified, practice-based methods"
                     )}
                   </p>
                 </div>
