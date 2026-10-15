@@ -34,6 +34,7 @@ import Methodology from "./pages/Methodology";
 import MyCourses from "./pages/learn/MyCourses";
 import LearnCoursePage from "./pages/learn/CoursePage";
 import LearnLessonPage from "./pages/learn/LessonPage";
+import TeamPage from "./pages/Team";
 
 const AdminRoutes = lazy(() => import("./admin/AdminRoutes"));
 const AcademyStars = lazy(() => import("./pages/AcademyStars"));
@@ -81,6 +82,7 @@ const App = () => (
               <Route path="/quiz" element={<Quiz />} />
               <Route path="/methodology" element={<Methodology />} />
               <Route path="/academy-stars" element={<Suspense fallback={<div className="min-h-screen bg-background" />}><AcademyStars /></Suspense>} />
+              <Route path="/team" element={<TeamPage />} />
               <Route path="/learn" element={<MyCourses />} />
               <Route path="/learn/course/:courseId" element={<LearnCoursePage />} />
               <Route path="/learn/lesson/:lessonId" element={<LearnLessonPage />} />
