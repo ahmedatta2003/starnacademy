@@ -16,6 +16,7 @@ import trackuLogo from "@/assets/partners/tracku-logo.png";
 import partner6Logo from "@/assets/partners/partner6-logo.png";
 import partner7Logo from "@/assets/partners/partner7-logo.jpeg";
 import floricaLogo from "@/assets/partners/florica-plants-logo-new.png";
+import trio5Logo from "@/assets/partners/partner9-logo.png";
 
 interface Partner {
   id: string;
@@ -34,6 +35,7 @@ const staticPartners = [
   { id: '6', name: "Partner 6", logo_url: partner6Logo, website_url: null, display_order: 6 },
   { id: '7', name: "Partner 7", logo_url: partner7Logo, website_url: null, display_order: 7 },
   { id: '8', name: "Florica Plants", logo_url: floricaLogo, website_url: null, display_order: 8 },
+  { id: '9', name: "Trio 5", logo_url: trio5Logo, website_url: null, display_order: 9 },
 ];
 
 interface PartnersProps {
