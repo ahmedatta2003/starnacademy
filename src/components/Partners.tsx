@@ -16,6 +16,7 @@ import trackuLogo from "@/assets/partners/tracku-logo.png";
 import partner6Logo from "@/assets/partners/partner6-logo.png";
 import partner7Logo from "@/assets/partners/partner7-logo.jpeg";
 import floricaLogo from "@/assets/partners/florica-plants-logo-new.png";
+import trio5Logo from "@/assets/partners/partner9-logo.png";
 
 interface Partner {
   id: string;
