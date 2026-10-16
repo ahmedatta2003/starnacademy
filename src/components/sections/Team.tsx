@@ -158,12 +158,18 @@ const Team = () => {
                 {t("القيادة", "Leadership")}
               </span>
               <h3 className="text-2xl font-bold text-white">
-                {t("المدير التنفيذي", "Chief Executive Officer")}
+                {t("المدير التنفيذي — باشمهندس أحمد عطا", "Chief Executive Officer — Eng. Ahmed Atta")}
               </h3>
-              <p className="text-white/85">
+              <p className="text-white/90 font-semibold text-sm">
                 {t(
-                  "يقود الرؤية التربوية والخطة الاستراتيجية للأكاديمية إزاء تنشئة جيلٍ مبدع ومؤهل",
-                  "Leads the academy's educational vision and strategic plan toward nurturing a creative and qualified generation"
+                  "معيد بكلية الحاسبات والمعلومات",
+                  "Teaching Assistant, Faculty of Computers and Information"
+                )}
+              </p>
+              <p className="text-white/85 leading-relaxed">
+                {t(
+                  "يتولى قيادة الرؤية التربوية والخطة الاستراتيجية للأكاديمية، مستندًا إلى خلفيته الأكاديمية المتخصصة في علوم الحاسوب، وعمله الأكاديمي في تدريس طلاب كلية الحاسبات، بما يضمن بيئة تعليمية رصينة وبرامج متطورة تُعِدّ الجيل الناشئ قياديًا ومبدعًا.",
+                  "Leads the academy's educational vision and strategic plan, drawing on his specialised academic background in computer science and his teaching role with undergraduate students at the Faculty of Computers, ensuring a rigorous learning environment and advanced programmes that prepare the rising generation to lead and innovate."
                 )}
               </p>
             </div>
