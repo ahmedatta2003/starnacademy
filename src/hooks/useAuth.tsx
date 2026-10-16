@@ -83,7 +83,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const signIn = async (email: string, password: string) => {
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { error, data } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
@@ -101,7 +101,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           title: "تم تسجيل الدخول بنجاح",
           description: "مرحباً بك في Starn Academy",
         });
-        navigate('/dashboard');
+        const { data: p } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', data.user!.id)
+          .maybeSingle();
+        navigate(p?.role === 'child' ? '/learn' : '/dashboard');
       }
       
       return { error };

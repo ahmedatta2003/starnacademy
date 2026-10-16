@@ -60,7 +60,7 @@ const MyCourses = () => {
     (progress ?? []).filter((p: any) => p.course_id === courseId && p.state === "completed").length;
 
   return (
-    <LearnLayout title="دوراتي" subtitle="تابع تقدمك في الدورات المسجّل بها">
+    <LearnLayout title="صفحة الطالب" subtitle="دروسك وواجباتك وشات كل درس في مكان واحد">
       {isLoading ? (
         <div className="grid gap-4 md:grid-cols-2">
           {[0, 1].map((i) => (

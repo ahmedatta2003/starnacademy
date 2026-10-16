@@ -19,6 +19,7 @@ import {
 
 const mainItems = [
   { title: "الرئيسية", url: "/dashboard", icon: Home },
+  { title: "صفحة الطالب: دروسي وواجباتي", url: "/learn", icon: BookOpen },
   { title: "الملف الشخصي", url: "/dashboard/profile", icon: User },
   { title: "الدورات", url: "/dashboard/courses", icon: GraduationCap },
   { title: "المدربين", url: "/dashboard/trainers", icon: Users },
