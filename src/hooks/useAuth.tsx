@@ -106,7 +106,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           .select('role')
           .eq('id', data.user!.id)
           .maybeSingle();
-        navigate(p?.role === 'child' ? '/learn' : '/dashboard');
+        navigate(p?.role === 'child' ? '/learn' : p?.role === 'guardian' ? '/parent-dashboard' : p?.role === 'trainer' ? '/instructor-dashboard' : '/dashboard');
       }
       
       return { error };
