@@ -275,6 +275,26 @@ All colors MUST be HSL.
   }
 }
 
+/* 3D depth layer (see src/lib/depth3d.ts) */
+.depth3d-active {
+  transition: transform 0.15s ease-out, box-shadow 0.3s ease !important;
+  transform-style: preserve-3d;
+  box-shadow: var(--shadow-color);
+  will-change: transform;
+}
+@media (prefers-reduced-motion: no-preference) {
+  main section.depth3d-seen {
+    opacity: 0;
+    transform: perspective(1200px) rotateX(6deg) translateY(28px);
+    transform-origin: 50% 0;
+    transition: opacity 0.7s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  main section.depth3d-seen.depth3d-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 12px;
 }
