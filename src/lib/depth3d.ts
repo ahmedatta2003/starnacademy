@@ -2,7 +2,10 @@
 // 3D reveal for sections. Pure CSS transforms — no backgrounds, order or colors change.
 const CARD_SELECTOR =
   'main .card-playful, main [class*="rounded-2xl"][class*="border"], main [class*="rounded-3xl"], main .rounded-xl.border, footer [class*="rounded-2xl"]';
-const SKIP_PATHS = ["/admin", "/dashboard", "/learn", "/auth", "/quiz"];
+const SKIP_PATHS = ["/auth", "/quiz", "/admin/login"];
+const PANEL_PATHS = ["/admin", "/dashboard", "/learn", "/student", "/parent", "/instructor"];
+const isPanel = () => PANEL_PATHS.some((p) => window.location.pathname.startsWith(p));
+let lastPath = "";
 const MAX_TILT = 6;
 
 const skip = () => SKIP_PATHS.some((p) => window.location.pathname.startsWith(p));
@@ -56,6 +59,17 @@ export function initDepth3D() {
   );
   const scan = () => {
     if (skip()) return;
+    // 3D page turn when moving between control-panel pages / roles
+    if (window.location.pathname !== lastPath) {
+      lastPath = window.location.pathname;
+      if (isPanel()) {
+        document.querySelectorAll<HTMLElement>("main").forEach((m) => {
+          m.classList.remove("depth3d-page");
+          void m.offsetWidth;
+          m.classList.add("depth3d-page");
+        });
+      }
+    }
     document.querySelectorAll("main section:not(.depth3d-seen)").forEach((s, i) => {
       s.classList.add("depth3d-seen");
       if (i === 0 && s.getBoundingClientRect().top < window.innerHeight) {

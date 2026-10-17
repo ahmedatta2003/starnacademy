@@ -311,3 +311,19 @@ All colors MUST be HSL.
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--primary-dark));
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes depth3d-page-in {
+    from { opacity: 0; transform: perspective(1400px) rotateY(-8deg) translateZ(-40px) translateX(24px); }
+    to { opacity: 1; transform: none; }
+  }
+  main.depth3d-page {
+    animation: depth3d-page-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    transform-origin: 50% 30%;
+  }
+  [dir="rtl"] main.depth3d-page { animation-name: depth3d-page-in-rtl; }
+  @keyframes depth3d-page-in-rtl {
+    from { opacity: 0; transform: perspective(1400px) rotateY(8deg) translateZ(-40px) translateX(-24px); }
+    to { opacity: 1; transform: none; }
+  }
+}
