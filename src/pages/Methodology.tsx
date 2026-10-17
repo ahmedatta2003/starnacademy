@@ -7,7 +7,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Brain, GraduationCap, Briefcase, Wrench, Sparkles, HelpCircle } from "lucide-react";
+import { Brain, GraduationCap, Briefcase, Wrench, Sparkles, HelpCircle, BookOpen } from "lucide-react";
 import patternAsset from "@/assets/methodology-pattern.png.asset.json";
 
 const Methodology = () => {
@@ -57,6 +57,31 @@ const Methodology = () => {
       title: "الدبلومة المتكاملة",
       duration: "6 شهور",
       desc: "للي عاوز يتقن اللعبة: تدريب نماذج الذكاء الاصطناعي بنفسه ومشروع تخرج ضخم (Capstone) يفتخر بيه قدام العالم.",
+    },
+  ];
+
+  const articles = [
+    {
+      category: "التعليم التكيفي",
+      title: "التعلّم التكيفي (Adaptive Learning): كيف يتعلّم كل طفل بطريقته؟",
+      summary: "قراءة علمية في مفهوم التعليم التكيفي وأثره على تحصيل الطفل ودافعيته.",
+      sections: [
+        { heading: "ما هو التعلّم التكيفي؟", body: "التعلّم التكيفي منهجية تعليمية تعتمد على تحليل أداء المتعلّم بصورة مستمرة، ثم تعديل مستوى الصعوبة وسرعة العرض ونوع المحتوى بما يتوافق مع قدراته واحتياجاته الفردية، بدلًا من تقديم مسار موحّد لجميع الطلاب." },
+        { heading: "الأساس العلمي", body: "يستند هذا النهج إلى نظرية «منطقة النمو القريبة» لفيجوتسكي، التي ترى أن أفضل تعلّم يحدث عندما تكون المهمة أصعب قليلًا من قدرة الطفل الحالية مع توافر الدعم المناسب، وإلى مبدأ «إتقان التعلّم» لبلوم الذي يؤكد أن معظم المتعلمين يصلون إلى الإتقان إذا مُنحوا الوقت والتغذية الراجعة الكافيين." },
+        { heading: "كيف نطبّقه في الأكاديمية؟", body: "• اختبار تحديد مستوى في البداية.\n• تقييم مستمر بعد كل درس لتحديد نقاط القوة والضعف.\n• تسريع المحتوى للطالب المتفوق وإعادة الشرح بأسلوب مختلف لمن يحتاج.\n• تقارير دورية لولي الأمر توضح التقدّم والتوصيات." },
+        { heading: "الأثر على الطفل", body: "يقلّل التعلّم التكيفي من الإحباط والملل، ويرفع الثقة بالنفس والدافعية الذاتية، ويحوّل الطفل من متلقٍّ سلبي إلى متعلّم نشط يدرك كيف يتعلّم." },
+      ],
+    },
+    {
+      category: "علم النفس التربوي",
+      title: "الأطفال وصعوبات التعلّم: المشكلة — التشخيص — العلاج",
+      summary: "دليل مبسّط لأولياء الأمور لفهم صعوبات التعلّم والتعامل معها بأسلوب علمي.",
+      sections: [
+        { heading: "أولًا: المشكلة", body: "صعوبات التعلّم اضطرابات في العمليات النفسية الأساسية المرتبطة بفهم اللغة أو استخدامها، وتظهر في القراءة (عسر القراءة Dyslexia) أو الكتابة (Dysgraphia) أو الحساب (Dyscalculia)، أو في الانتباه والتركيز. ولا ترتبط بانخفاض الذكاء؛ فكثير من هؤلاء الأطفال يتمتعون بذكاء متوسط أو مرتفع.\n\nمن العلامات الشائعة: الفجوة الواضحة بين قدرات الطفل وتحصيله، صعوبة اتباع التعليمات المتسلسلة، تكرار الأخطاء نفسها، وضعف تنظيم الوقت والمهام." },
+        { heading: "ثانيًا: التشخيص", body: "التشخيص عملية متكاملة يشارك فيها فريق متخصص، وتشمل:\n• ملاحظة المعلم وولي الأمر لسلوك الطفل وأدائه.\n• اختبارات الذكاء والقدرات المقننة.\n• اختبارات التحصيل الأكاديمي لتحديد مجال الصعوبة.\n• استبعاد الأسباب الأخرى كضعف السمع أو البصر أو الظروف البيئية.\n\nالتشخيص المبكر هو العامل الأهم في نجاح التدخل العلاجي." },
+        { heading: "ثالثًا: العلاج والتدخل", body: "• خطة تعليمية فردية (IEP) تراعي نقاط قوة الطفل.\n• التعلّم متعدد الحواس (بصري، سمعي، حركي).\n• تقسيم المهام إلى خطوات صغيرة مع تعزيز إيجابي مستمر.\n• توظيف التكنولوجيا والتعلّم التكيفي لضبط وتيرة التعلّم.\n• الدعم النفسي وبناء الثقة بالنفس، والشراكة المستمرة بين الأسرة والمدرسة." },
+        { heading: "دور البرمجة في الدعم", body: "تمثّل البرمجة البصرية والمشروعات العملية بيئة محفّزة للأطفال ذوي صعوبات التعلّم؛ إذ تعتمد على التجربة والتغذية الراجعة الفورية، وتنمّي التفكير المنطقي والتسلسل وحل المشكلات بأسلوب ممتع بعيد عن ضغط التلقين." },
+      ],
     },
   ];
 
@@ -181,6 +206,42 @@ const Methodology = () => {
               </p>
             </CardContent>
           </Card>
+
+          {/* Scientific Articles */}
+          <section className="mb-14">
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 mb-4">
+                <BookOpen className="w-7 h-7 text-primary" />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold">مقالات علمية من إنتاج الأكاديمية</h2>
+              <p className="text-muted-foreground mt-2">مكتبة معرفية لأولياء الأمور والمربين — تُضاف مقالات جديدة باستمرار</p>
+            </div>
+            <div className="grid md:grid-cols-2 gap-5">
+              {articles.map((a, i) => (
+                <Card key={i} className="hover:shadow-xl transition-shadow">
+                  <CardHeader>
+                    <span className="text-xs font-semibold text-primary">{a.category}</span>
+                    <CardTitle className="text-xl leading-snug">{a.title}</CardTitle>
+                    <p className="text-sm text-muted-foreground">{a.summary}</p>
+                  </CardHeader>
+                  <CardContent>
+                    <Accordion type="single" collapsible>
+                      {a.sections.map((s, j) => (
+                        <AccordionItem key={j} value={`a${i}-${j}`}>
+                          <AccordionTrigger className="text-right hover:no-underline">
+                            <span className="font-semibold">{s.heading}</span>
+                          </AccordionTrigger>
+                          <AccordionContent className="text-right text-muted-foreground leading-relaxed whitespace-pre-line">
+                            {s.body}
+                          </AccordionContent>
+                        </AccordionItem>
+                      ))}
+                    </Accordion>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </section>
 
           {/* FAQ */}
           <section>
