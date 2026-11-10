@@ -7,8 +7,10 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Brain, GraduationCap, Briefcase, Wrench, Sparkles, HelpCircle, BookOpen } from "lucide-react";
+import { Brain, GraduationCap, Briefcase, Wrench, Sparkles, HelpCircle, BookOpen, UserRound } from "lucide-react";
 import patternAsset from "@/assets/methodology-pattern.png.asset.json";
+import adaptiveLearningImage from "@/assets/articles/adaptive-learning.jpg";
+import learningSupportImage from "@/assets/articles/learning-support.jpg";
 
 const Methodology = () => {
   const faqs = [
@@ -65,6 +67,8 @@ const Methodology = () => {
       category: "التعليم التكيفي",
       title: "التعلّم التكيفي (Adaptive Learning): كيف يتعلّم كل طفل بطريقته؟",
       summary: "قراءة علمية في مفهوم التعليم التكيفي وأثره على تحصيل الطفل ودافعيته.",
+      image: adaptiveLearningImage,
+      imageAlt: "طالب يتعلم البرمجة عبر مسار تعليمي يناسب تقدمه واحتياجاته",
       sections: [
         { heading: "ما هو التعلّم التكيفي؟", body: "التعلّم التكيفي منهجية تعليمية تعتمد على تحليل أداء المتعلّم بصورة مستمرة، ثم تعديل مستوى الصعوبة وسرعة العرض ونوع المحتوى بما يتوافق مع قدراته واحتياجاته الفردية، بدلًا من تقديم مسار موحّد لجميع الطلاب." },
         { heading: "الأساس العلمي", body: "يستند هذا النهج إلى نظرية «منطقة النمو القريبة» لفيجوتسكي، التي ترى أن أفضل تعلّم يحدث عندما تكون المهمة أصعب قليلًا من قدرة الطفل الحالية مع توافر الدعم المناسب، وإلى مبدأ «إتقان التعلّم» لبلوم الذي يؤكد أن معظم المتعلمين يصلون إلى الإتقان إذا مُنحوا الوقت والتغذية الراجعة الكافيين." },
@@ -76,6 +80,8 @@ const Methodology = () => {
       category: "علم النفس التربوي",
       title: "الأطفال وصعوبات التعلّم: المشكلة — التشخيص — العلاج",
       summary: "دليل مبسّط لأولياء الأمور لفهم صعوبات التعلّم والتعامل معها بأسلوب علمي.",
+      image: learningSupportImage,
+      imageAlt: "معلمة تدعم طفلًا خلال نشاط تعليمي بصري وعملي",
       sections: [
         { heading: "أولًا: المشكلة", body: "صعوبات التعلّم اضطرابات في العمليات النفسية الأساسية المرتبطة بفهم اللغة أو استخدامها، وتظهر في القراءة (عسر القراءة Dyslexia) أو الكتابة (Dysgraphia) أو الحساب (Dyscalculia)، أو في الانتباه والتركيز. ولا ترتبط بانخفاض الذكاء؛ فكثير من هؤلاء الأطفال يتمتعون بذكاء متوسط أو مرتفع.\n\nمن العلامات الشائعة: الفجوة الواضحة بين قدرات الطفل وتحصيله، صعوبة اتباع التعليمات المتسلسلة، تكرار الأخطاء نفسها، وضعف تنظيم الوقت والمهام." },
         { heading: "ثانيًا: التشخيص", body: "التشخيص عملية متكاملة يشارك فيها فريق متخصص، وتشمل:\n• ملاحظة المعلم وولي الأمر لسلوك الطفل وأدائه.\n• اختبارات الذكاء والقدرات المقننة.\n• اختبارات التحصيل الأكاديمي لتحديد مجال الصعوبة.\n• استبعاد الأسباب الأخرى كضعف السمع أو البصر أو الظروف البيئية.\n\nالتشخيص المبكر هو العامل الأهم في نجاح التدخل العلاجي." },
@@ -208,30 +214,65 @@ const Methodology = () => {
           </Card>
 
           {/* Scientific Articles */}
-          <section className="mb-14">
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 mb-4">
-                <BookOpen className="w-7 h-7 text-primary" />
+          <section className="mb-14" aria-labelledby="scientific-articles-title">
+            <div className="mb-8 border-y border-border/70 py-6 md:flex md:items-center md:justify-between md:gap-8">
+              <div className="max-w-2xl">
+                <div className="mb-3 inline-flex items-center gap-2 text-sm font-semibold text-primary">
+                  <BookOpen className="h-5 w-5" aria-hidden="true" />
+                  <span>من المعرفة إلى الممارسة</span>
+                </div>
+                <h2 id="scientific-articles-title" className="text-3xl font-bold leading-tight md:text-4xl">
+                  مقالات علمية من إنتاج الأكاديمية
+                </h2>
+                <p className="mt-3 leading-relaxed text-muted-foreground">
+                  محتوى تربوي مبسّط يستند إلى المعرفة العلمية، ويقدّم للأسر أفكارًا عملية لدعم رحلة التعلّم.
+                </p>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold">مقالات علمية من إنتاج الأكاديمية</h2>
-              <p className="text-muted-foreground mt-2">مكتبة معرفية لأولياء الأمور والمربين — تُضاف مقالات جديدة باستمرار</p>
+              <div className="mt-6 flex max-w-md items-start gap-3 border-r-2 border-primary pr-4 md:mt-0">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <UserRound className="h-5 w-5" aria-hidden="true" />
+                </span>
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground">القائم على القسم</p>
+                  <p className="mt-1 font-bold text-foreground">المهندس الدكتور أحمد محمد عطا</p>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                    معيد بكلية الحاسبات والمعلومات، مهندس برمجيات، والمدير التنفيذي.
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="grid md:grid-cols-2 gap-5">
+
+            <div className="grid items-start gap-6 md:grid-cols-2">
               {articles.map((a, i) => (
-                <Card key={i} className="hover:shadow-xl transition-shadow">
-                  <CardHeader>
-                    <span className="text-xs font-semibold text-primary">{a.category}</span>
-                    <CardTitle className="text-xl leading-snug">{a.title}</CardTitle>
-                    <p className="text-sm text-muted-foreground">{a.summary}</p>
+                <Card key={a.title} className="group overflow-hidden border-border/70 bg-card shadow-sm transition-shadow duration-300 hover:shadow-lg">
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <img
+                      src={a.image}
+                      alt={a.imageAlt}
+                      width={1408}
+                      height={1104}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                    <span className="absolute right-4 top-4 rounded-sm bg-background/95 px-3 py-1.5 text-xs font-bold text-primary shadow-sm">
+                      {a.category}
+                    </span>
+                    <span className="absolute bottom-4 left-4 rounded-sm bg-background/95 px-3 py-1.5 text-xs font-semibold text-foreground shadow-sm">
+                      {String(i + 1).padStart(2, "0")} / {String(articles.length).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <CardHeader className="space-y-3 pb-4">
+                    <CardTitle className="text-xl leading-snug md:text-2xl">{a.title}</CardTitle>
+                    <p className="text-sm leading-relaxed text-muted-foreground">{a.summary}</p>
                   </CardHeader>
-                  <CardContent>
-                    <Accordion type="single" collapsible>
+                  <CardContent className="pt-0">
+                    <Accordion type="multiple" className="border-t border-border/70">
                       {a.sections.map((s, j) => (
-                        <AccordionItem key={j} value={`a${i}-${j}`}>
-                          <AccordionTrigger className="text-right hover:no-underline">
-                            <span className="font-semibold">{s.heading}</span>
+                        <AccordionItem key={s.heading} value={`a${i}-${j}`} className="border-b-border/70">
+                          <AccordionTrigger className="gap-4 py-4 text-right hover:no-underline">
+                            <span className="font-semibold leading-relaxed">{s.heading}</span>
                           </AccordionTrigger>
-                          <AccordionContent className="text-right text-muted-foreground leading-relaxed whitespace-pre-line">
+                          <AccordionContent className="pb-5 text-right leading-7 text-muted-foreground whitespace-pre-line">
                             {s.body}
                           </AccordionContent>
                         </AccordionItem>
