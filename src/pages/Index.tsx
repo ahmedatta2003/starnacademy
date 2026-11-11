@@ -5,6 +5,7 @@ import Courses from "@/components/Courses";
 import Benefits from "@/components/sections/Benefits";
 import Team from "@/components/sections/Team";
 import VideoShowcase from "@/components/sections/VideoShowcase";
+import ComingSoon from "@/components/sections/ComingSoon";
 import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -22,6 +23,7 @@ const Index = () => {
         <SectionGate sectionKey="about"><About /></SectionGate>
         <SectionGate sectionKey="video"><VideoShowcase /></SectionGate>
         <SectionGate sectionKey="courses"><Courses /></SectionGate>
+        <SectionGate sectionKey="coming-soon"><ComingSoon /></SectionGate>
         <SectionGate sectionKey="benefits"><Benefits /></SectionGate>
         <SectionGate sectionKey="faq"><FAQ /></SectionGate>
         <SectionGate sectionKey="contact"><Contact /></SectionGate>
