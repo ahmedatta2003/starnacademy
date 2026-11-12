@@ -66,7 +66,7 @@ const VideoShowcase = () => {
       <PlusSign className="absolute top-1/2 left-1/3 animate-pulse" color="golden" />
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 items-center motion-safe:animate-float-delayed">
           <div className="text-primary-foreground space-y-6">
             <span className="inline-flex items-center gap-2 px-4 py-2 bg-primary-foreground/10 rounded-full text-sm font-semibold">
               <VideoIcon className="w-4 h-4" />
