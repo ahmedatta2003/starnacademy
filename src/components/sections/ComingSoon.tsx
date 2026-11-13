@@ -22,7 +22,7 @@ const ComingSoon = () => {
       </div>
       <div aria-hidden="true" className="absolute inset-0 -z-10 bg-foreground/80" />
 
-      <div className="container mx-auto grid items-center gap-12 px-4 motion-safe:animate-float lg:grid-cols-[1fr_1.05fr] lg:gap-16">
+      <div className="container mx-auto grid items-center gap-12 px-4 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
         <div className="space-y-6">
           <div className="inline-flex items-center gap-2 border-b border-background/30 pb-2 text-sm font-semibold text-secondary">
             <Sparkles className="h-4 w-4" aria-hidden="true" />

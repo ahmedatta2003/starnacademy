@@ -4,8 +4,7 @@ import About from "@/components/About";
 import Courses from "@/components/Courses";
 import Benefits from "@/components/sections/Benefits";
 import Team from "@/components/sections/Team";
-import VideoShowcase from "@/components/sections/VideoShowcase";
-import ComingSoon from "@/components/sections/ComingSoon";
+import HomepagePromoCarousel from "@/components/sections/HomepagePromoCarousel";
 import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -19,9 +18,8 @@ const Index = () => {
       <Header />
 
       <main>
+        <HomepagePromoCarousel />
         <SectionGate sectionKey="hero"><Hero /></SectionGate>
-        <SectionGate sectionKey="video"><VideoShowcase /></SectionGate>
-        <SectionGate sectionKey="coming-soon"><ComingSoon /></SectionGate>
         <SectionGate sectionKey="about"><About /></SectionGate>
         <SectionGate sectionKey="courses"><Courses /></SectionGate>
         <SectionGate sectionKey="benefits"><Benefits /></SectionGate>

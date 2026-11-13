@@ -2,3 +2,4 @@
 - Public desktop and mobile shortcut menus share `src/data/publicNavigation.ts` so destinations and translations remain consistent.
 - Keep Academy Stars as a separate public page composed of the existing student, results, testimonial and download sections with their CMS visibility gates; reuse the existing Footer so partner animation and footer content remain identical across public pages.
 - Build new standalone homepage promotions as focused section components, preserving existing section order and CMS visibility controls.
+- Present opening-page promotions through one timed carousel that renders only the active slide, preserving section visibility controls and avoiding stacked promotion sections.
