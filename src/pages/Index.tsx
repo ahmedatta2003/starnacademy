@@ -14,12 +14,11 @@ import SectionGate from "@/components/SectionGate";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-clip">
       <Header />
 
       <main>
         <HomepagePromoCarousel />
-        <SectionGate sectionKey="hero"><Hero /></SectionGate>
         <SectionGate sectionKey="about"><About /></SectionGate>
         <SectionGate sectionKey="courses"><Courses /></SectionGate>
         <SectionGate sectionKey="benefits"><Benefits /></SectionGate>

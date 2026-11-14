@@ -6,3 +6,4 @@
 - [x] Add a standalone homepage “Coming Soon” full-course teaser with a darkened, softly blurred video-preview visual
 - [x] Move the academy tour and upcoming-course sections to the homepage opening sequence and add repeating gentle motion
 - [x] Replace stacked homepage promos with one readable, rotating feature carousel that advances every few seconds
+- [x] Put “نصنع عقول الغد” first in the opening carousel, followed by the intro video and “قريبًا”, with automatic rotation.

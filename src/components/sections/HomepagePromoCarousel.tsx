@@ -3,32 +3,37 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useSectionVisible } from "@/hooks/useSiteSections";
+import SectionGate from "@/components/SectionGate";
+import Hero from "@/components/Hero";
 import ComingSoon from "@/components/sections/ComingSoon";
 import VideoShowcase from "@/components/sections/VideoShowcase";
 
 const HomepagePromoCarousel = () => {
   const { t, language } = useLanguage();
+  const showHero = useSectionVisible("hero");
   const showAcademy = useSectionVisible("video");
   const showComingSoon = useSectionVisible("coming-soon");
   const [activeIndex, setActiveIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
 
   const slides = [
+    ...(showHero ? [{ id: "hero", content: <SectionGate sectionKey="hero"><Hero /></SectionGate> }] : []),
     ...(showAcademy ? [{ id: "video", content: <VideoShowcase /> }] : []),
     ...(showComingSoon ? [{ id: "coming-soon", content: <ComingSoon /> }] : []),
   ];
+  const activeSlide = slides[activeIndex];
 
   useEffect(() => {
     setActiveIndex((index) => Math.min(index, Math.max(0, slides.length - 1)));
   }, [slides.length]);
 
   useEffect(() => {
-    if (paused || slides.length < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (slides.length < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const duration = activeSlide?.id === "video" ? 30000 : 8000;
     const timer = window.setInterval(() => {
       setActiveIndex((index) => (index + 1) % slides.length);
-    }, 8000);
+    }, duration);
     return () => window.clearInterval(timer);
-  }, [paused, slides.length]);
+  }, [activeSlide?.id, slides.length]);
 
   if (slides.length === 0) return null;
 
@@ -36,18 +41,11 @@ const HomepagePromoCarousel = () => {
     setActiveIndex((index) => (index + direction + slides.length) % slides.length);
   };
 
-  const activeSlide = slides[activeIndex];
   if (!activeSlide) return null;
 
   return (
     <div
       className="relative overflow-hidden"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)}
-      onBlurCapture={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setPaused(false);
-      }}
       aria-roledescription={t("عرض متتابع", "carousel")}
     >
       <div key={activeSlide.id} className="promo-slide-enter" dir={language === "ar" ? "rtl" : "ltr"} aria-live="off">
